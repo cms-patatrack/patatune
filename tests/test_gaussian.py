@@ -1,4 +1,4 @@
-import optimizer
+import patatune
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -17,10 +17,10 @@ def always_true(x):
     return True
 
 
-objective = optimizer.Objective([always_true])
+objective = patatune.Objective([always_true])
 
 
-pso = optimizer.MOPSO(objective=objective, lower_bounds=lb, upper_bounds=ub, num_particles=num_agents,
+pso = patatune.MOPSO(objective=objective, lower_bounds=lb, upper_bounds=ub, num_particles=num_agents,
                       inertia_weight=0.6, cognitive_coefficient=1, social_coefficient=2, initial_particles_position='gaussian', default_point=default_point)
 
 fig, ax = plt.subplots()

@@ -1,4 +1,4 @@
-import optimizer
+import patatune
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -25,13 +25,13 @@ def zdt2_objective2(x):
     return f2
 
 
-optimizer.FileManager.working_dir = "tmp/zdt2/"
-optimizer.FileManager.loading_enabled = False
-optimizer.FileManager.saving_enabled = True
+patatune.FileManager.working_dir = "tmp/zdt2/"
+patatune.FileManager.loading_enabled = False
+patatune.FileManager.saving_enabled = True
 
-objective = optimizer.ElementWiseObjective([zdt2_objective1, zdt2_objective2])
+objective = patatune.ElementWiseObjective([zdt2_objective1, zdt2_objective2])
 
-pso = optimizer.MOPSO(objective=objective, lower_bounds=lb, upper_bounds=ub,
+pso = patatune.MOPSO(objective=objective, lower_bounds=lb, upper_bounds=ub,
                       num_particles=num_agents,
                       inertia_weight=0.4, cognitive_coefficient=1, social_coefficient=2, initial_particles_position='random', topology="random")
 

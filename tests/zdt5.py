@@ -1,4 +1,4 @@
-import optimizer
+import patatune
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -42,16 +42,16 @@ def v(x):
         return 0
 
 
-optimizer.FileManager.working_dir = "tmp/zdt5/"
-optimizer.FileManager.loading_enabled = False
-optimizer.FileManager.saving_enabled = False
+patatune.FileManager.working_dir = "tmp/zdt5/"
+patatune.FileManager.loading_enabled = False
+patatune.FileManager.saving_enabled = False
 
-if not os.path.exists(optimizer.FileManager.working_dir):
-    os.makedirs(optimizer.FileManager.working_dir)
+if not os.path.exists(patatune.FileManager.working_dir):
+    os.makedirs(patatune.FileManager.working_dir)
 
-objective = optimizer.ElementWiseObjective([zdt5_objective1, zdt5_objective2])
+objective = patatune.ElementWiseObjective([zdt5_objective1, zdt5_objective2])
 
-pso = optimizer.MOPSO(objective=objective, lower_bounds=lb, upper_bounds=ub,
+pso = patatune.MOPSO(objective=objective, lower_bounds=lb, upper_bounds=ub,
                       num_particles=num_agents,
                       inertia_weight=0.5, cognitive_coefficient=2, social_coefficient=0.5, initial_particles_position='random')
 
@@ -70,4 +70,4 @@ real_y = [10 / (1 + u(x)) for x in real_x]
 plt.scatter(real_x, real_y, s=5, c='red')
 plt.scatter(pareto_x, pareto_y, s=5)
 
-plt.savefig(optimizer.FileManager.working_dir + 'pf.png')
+plt.savefig(patatune.FileManager.working_dir + 'pf.png')

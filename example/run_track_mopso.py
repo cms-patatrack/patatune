@@ -1,4 +1,4 @@
-from optimizer import MOPSO
+from patatune import MOPSO
 import subprocess
 import os
 import numpy as np

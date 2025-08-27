@@ -1,4 +1,4 @@
-import optimizer
+import patatune
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -13,7 +13,7 @@ num_params = 10
 lb = [0] * num_params
 ub = [1] * num_params
 
-optimizer.Logger.setLevel('DEBUG')
+patatune.Logger.setLevel('DEBUG')
 
 def zdt6_objective1(x):
     return 1 - (np.exp(-4 * x[0]) * np.power(np.sin(6 * np.pi * x[0]), 6))
@@ -26,16 +26,16 @@ def zdt6_objective2(x):
     f2 = g * h
     return f2
 
-optimizer.FileManager.working_dir = "tmp/zdt6/"
-optimizer.FileManager.loading_enabled = False
-optimizer.FileManager.saving_enabled = False
+patatune.FileManager.working_dir = "tmp/zdt6/"
+patatune.FileManager.loading_enabled = False
+patatune.FileManager.saving_enabled = False
 
-if not os.path.exists(optimizer.FileManager.working_dir):
-    os.makedirs(optimizer.FileManager.working_dir)
+if not os.path.exists(patatune.FileManager.working_dir):
+    os.makedirs(patatune.FileManager.working_dir)
 
-objective = optimizer.ElementWiseObjective([zdt6_objective1, zdt6_objective2])
+objective = patatune.ElementWiseObjective([zdt6_objective1, zdt6_objective2])
 
-pso = optimizer.MOPSO(objective=objective, lower_bounds=lb, upper_bounds=ub,
+pso = patatune.MOPSO(objective=objective, lower_bounds=lb, upper_bounds=ub,
                       num_particles=num_agents,
                       inertia_weight=0.5, cognitive_coefficient=2, social_coefficient=0.5, initial_particles_position='random')
 
@@ -56,4 +56,4 @@ fig, ax = plt.subplots()
 plt.scatter(pareto_x, pareto_y, s=5)
 plt.scatter(real_x, real_y, s=5, c='red')
 
-plt.savefig(optimizer.FileManager.working_dir + 'pf.png')
+plt.savefig(patatune.FileManager.working_dir + 'pf.png')

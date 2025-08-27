@@ -3,10 +3,10 @@ import itertools
 import math
 import numpy as np
 import math
-from optimizer import Optimizer, FileManager, Randomizer, Logger
+from patatune import Optimizer, FileManager, Randomizer, Logger
 import scipy.stats as stats
 from .particle import Particle
-from optimizer.util import get_dominated
+from patatune.util import get_dominated
 
 
 class MOPSO(Optimizer):

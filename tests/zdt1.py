@@ -1,4 +1,4 @@
-import optimizer
+import patatune
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -13,7 +13,7 @@ lb = [0.] * num_params
 ub = [1.] * num_params
 p_names = [f"x{i}" for i in range(num_params)]
 
-optimizer.Logger.setLevel('DEBUG')
+patatune.Logger.setLevel('DEBUG')
 
 def zdt1_objective(x):
     f1 = x[0]
@@ -23,20 +23,20 @@ def zdt1_objective(x):
     return f1, f2
 
 
-optimizer.Randomizer.rng = np.random.default_rng(46)
+patatune.Randomizer.rng = np.random.default_rng(46)
 
-optimizer.FileManager.working_dir = "tmp/zdt1/"
-optimizer.FileManager.loading_enabled = False
-optimizer.FileManager.saving_enabled = True
-optimizer.FileManager.saving_zarr_enabled = True
-optimizer.FileManager.headers_enabled = True
+patatune.FileManager.working_dir = "tmp/zdt1/"
+patatune.FileManager.loading_enabled = False
+patatune.FileManager.saving_enabled = True
+patatune.FileManager.saving_zarr_enabled = True
+patatune.FileManager.headers_enabled = True
 
-objective = optimizer.ElementWiseObjective(zdt1_objective, 2, objective_names=['f1', 'f2'])
+objective = patatune.ElementWiseObjective(zdt1_objective, 2, objective_names=['f1', 'f2'])
 
-pso = optimizer.MOPSO(objective=objective, lower_bounds=lb, upper_bounds=ub, param_names=p_names,
+pso = patatune.MOPSO(objective=objective, lower_bounds=lb, upper_bounds=ub, param_names=p_names,
                       num_particles=num_agents,
                       inertia_weight=0.4, cognitive_coefficient=1.5, social_coefficient=2,
-                      initial_particles_position='random', exploring_particles=True, max_pareto_lenght=2*num_agents)
+                      initial_particles_position='random', exploring_particles=True, max_pareto_length=2*num_agents)
 
 # run the optimization algorithm
 pso.optimize(num_iterations, max_iterations_without_improvement=5)

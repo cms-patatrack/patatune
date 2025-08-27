@@ -1,10 +1,10 @@
-import optimizer
+import patatune
 
 lb = [0., False]
 ub = [2., True]
 
-optimizer.FileManager.working_dir = "tmp/bool/"
-optimizer.FileManager.saving_enabled = True
+patatune.FileManager.working_dir = "tmp/bool/"
+patatune.FileManager.saving_enabled = True
 
 
 def func(x):
@@ -16,9 +16,9 @@ def func(x):
         return int(x[0] < 1)
 
 
-objective = optimizer.ElementWiseObjective([func])
+objective = patatune.ElementWiseObjective([func])
 
-pso = optimizer.MOPSO(objective=objective, lower_bounds=lb, upper_bounds=ub,
+pso = patatune.MOPSO(objective=objective, lower_bounds=lb, upper_bounds=ub,
                       initial_particles_position='random', num_particles=5)
 
 pso.optimize(10)

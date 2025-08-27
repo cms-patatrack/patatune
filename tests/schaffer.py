@@ -1,4 +1,4 @@
-import optimizer
+import patatune
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -25,12 +25,12 @@ def f(params):
     return [[f1(params[i][0]), f2(params[i][0])] for i in range(len(params))]
 
 
-optimizer.FileManager.working_dir = "tmp/schaffer/"
-optimizer.FileManager.loading_enabled = True
+patatune.FileManager.working_dir = "tmp/schaffer/"
+patatune.FileManager.loading_enabled = True
 
-objective = optimizer.Objective([f])
+objective = patatune.Objective([f])
 
-pso = optimizer.MOPSO(objective=objective, lower_bounds=lb, upper_bounds=ub,
+pso = patatune.MOPSO(objective=objective, lower_bounds=lb, upper_bounds=ub,
                       num_particles=num_agents,
                       inertia_weight=0.5, cognitive_coefficient=1, social_coefficient=1)
 

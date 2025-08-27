@@ -1,4 +1,4 @@
-import optimizer
+import patatune
 
 lb1 = [0., 1, 0., 5.]
 lb2 = [0., 1, 0., "lower"]
@@ -14,19 +14,19 @@ def always_true(x):
     return True
 
 
-objective = optimizer.Objective([always_true])
+objective = patatune.Objective([always_true])
 
-pso = optimizer.MOPSO(objective=objective, lower_bounds=lb1,
+pso = patatune.MOPSO(objective=objective, lower_bounds=lb1,
                       upper_bounds=ub1, initial_particles_position='random')
 
 print([type(lb) for lb in pso.lower_bounds])
 print([type(ub) for ub in pso.upper_bounds])
 
-pso = optimizer.MOPSO(objective=objective, lower_bounds=lb1,
+pso = patatune.MOPSO(objective=objective, lower_bounds=lb1,
                       upper_bounds=ub2, initial_particles_position='random')
 
 try:
-    pso = optimizer.MOPSO(objective=objective,
+    pso = patatune.MOPSO(objective=objective,
                           lower_bounds=lb2, upper_bounds=ub1)
 except ValueError as e:
     print(e)
@@ -37,7 +37,7 @@ print([type(ub) for ub in pso.upper_bounds])
 lbt = [0., 0, False]
 ubt = [1., 5, True]
 
-psot = optimizer.MOPSO(objective=objective, lower_bounds=lbt,
+psot = patatune.MOPSO(objective=objective, lower_bounds=lbt,
                        upper_bounds=ubt, initial_particles_position='spread')
 
 print("\n".join([f"{p.position}" for p in psot.particles]))

@@ -1,6 +1,6 @@
 import numpy as np
-from optimizer import Randomizer
-from optimizer.util import get_dominated
+from patatune import Randomizer
+from patatune.util import get_dominated
 
 
 class Particle:

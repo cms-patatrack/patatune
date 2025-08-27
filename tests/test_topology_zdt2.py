@@ -1,4 +1,4 @@
-import optimizer
+import patatune
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -14,7 +14,7 @@ num_params = 30
 lb = [0.] * num_params
 ub = [1.] * num_params
 
-optimizer.Logger.setLevel('ERROR')
+patatune.Logger.setLevel('ERROR')
 
 def zdt2_objective1(x):
     return x[0]
@@ -27,11 +27,11 @@ def zdt2_objective2(x):
     f2 = g * h
     return f2
 
-optimizer.FileManager.working_dir = "tmp/zdt1/"
-optimizer.FileManager.loading_enabled = False
-optimizer.FileManager.saving_enabled = False
+patatune.FileManager.working_dir = "tmp/zdt1/"
+patatune.FileManager.loading_enabled = False
+patatune.FileManager.saving_enabled = False
 
-objective = optimizer.ElementWiseObjective([zdt2_objective1, zdt2_objective2])
+objective = patatune.ElementWiseObjective([zdt2_objective1, zdt2_objective2])
 
 topologies = [
             'random', 'higher_crowding_distance', 'lower_crowding_distance', 'higher_weighted_crowding_distance',
@@ -54,8 +54,8 @@ for i, t in enumerate(topologies):
     # plt.scatter(real_x, real_y, s=5, c='red', marker = "*",label = "Real pareto")
     for j, s in enumerate(seeds):
         print(f"Starting {t} topology with seed {s}")
-        optimizer.Randomizer.rng = np.random.default_rng(s)  
-        pso = optimizer.MOPSO(objective=objective, lower_bounds=lb, upper_bounds=ub,
+        patatune.Randomizer.rng = np.random.default_rng(s)  
+        pso = patatune.MOPSO(objective=objective, lower_bounds=lb, upper_bounds=ub,
                             num_particles=num_agents,
                             inertia_weight=inertia_weight, cognitive_coefficient=cognitive_coefficient, social_coefficient=social_coefficient, 
                             initial_particles_position='random', incremental_pareto=False,

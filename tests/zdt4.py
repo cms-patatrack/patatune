@@ -1,4 +1,4 @@
-import optimizer
+import patatune
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -12,9 +12,9 @@ num_params = 10
 lb = [0.] + [-5.] * (num_params - 1)
 ub = [1.] + [5.] * (num_params - 1)
 
-optimizer.Logger.setLevel('INFO')
+patatune.Logger.setLevel('INFO')
 
-optimizer.Randomizer.rng = np.random.default_rng(46)
+patatune.Randomizer.rng = np.random.default_rng(46)
 
 def zdt4_objective1(x):
     return x[0]
@@ -27,20 +27,20 @@ def zdt4_objective2(x):
     f2 = g * h
     return f2
 
-optimizer.FileManager.working_dir = "tmp/zdt4/"
-optimizer.FileManager.loading_enabled = False
-optimizer.FileManager.saving_enabled = False
+patatune.FileManager.working_dir = "tmp/zdt4/"
+patatune.FileManager.loading_enabled = False
+patatune.FileManager.saving_enabled = False
 
-if not os.path.exists(optimizer.FileManager.working_dir):
-    os.makedirs(optimizer.FileManager.working_dir)
+if not os.path.exists(patatune.FileManager.working_dir):
+    os.makedirs(patatune.FileManager.working_dir)
 
-objective = optimizer.ElementWiseObjective([zdt4_objective1, zdt4_objective2])
+objective = patatune.ElementWiseObjective([zdt4_objective1, zdt4_objective2])
 
-pso = optimizer.MOPSO(objective=objective, lower_bounds=lb, upper_bounds=ub,
+pso = patatune.MOPSO(objective=objective, lower_bounds=lb, upper_bounds=ub,
                       num_particles=num_agents,
                       inertia_weight=0.4, cognitive_coefficient=1.5, social_coefficient=2,
                       initial_particles_position='random', topology = 'random',
-                      exploring_particles=True, max_pareto_lenght=2*num_agents)
+                      exploring_particles=True, max_pareto_length=2*num_agents)
 
 # run the optimization algorithm
 pso.optimize(num_iterations, max_iterations_without_improvement=10)
@@ -57,4 +57,4 @@ real_y = 1 - np.sqrt(real_x)
 plt.scatter(real_x, real_y, s=5, c='red')
 plt.scatter(pareto_x, pareto_y, s=5)
 
-plt.savefig(optimizer.FileManager.working_dir + 'pf.png')
+plt.savefig(patatune.FileManager.working_dir + 'pf.png')

@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import optimizer
+import patatune
 # the optimize function is wrong, the 1D does not work anymore, there is no test case so idk if the code works, 
 
 def objective_function_1(x):
@@ -18,9 +18,9 @@ if __name__ == "__main__":
   lb = [-10,-10] #!!!
   ub = [10,10] #!!!
 
-  optimizer.FileManager.saving_enabled=False
+  patatune.FileManager.saving_enabled=False
   # create the PSO object
-  pso = optimizer.MOPSO(objective_functions=[objective_function_1, objective_function_2], 
+  pso = patatune.MOPSO(objective_functions=[objective_function_1, objective_function_2], 
             lower_bounds=lb, upper_bounds=ub, num_particles=100, num_iterations=20, inertia_weight=0.9, 
             cognitive_coefficient=2, social_coefficient=2, max_iter_no_improv=5)
 
