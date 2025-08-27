@@ -41,13 +41,13 @@ class MOPSO(Optimizer):
                  inertia_weight=0.5, cognitive_coefficient=1, social_coefficient=1,
                  initial_particles_position='random', default_point=None,
                  exploring_particles=False, topology='random',
-                 max_pareto_lenght=-1):
+                 max_pareto_length=-1):
         self.objective = objective
         self.num_particles = num_particles
         self.particles = []
         self.iteration = 0
         self.pareto_front = []
-        self.max_pareto_lenght = max_pareto_lenght
+        self.max_pareto_length = max_pareto_length
         if FileManager.loading_enabled:
             try:
                 self.load_state()
@@ -250,8 +250,8 @@ class MOPSO(Optimizer):
         self.pareto_front.sort(
             key=lambda x: crowding_distances[x], reverse=True)
 
-        if self.max_pareto_lenght > 0:
-            self.pareto_front = self.pareto_front[: self.max_pareto_lenght]
+        if self.max_pareto_length > 0:
+            self.pareto_front = self.pareto_front[: self.max_pareto_length]
             
         Logger.debug(f"New pareto front size: {len(self.pareto_front)}")
 
@@ -297,12 +297,12 @@ class MOPSO(Optimizer):
                 particle.velocity[i] = -1
 
     def get_metric(self, metric):
-        if self.objective.true_pareto is None and metric.__name__ != 'hypervolume_indicator':
+        if self.objective.true_pareto is None and metric.__name__ not in ['hypervolume_indicator']:
             raise ValueError(
-                "True pareto function is not defined for this objective. Only hypervolume indicator can be used.")
+                "True pareto function is not defined for this objective. Only hypervolume indicators can be used.")
         pareto = np.array([particle.fitness for particle in self.pareto_front])
         x = np.linspace(0, 1, max(100, len(pareto)))
-        if metric.__name__ == 'hypervolume_indicator':
+        if metric.__name__ in ['hypervolume_indicator']:
             reference_point = np.ones(len(pareto[0]))
             if self.objective.true_pareto is not None:
                 reference_pareto = np.array(self.objective.true_pareto(x)).T

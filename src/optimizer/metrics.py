@@ -1,5 +1,5 @@
 import numpy as np
-from .util import njit, get_dominated
+from .util import njit, get_dominated, Logger
 
 # Generational distance
 def generational_distance(pareto_front, reference_front):
@@ -32,7 +32,7 @@ def inverted_generational_distance(pareto_front, reference_front):
     return np.mean(np.min(np.linalg.norm(reference_front - pareto_front, axis=1), axis=0))
 
 # Hypervolume
-def hypervolume_indicator(pareto_front, reference_point, reference_hv=1):
+def hypervolume_indicator(pareto_front, reference_point, reference_hv=1, max_evaluations=10000000):
     """
     This function calculates the hypervolume indicator metric, for any dimension of the pareto front.
     Parameters:
@@ -40,52 +40,73 @@ def hypervolume_indicator(pareto_front, reference_point, reference_hv=1):
         Represents the pareto front obtained from the optimization algorithm.
     reference_point : numpy array
         Represents the reference point for the hypervolume calculation.
+    max_evaluations : int
+        Maximum number of function evaluations to prevent infinite loops.
     Returns:
     hypervolume : float
         The hypervolume indicator metric value.
     """
-    return wfg(sorted(pareto_front, key=lambda x: x[0]), reference_point)/reference_hv
+    counter = [0] 
+    result = wfg(sorted(pareto_front, key=lambda x: x[0]), reference_point, counter, max_evaluations)
+    
+    if counter[0] >= max_evaluations:
+        Logger.warning(f"Hypervolume calculation stopped after {max_evaluations} evaluations.")
+        return result/reference_hv
+
+    return result/reference_hv
 
 
-def wfg(pareto_front, reference_point):
+@njit
+def wfg(pareto_front, reference_point, counter, max_evaluations):
+    if counter is None:
+        counter = [0]
+    
+    # Don't return 0 immediately - let it compute partial results
+    counter[0] += 1
+    
     if len(pareto_front) == 0: 
         return 0
     else:
-        # return np.sum([exclhv(pareto_front, k, reference_point) for k in range(len(pareto_front))])
         sum = 0
         for k in range(len(pareto_front)):
-            sum = sum + exclhv(pareto_front, k, reference_point)
+            if counter[0] >= max_evaluations:
+                # Return partial sum computed so far
+                break
+            sum = sum + exclhv(pareto_front, k, reference_point, counter, max_evaluations)
         return sum
 
-def exclhv(pareto_front, k, reference_point):
+@njit
+def exclhv(pareto_front, k, reference_point, counter, max_evaluations):
     """
     The exclusive hypervolume of a point p relative to an underlying set S
     is the size of the part of objective space that is dominated by p but is 
     not dominated by any member of S
     """
-    limited_set = limitset(pareto_front, k)
+    if counter is None:
+        counter = [0]
+    
+    counter[0] += 1
+    
+    # Always compute at least the inclusive hypervolume
     result = inclhv(pareto_front[k], reference_point)
-    if len(limited_set) > 0:
-        result = result - wfg(nds(limited_set), reference_point)
-    return  result
+    
+    # Only try to subtract if we haven't hit the limit yet
+    if counter[0] < max_evaluations:
+        limited_set = limitset(pareto_front, k)
+        if len(limited_set) > 0:
+            result = result - wfg(nds(limited_set), reference_point, counter, max_evaluations)
+    
+    return result
 
 @njit
 def inclhv(p, reference_point):
     volume = 1
     for i in range(len(p)):
-        volume = volume * abs(p[i] - reference_point[i])
+        volume = volume * max(0, reference_point[i] - p[i])
     return volume
 
+@njit
 def limitset(pareto_front, k):
-    # n = 2 #? Dimension of each point in the pareto
-    # ql = np.full((len(pareto_front) - k, n), -np.inf)
-    # for i in range(1, len(pareto_front) - k):
-    #     for j in range(1, n):
-    #         ql[i][j] = np.max((pareto_front[k][j], pareto_front[k + i][j]))
-    # ql = ql[1:][:,1]
-    # return np.array([[max(p,q) for (p,q) in zip(pareto_front[k], pareto_front[j+k+1])]
-    #         for j in range(len(pareto_front)-k-1)])
-
     m = len(pareto_front) - k - 1
     n = len(pareto_front[0])
     result = np.empty((m, n))
@@ -103,9 +124,7 @@ def nds(front):
     """
     return the nondominated solutions from a set of points
     """
-    # front = np.array(front)
-    # if len(front) == 0:
-    #     return np.array([], dtype=np.float64)
+
     if len(front) == 1:
         return front
     else:
