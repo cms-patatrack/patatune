@@ -74,10 +74,10 @@ class Randomizer:
 
 class FileManager:
     saving_enabled = True
-    saving_csv_enabled = False
-    saving_json_enabled = False
+    saving_csv_enabled = True
+    saving_json_enabled = True
     saving_zarr_enabled = False
-    saving_pickle_enabled = False
+    saving_pickle_enabled = True
     loading_enabled = False
     headers_enabled = False
     working_dir = "tmp"
