@@ -28,6 +28,7 @@ optimizer.Randomizer.rng = np.random.default_rng(46)
 optimizer.FileManager.working_dir = "tmp/zdt1/"
 optimizer.FileManager.loading_enabled = False
 optimizer.FileManager.saving_enabled = True
+optimizer.FileManager.saving_zarr_enabled = True
 optimizer.FileManager.headers_enabled = True
 
 objective = optimizer.ElementWiseObjective(zdt1_objective, 2, objective_names=['f1', 'f2'])

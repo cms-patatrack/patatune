@@ -5,11 +5,18 @@ import logging
 import dill as pickle
 import numpy as np
 
+try:
+    import zarr
+    zarr_available = True
+except ImportError:
+    logging.warning("zarr is not installed. Zarr functionality will be disabled.")
+    zarr_available = False
+
 # If numba is installed import it and use njit decorator otherwise use a dummy decorator
 try:
     from numba import njit
 except ImportError:
-    logging.warning("Numba is not installed. The code will run slower.")
+    logging.warning("numba package is not installed. The code will run slower.")
     def njit(f=None, *args, **kwargs):
         def dummy_decorator(func):
             return func
@@ -67,14 +74,18 @@ class Randomizer:
 
 class FileManager:
     saving_enabled = True
+    saving_csv_enabled = True
+    saving_json_enabled = True
+    saving_zarr_enabled = False
+    saving_pickle_enabled = True
     loading_enabled = False
     headers_enabled = False
     working_dir = "tmp"
 
     @classmethod
     def save_csv(cls, csv_list, filename="file.csv", headers=None):
-        if not cls.saving_enabled:
-            Logger.debug("Saving is disabled.")
+        if not cls.saving_enabled or not cls.saving_csv_enabled:
+            Logger.debug("Saving csv is disabled.")
             return
         full_path = os.path.join(cls.working_dir, filename)
         folder = os.path.dirname(full_path)
@@ -91,19 +102,6 @@ class FileManager:
             np.savetxt(full_path, arr, fmt='%.18f', delimiter=',')
 
     @classmethod
-    def save_json(cls, dictionary, filename="file.json"):
-        if not cls.saving_enabled:
-            Logger.debug("Saving is disabled.")
-            return
-        full_path = os.path.join(cls.working_dir, filename)
-        folder = os.path.dirname(full_path)
-        if not os.path.exists(folder):
-            os.makedirs(folder)
-        Logger.debug("Saving to '%s'", full_path)
-        with open(full_path, 'w', encoding='utf-8') as f:
-            json.dump(dictionary, f, indent=4)
-
-    @classmethod
     def load_csv(cls, filename):
         full_path = os.path.join(cls.working_dir, filename)
         Logger.debug("Loading from '%s'", full_path)
@@ -118,6 +116,19 @@ class FileManager:
             return np.genfromtxt(full_path, delimiter=',', dtype=float), None
 
     @classmethod
+    def save_json(cls, dictionary, filename="file.json"):
+        if not cls.saving_enabled or not cls.saving_json_enabled:
+            Logger.debug("Saving json is disabled.")
+            return
+        full_path = os.path.join(cls.working_dir, filename)
+        folder = os.path.dirname(full_path)
+        if not os.path.exists(folder):
+            os.makedirs(folder)
+        Logger.debug("Saving to '%s'", full_path)
+        with open(full_path, 'w', encoding='utf-8') as f:
+            json.dump(dictionary, f, indent=4)
+
+    @classmethod
     def load_json(cls, filename):
         full_path = os.path.join(cls.working_dir, filename)
         Logger.debug("Loading from '%s'", full_path)
@@ -128,8 +139,8 @@ class FileManager:
 
     @classmethod
     def save_pickle(cls, obj, filename):
-        if not cls.saving_enabled:
-            Logger.debug("Saving is disabled.")
+        if not cls.saving_enabled or not cls.saving_pickle_enabled:
+            Logger.debug("Saving pickle is disabled.")
             return
         full_path = os.path.join(cls.working_dir, filename)
         folder = os.path.dirname(full_path)
@@ -147,14 +158,56 @@ class FileManager:
             raise FileNotFoundError(f"The file '{full_path}' does not exist.")
         with open(full_path, 'rb') as f:
             return pickle.load(f)
+        
+    @classmethod
+    def save_zarr(cls, obj, filename, **kwargs):
+        if not cls.saving_enabled or not cls.saving_zarr_enabled:
+            Logger.debug("Saving Zarr is disabled.")
+            return
+        if not zarr_available:
+            Logger.warning("zarr package is not installed. Skipping Zarr saving.")
+            return
+        full_path = os.path.join(cls.working_dir, filename)
+        folder = os.path.dirname(full_path)
+        if not os.path.exists(folder):
+            os.makedirs(folder)
+        Logger.debug("Saving to '%s'", full_path)
+        
+        store = zarr.ZipStore(full_path, mode='w')
+        root_group = zarr.group(store=store)
+        
+        for key, value in obj.items():
+            if isinstance(key, int):
+                group_name = f"iteration_{key}"
+            else:
+                group_name = key
+            
+            group = root_group.create_group(group_name)
+            group.create_dataset("data", data=value, overwrite=True)
+        root_group.attrs.update(kwargs)
+                
+        store.close()
 
+    @classmethod
+    def load_zarr(cls, filename):
+        if not zarr_available:
+            Logger.warning("zarr is not available. Skipping Zarr loading.")
+            return None, {}
+        full_path = os.path.join(cls.working_dir, filename)
+        Logger.debug("Loading from '%s'", full_path)
+        if not os.path.exists(full_path):
+            raise FileNotFoundError(f"The file '{full_path}' does not exist.")
+        with zarr.open(full_path, 'r') as f:
+            data = f["data"][:]
+            attrs = {key: f.attrs[key] for key in f.attrs}
+            return data, attrs
 
 @njit
-def get_dominated(particles, pareto_lenght):
+def get_dominated(particles, pareto_length):
     dominated_particles = np.full(len(particles), False, dtype=np.bool_)
     for i, pi in enumerate(particles):
         for j, pj in enumerate(particles):
-            if (i < pareto_lenght and j < pareto_lenght) or i == j:
+            if (i < pareto_length and j < pareto_length) or i == j:
                 continue
             if np.any(pi > pj) and \
                     np.all(pi >= pj):

@@ -41,13 +41,13 @@ class MOPSO(Optimizer):
                  inertia_weight=0.5, cognitive_coefficient=1, social_coefficient=1,
                  initial_particles_position='random', default_point=None,
                  exploring_particles=False, topology='random',
-                 max_pareto_lenght=-1):
+                 max_pareto_length=-1):
         self.objective = objective
         self.num_particles = num_particles
         self.particles = []
         self.iteration = 0
         self.pareto_front = []
-        self.max_pareto_lenght = max_pareto_lenght
+        self.max_pareto_length = max_pareto_length
         if FileManager.loading_enabled:
             try:
                 self.load_state()
@@ -144,7 +144,7 @@ class MOPSO(Optimizer):
 
         if default_point is not None:
             self.particles[0].set_position(default_point)
-        # Randomizer.rng = np.random.default_rng(seed)
+        self.history = {}
 
     def check_types(self):
         lb_types = [type(lb) for lb in self.lower_bounds]
@@ -204,9 +204,17 @@ class MOPSO(Optimizer):
             particle.fitness)]) for particle in self.particles],
             'history/iteration' + str(self.iteration) + '.csv',
             headers=self.param_names + self.objective.objective_names)
-
+        self.history[self.iteration] = np.array(
+            [np.concatenate([[particle.id], particle.position, particle.velocity])
+             for particle in self.particles],
+            dtype=np.dtype([('id', int), ('position', float, (self.num_params,)), ('velocity', float, (self.num_params,))])
+        )
         crowding_distances = self.update_pareto_front()
-
+        self.history['pareto_front'] = np.array(
+            [np.concatenate([particle.position, particle.velocity])
+             for particle in self.pareto_front],
+            dtype=[('position', float, (self.num_params,)), ('velocity', float, (self.num_params,))]
+        )
         for particle in self.particles:
             particle.update_velocity(self.pareto_front,
                                      crowding_distances,
@@ -224,7 +232,7 @@ class MOPSO(Optimizer):
             self.step(max_iterations_without_improvement)
             self.save_state()
             self.export_state()
-
+        FileManager.save_zarr(self.history, 'checkpoint/mopso.zip', param_names=self.param_names, objective_names=self.objective.objective_names)
         return self.pareto_front
 
     def update_pareto_front(self):
@@ -242,8 +250,8 @@ class MOPSO(Optimizer):
         self.pareto_front.sort(
             key=lambda x: crowding_distances[x], reverse=True)
 
-        if self.max_pareto_lenght > 0:
-            self.pareto_front = self.pareto_front[: self.max_pareto_lenght]
+        if self.max_pareto_length > 0:
+            self.pareto_front = self.pareto_front[: self.max_pareto_length]
             
         Logger.debug(f"New pareto front size: {len(self.pareto_front)}")
 
@@ -289,12 +297,12 @@ class MOPSO(Optimizer):
                 particle.velocity[i] = -1
 
     def get_metric(self, metric):
-        if self.objective.true_pareto is None and metric.__name__ != 'hypervolume_indicator':
+        if self.objective.true_pareto is None and metric.__name__ not in ['hypervolume_indicator']:
             raise ValueError(
-                "True pareto function is not defined for this objective. Only hypervolume indicator can be used.")
+                "True pareto function is not defined for this objective. Only hypervolume indicators can be used.")
         pareto = np.array([particle.fitness for particle in self.pareto_front])
         x = np.linspace(0, 1, max(100, len(pareto)))
-        if metric.__name__ == 'hypervolume_indicator':
+        if metric.__name__ in ['hypervolume_indicator']:
             reference_point = np.ones(len(pareto[0]))
             if self.objective.true_pareto is not None:
                 reference_pareto = np.array(self.objective.true_pareto(x)).T

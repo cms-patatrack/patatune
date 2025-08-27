@@ -22,6 +22,7 @@ classifiers = [
 
 [project.optional-dependencies]
 numba = ["numba"]
+zarr = ["zarr"]
 
 [project.urls]
 "Source Code" = "https://github.com/cms-patatrack/The-Optimizer"
