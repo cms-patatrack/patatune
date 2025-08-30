@@ -232,7 +232,7 @@ class MOPSO(Optimizer):
             self.step(max_iterations_without_improvement)
             self.save_state()
             self.export_state()
-        FileManager.save_zarr(self.history, 'checkpoint/mopso.zip', param_names=self.param_names, objective_names=self.objective.objective_names)
+        FileManager.save_zarr(self.history, 'checkpoint/mopso.zip', param_names=self.param_names, objective_names=self.objective.objective_names, lower_bounds=self.lower_bounds, upper_bounds=self.upper_bounds)
         return self.pareto_front
 
     def update_pareto_front(self):
