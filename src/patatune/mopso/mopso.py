@@ -205,15 +205,15 @@ class MOPSO(Optimizer):
             'history/iteration' + str(self.iteration) + '.csv',
             headers=self.param_names + self.objective.objective_names)
         self.history[self.iteration] = np.array(
-            [np.concatenate([[particle.id], particle.position, particle.velocity])
+            [np.concatenate([[particle.id], particle.position, particle.fitness])
              for particle in self.particles],
-            dtype=np.dtype([('id', int), ('position', float, (self.num_params,)), ('velocity', float, (self.num_params,))])
+            dtype=np.dtype([('id', int), ('position', float, (self.num_params,)), ('fitness', float, (self.objective.num_objectives,))])
         )
         crowding_distances = self.update_pareto_front()
         self.history['pareto_front'] = np.array(
-            [np.concatenate([particle.position, particle.velocity])
+            [np.concatenate([particle.position, particle.fitness])
              for particle in self.pareto_front],
-            dtype=[('position', float, (self.num_params,)), ('velocity', float, (self.num_params,))]
+            dtype=[('position', float, (self.num_params,)), ('fitness', float, (self.objective.num_objectives,))]
         )
         for particle in self.particles:
             particle.update_velocity(self.pareto_front,
