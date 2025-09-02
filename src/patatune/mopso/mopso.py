@@ -184,7 +184,7 @@ class MOPSO(Optimizer):
                              'checkpoint/individual_states.csv',
                              headers=self.param_names + self.objective.objective_names)
 
-        FileManager.save_csv([np.concatenate([particle.position, np.ravel(particle.fitness)])
+        FileManager.save_csv([np.concatenate([particle.position, np.ravel(particle.fitness * self.objective.directions)])
                              for particle in self.pareto_front],
                              'checkpoint/pareto_front.csv',
                              headers=self.param_names + self.objective.objective_names)
@@ -201,16 +201,16 @@ class MOPSO(Optimizer):
         [particle.set_fitness(optimization_output[p_id])
             for p_id, particle in enumerate(self.particles)]
         FileManager.save_csv([np.concatenate([particle.position, np.ravel(
-            particle.fitness)]) for particle in self.particles],
+            particle.fitness * self.objective.directions)]) for particle in self.particles],
             'history/iteration' + str(self.iteration) + '.csv',
             headers=self.param_names + self.objective.objective_names)
         self.history[self.iteration] = np.array(
-            [(particle.id, particle.position, particle.fitness) for particle in self.particles],
+            [(particle.id, particle.position, particle.fitness * self.objective.directions) for particle in self.particles],
             dtype=np.dtype([('id', int), ('position', float, (self.num_params,)), ('fitness', float, (self.objective.num_objectives,))])
         )
         crowding_distances = self.update_pareto_front()
         self.history['pareto_front'] = np.array(
-            [(particle.position, particle.fitness) for particle in self.pareto_front],
+            [(particle.position, particle.fitness * self.objective.directions) for particle in self.pareto_front],
             dtype=[('position', float, (self.num_params,)), ('fitness', float, (self.objective.num_objectives,))]
         )
         for particle in self.particles:

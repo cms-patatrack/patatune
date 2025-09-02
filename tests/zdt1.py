@@ -6,7 +6,7 @@ import matplotlib.animation as animation
 import os
 
 num_agents = 100
-num_iterations = 100
+num_iterations = 50
 num_params = 30
 
 lb = [0.] * num_params
@@ -31,12 +31,11 @@ patatune.FileManager.saving_enabled = True
 patatune.FileManager.saving_zarr_enabled = True
 patatune.FileManager.headers_enabled = True
 
-objective = patatune.ElementWiseObjective(zdt1_objective, 2, objective_names=['f1', 'f2'])
-
+objective = patatune.ElementWiseObjective(zdt1_objective, 2, objective_names=['f1', 'f2'], directions=['minimize', 'minimize'])
 pso = patatune.MOPSO(objective=objective, lower_bounds=lb, upper_bounds=ub, param_names=p_names,
                       num_particles=num_agents,
-                      inertia_weight=0.4, cognitive_coefficient=1.5, social_coefficient=2,
-                      initial_particles_position='random', exploring_particles=True, max_pareto_length=2*num_agents)
+                      inertia_weight=1, cognitive_coefficient=1, social_coefficient=2,
+                      initial_particles_position='random', topology='higher_weighted_crowding_distance', max_pareto_length=100)
 
 # run the optimization algorithm
 pso.optimize(num_iterations, max_iterations_without_improvement=5)
@@ -46,10 +45,10 @@ fig, ax = plt.subplots()
 
 pareto_front = pso.pareto_front
 n_pareto_points = len(pareto_front)
-pareto_x = [particle.fitness[0] for particle in pareto_front]
-pareto_y = [particle.fitness[1] for particle in pareto_front]
+pareto_x = [particle.fitness[0] * pso.objective.directions[0] for particle in pareto_front]
+pareto_y = [particle.fitness[1] * pso.objective.directions[1] for particle in pareto_front]
 real_x = (np.linspace(0, 1, n_pareto_points))
-real_y = 1-np.sqrt(real_x)
+real_y = (1-np.sqrt(real_x))
 plt.scatter(real_x, real_y, s=5, c='red')
 plt.scatter(pareto_x, pareto_y, s=5)
 
