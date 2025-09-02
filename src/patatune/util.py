@@ -7,9 +7,10 @@ import numpy as np
 
 try:
     import zarr
+    from zarr import ZipStore
     zarr_available = True
 except ImportError:
-    logging.warning("zarr is not installed. Zarr functionality will be disabled.")
+    logging.warning("zarr >=2,<3 not installed. Zarr functionality will be disabled.")
     zarr_available = False
 
 # If numba is installed import it and use njit decorator otherwise use a dummy decorator
@@ -173,7 +174,7 @@ class FileManager:
             os.makedirs(folder)
         Logger.debug("Saving to '%s'", full_path)
         
-        store = zarr.ZipStore(full_path, mode='w')
+        store = ZipStore(full_path, mode='w')
         root_group = zarr.group(store=store)
         
         for key, value in obj.items():
@@ -187,20 +188,6 @@ class FileManager:
         root_group.attrs.update(kwargs)
                 
         store.close()
-
-    @classmethod
-    def load_zarr(cls, filename):
-        if not zarr_available:
-            Logger.warning("zarr is not available. Skipping Zarr loading.")
-            return None, {}
-        full_path = os.path.join(cls.working_dir, filename)
-        Logger.debug("Loading from '%s'", full_path)
-        if not os.path.exists(full_path):
-            raise FileNotFoundError(f"The file '{full_path}' does not exist.")
-        with zarr.open(full_path, 'r') as f:
-            data = f["data"][:]
-            attrs = {key: f.attrs[key] for key in f.attrs}
-            return data, attrs
 
 @njit
 def get_dominated(particles, pareto_length):

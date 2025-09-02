@@ -22,7 +22,7 @@ classifiers = [
 
 [project.optional-dependencies]
 numba = ["numba"]
-zarr = ["zarr"]
+zarr = ["zarr==2.*"]
 
 [project.urls]
 "Source Code" = "https://github.com/cms-patatrack/patatune"
