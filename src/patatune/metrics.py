@@ -14,7 +14,19 @@ def generational_distance(pareto_front, reference_front):
     generational_distance : float
         The generational distance metric value.
     """
-    return np.mean(np.min(np.linalg.norm(pareto_front - reference_front, axis=1), axis=0))
+    if len(pareto_front) == 0 or len(reference_front) == 0:
+        return float('inf')
+    
+    sum_distances = 0.0
+    for p in pareto_front:
+        min_distance = float('inf')
+        for r in reference_front:
+            distance = np.linalg.norm(p - r)
+            if distance < min_distance:
+                min_distance = distance
+        sum_distances += min_distance ** 2
+    
+    return (sum_distances / len(pareto_front)) ** 0.5
 
 # Inverted generational distance
 def inverted_generational_distance(pareto_front, reference_front):
@@ -29,7 +41,19 @@ def inverted_generational_distance(pareto_front, reference_front):
     inverted_generational_distance : float
         The inverted generational distance metric value.
     """
-    return np.mean(np.min(np.linalg.norm(reference_front - pareto_front, axis=1), axis=0))
+    if len(reference_front) == 0 or len(pareto_front) == 0:
+        return float('inf')
+    
+    sum_distances = 0.0
+    for r in reference_front:
+        min_distance = float('inf')
+        for p in pareto_front:
+            distance = np.linalg.norm(r - p)
+            if distance < min_distance:
+                min_distance = distance
+        sum_distances += min_distance ** 2
+
+    return (sum_distances / len(reference_front)) ** 0.5
 
 # Hypervolume
 def hypervolume_indicator(pareto_front, reference_point, reference_hv=1, max_evaluations=10000000):
