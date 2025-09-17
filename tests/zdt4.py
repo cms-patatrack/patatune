@@ -11,39 +11,39 @@ num_params = 10
 
 lb = [0.] + [-5.] * (num_params - 1)
 ub = [1.] + [5.] * (num_params - 1)
+p_names = [f"x{i}" for i in range(num_params)]
 
-patatune.Logger.setLevel('INFO')
-
-patatune.Randomizer.rng = np.random.default_rng(46)
-
-def zdt4_objective1(x):
-    return x[0]
-
-
-def zdt4_objective2(x):
+def zdt4_objective(x):
     f1 = x[0]
     g = 1.0 + 10 * (len(x) - 1) + sum([i**2 - 10 * np.cos(4 * np.pi * i) for i in x[1:]])
     h = 1.0 - np.sqrt(f1 / g)
     f2 = g * h
-    return f2
+    return f1, f2
 
-patatune.FileManager.working_dir = "tmp/zdt4/"
+def zdt4_true_pareto(x):
+    f1 = x
+    f2 = 1.0 - np.sqrt(x)
+    return f1, f2
+
+patatune.Randomizer.rng = np.random.default_rng(42)
+patatune.Logger.setLevel('INFO')
+patatune.FileManager.working_dir = f"tmp/zdt4"
 patatune.FileManager.loading_enabled = False
-patatune.FileManager.saving_enabled = False
+patatune.FileManager.saving_enabled = True
+patatune.FileManager.saving_zarr_enabled = True
+patatune.FileManager.saving_csv_enabled = True
+patatune.FileManager.saving_pickle_enabled = False
+patatune.FileManager.headers_enabled = True
 
-if not os.path.exists(patatune.FileManager.working_dir):
-    os.makedirs(patatune.FileManager.working_dir)
+objective = patatune.ElementWiseObjective(zdt4_objective, 2, objective_names=['f1', 'f2'], directions=['minimize', 'minimize'], true_pareto=zdt4_true_pareto)
+pso = patatune.MOPSO(objective=objective, lower_bounds=lb, upper_bounds=ub, param_names=p_names,
+                        num_particles=num_agents,
+                        inertia_weight=0.5, cognitive_coefficient=1.5, social_coefficient=2,
+                        initial_particles_position='random', topology='random', max_pareto_length=2*num_agents)
 
-objective = patatune.ElementWiseObjective([zdt4_objective1, zdt4_objective2])
+pso.optimize(num_iterations)
+print(f"Optimization completed. Pareto front size: {len(pso.pareto_front)}")
 
-pso = patatune.MOPSO(objective=objective, lower_bounds=lb, upper_bounds=ub,
-                      num_particles=num_agents,
-                      inertia_weight=0.4, cognitive_coefficient=1.5, social_coefficient=2,
-                      initial_particles_position='random', topology = 'random',
-                      exploring_particles=True, max_pareto_length=2*num_agents)
-
-# run the optimization algorithm
-pso.optimize(num_iterations, max_iterations_without_improvement=10)
 
 fig, ax = plt.subplots()
 
