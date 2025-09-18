@@ -28,17 +28,25 @@ class Particle:
         best_position = Randomizer.rng.choice(self.local_best_positions)
         cognitive_random = Randomizer.rng.uniform(0, 1)
         social_random = Randomizer.rng.uniform(0, 1)
-        cognitive = cognitive_coefficient * cognitive_random * \
-            (best_position - self.position)
-        social = social_coefficient * social_random * \
-            (leader.position - self.position)
+
+        def cast_position(arr):
+            return np.array([int(x) if isinstance(x, bool) else x for x in arr], dtype=float)
+
+        best_position_cast = cast_position(best_position)
+        position_cast = cast_position(self.position)
+        leader_position_cast = cast_position(leader.position)
+
+        cognitive = cognitive_coefficient * cognitive_random * (best_position_cast - position_cast)
+        social = social_coefficient * social_random * (leader_position_cast - position_cast)
         self.velocity = inertia_weight * self.velocity + cognitive + social
 
     def update_position(self, lower_bound, upper_bound):
         new_position = np.empty_like(self.position)
         for i in range(len(lower_bound)):
-            if type(lower_bound[i]) == int or type(lower_bound[i]) == bool:
+            if type(lower_bound[i]) == int:
                 new_position[i] = np.round(self.position[i] + self.velocity[i])
+            elif type(lower_bound[i]) == bool:
+                new_position[i] = self.position[i] + self.velocity[i] > 0.5
             else:
                 new_position[i] = self.position[i] + self.velocity[i]
         self.position = np.clip(new_position, lower_bound, upper_bound)
