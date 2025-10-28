@@ -1,4 +1,4 @@
-# patatune
+![Patatune](Patatune.png)
 
 patatune is a python package that provides a collection of powerful optimization algorithms, including MOPSO (Multi-Objective Particle Swarm Optimization). The primary purpose of this package is to facilitate running optimization tasks using user-defined Python functions as the optimization target.
 The package is developed with the objectives of CMS and Patatrack in mind.
