@@ -1,3 +1,5 @@
+"""Module implementing various multi-objective optimization metrics."""
+
 import numpy as np
 from .util import njit, get_dominated, Logger
 
@@ -7,14 +9,11 @@ def generational_distance(pareto_front, reference_front):
     The generational distance (GD) measures the average distance of points in the obtained Pareto front to the nearest point in the true Pareto front.
 
     Parameters:
-        pareto_front (np.ndarray) :
-            Represents the pareto front obtained from the optimization algorithm.
-        reference_front (np.ndarray) :
-            Represents the true pareto front.
+        pareto_front (np.ndarray): Represents the pareto front obtained from the optimization algorithm.
+        reference_front (np.ndarray): Represents the true pareto front.
 
     Returns:
-        float) :
-        The generational distance metric value.
+        (float): The generational distance metric value.
     """
     if len(pareto_front) == 0 or len(reference_front) == 0:
         return float('inf')
@@ -36,14 +35,11 @@ def inverted_generational_distance(pareto_front, reference_front):
     The inverted generational distance (IGD) measures the average distance of points in the true Pareto front to the nearest point in the obtained Pareto front.
 
     Parameters:
-        pareto_front (np.ndarray) :
-            Represents the pareto front obtained from the optimization algorithm.
-        reference_front (np.ndarray) :
-            Represents the true pareto front.
-    
+        pareto_front (np.ndarray): Represents the pareto front obtained from the optimization algorithm.
+        reference_front (np.ndarray): Represents the true pareto front.
+
     Returns:
-        (float) :
-        The inverted generational distance metric value.
+        (float): The inverted generational distance metric value.
     """
     if len(reference_front) == 0 or len(pareto_front) == 0:
         return float('inf')
@@ -65,18 +61,14 @@ def hypervolume_indicator(pareto_front, reference_point, reference_hv=1, max_eva
     The hypervolume indicator (HV) measures the volume of the objective space dominated by the obtained Pareto front and bounded by a reference point.
 
     Parameters:
-        pareto_front (np.ndarray) :
-            Represents the pareto front obtained from the optimization algorithm.
-        reference_point (list or np.ndarray) :
-            A reference point in the objective space, typically chosen to be worse than any point in the pareto front.
-        reference_hv (float) :
-            The hypervolume of the reference front for normalization (default: 1).
-        max_evaluations (int) :
+        pareto_front (np.ndarray): Represents the pareto front obtained from the optimization algorithm.
+        reference_point (list or np.ndarray): A reference point in the objective space, typically chosen to be worse than any point in the pareto front.
+        reference_hv (float): The hypervolume of the reference front for normalization (default: 1).
+        max_evaluations (int): Maximum number of evaluations to perform during hypervolume calculation (default: 10,000,000).
             Maximum number of evaluations to perform during hypervolume calculation (default: 10,000,000).
     
     Returns:
-        (float) :
-        The hypervolume indicator metric value normalized by the reference hypervolume.
+        (float): The hypervolume indicator metric value normalized by the reference hypervolume.
     """
     counter = [0] 
     result = wfg(sorted(pareto_front, key=lambda x: x[0]), reference_point, counter, max_evaluations)
@@ -97,18 +89,13 @@ def wfg(pareto_front, reference_point, counter, max_evaluations):
     DOI: [10.1109/TEVC.2010.2077298](https://doi.org/10.1109/TEVC.2010.2077298)
 
     Parameters:
-        pareto_front (np.ndarray) :
-            Represents the pareto front obtained from the optimization algorithm.
-        reference_point (list or np.ndarray) :
-            A reference point in the objective space, typically chosen to be worse than any point in the pareto front.
-        counter (list) :
-            A list containing a single integer to keep track of the number of evaluations performed.
-        max_evaluations (int) :
-            Maximum number of evaluations to perform during hypervolume calculation.
-    
+        pareto_front (np.ndarray): Represents the pareto front obtained from the optimization algorithm.
+        reference_point (list or np.ndarray): A reference point in the objective space, typically chosen to be worse than any point in the pareto front.
+        counter (list): A list containing a single integer to keep track of the number of evaluations performed.
+        max_evaluations (int): Maximum number of evaluations to perform during hypervolume calculation.
+
     Returns:
-        (float) :
-        The hypervolume of the pareto front with respect to the reference point.
+        (float): The hypervolume of the pareto front with respect to the reference point.
 
     Note:
         Optionally uses numba's njit for performance optimization.
@@ -177,11 +164,9 @@ def nds(front):
     Uses the get_dominated utility function to identify dominated points and filters them out.
 
     Parameters:
-        front (np.ndarray) :
-            Represents a set of points in the objective space.
+        front (np.ndarray): Represents a set of points in the objective space.
     Returns:
-        (np.ndarray) :
-        The non-dominated subset of the input front.
+        (np.ndarray): The non-dominated subset of the input front.
     """
 
     if len(front) == 1:

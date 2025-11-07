@@ -1,3 +1,5 @@
+"""Module defining the Particle class for the MOPSO algorithm."""
+
 import numpy as np
 from patatune import Randomizer
 from patatune.util import get_dominated
@@ -42,9 +44,9 @@ class Particle:
         Parameters:
             pareto_front (list): List of particles representing the current Pareto front.
             crowding_distances (dict): Dictionary mapping particles to their crowding distances.
-            inertia_weight (float) : Weight for the inertia component (default: 0.5).
-            cognitive_coefficient (float) : Coefficient for the cognitive component (default: 1).
-            social_coefficient (float) : Coefficient for the social component (default: 1).
+            inertia_weight (float): Weight for the inertia component (default: 0.5).
+            cognitive_coefficient (float): Coefficient for the cognitive component (default: 1).
+            social_coefficient (float): Coefficient for the social component (default: 1).
         """
         leader = self.get_pareto_leader(pareto_front, crowding_distances)
         best_position = Randomizer.rng.choice(self.local_best_positions)
@@ -147,11 +149,11 @@ class Particle:
 
         If the topology is "random", a random particle from the Pareto front is selected.
         If the topology is "lower_weighted_crowding_distance", a particle is selected
-        with a probability inversely proportional to its crowding distance calling the [weighted_crowding_distance_topology](patatune.mopso.particle.weighted_crowding_distance_topology) function.
+        with a probability inversely proportional to its crowding distance calling the [weighted_crowding_distance_topology][patatune.mopso.particle.weighted_crowding_distance_topology] function.
         If the topology is "higher_weighted_crowding_distance", a particle is selected
-        with a probability proportional to its crowding distance calling the [weighted_crowding_distance_topology](patatune.mopso.particle.weighted_crowding_distance_topology) function.
+        with a probability proportional to its crowding distance calling the [weighted_crowding_distance_topology][patatune.mopso.particle.weighted_crowding_distance_topology] function.
         If the topology is "round_robin", particles are selected in a round-robin fashion
-        based on the particle's ID calling the [round_robin_topology](patatune.mopso.particle.round_robin_topology) function.
+        based on the particle's ID calling the [round_robin_topology][patatune.mopso.particle.round_robin_topology] function.
 
         Parameters:
             pareto_front (list): List of particles representing the current Pareto front.
@@ -176,12 +178,11 @@ def weighted_crowding_distance_topology(pareto_front, crowding_distances, higher
     Parameters:
         pareto_front (list): List of particles representing the current Pareto front.
         crowding_distances (dict): Dictionary mapping particles to their crowding distances.
-        higher (bool) : If True, selects particles with higher crowding distances with higher probability.
+        higher (bool): If True, selects particles with higher crowding distances with higher probability.
                         If False, selects particles with lower crowding distances with higher probability.
     
     Returns:
-        (Particle) :
-        The selected leader particle from the Pareto front.
+        (Particle): The selected leader particle from the Pareto front.
     """
     pdf = boltzmann(crowding_distances, higher)
     return Randomizer.rng.choice(pareto_front, p=pdf)
@@ -195,11 +196,10 @@ def round_robin_topology(pareto_front, id):
     
     Parameters:
         pareto_front (list): List of particles representing the current Pareto front.
-        id (int) : Unique identifier for the particle.
+        id (int): Unique identifier for the particle.
     
     Returns:
-        (Particle) :
-        The selected leader particle from the Pareto front.
+        (Particle): The selected leader particle from the Pareto front.
     """
     index = id % len(pareto_front)
     return pareto_front[index]
@@ -210,12 +210,11 @@ def boltzmann(crowding_distances, higher):
 
     Parameters:
         crowding_distances (dict): Dictionary mapping particles to their crowding distances.
-        higher (bool) : If True, computes PDF favoring higher crowding distances.
+        higher (bool): If True, computes PDF favoring higher crowding distances.
                         If False, computes PDF favoring lower crowding distances.
     
     Returns:
-        (list) :
-        A list representing the probability distribution function for selecting particles.
+        (list): A list representing the probability distribution function for selecting particles.
     """
     cd_list = list(crowding_distances.values())
     len_cd = len(cd_list)
