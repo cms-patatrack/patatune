@@ -3,16 +3,22 @@ theme:
   name: material
   logo: logo_white.svg
   favicon: favicon.svg
-
+  features:
+    - navigation.instant
+    - search.suggest
+    - search.highlight
+    - toc.integrate 
+    - navigation.top
   palette:
     scheme: slate
     primary: red
 # site navigation
 nav:
     - Home: index.md
-    - API: api.md
+    - API Reference: api.md
 
 plugins:
+- search
 - mkdocstrings:
     handlers:
       python:
@@ -45,10 +51,6 @@ plugins:
           docstring_style: google
 
           # CROSS-REFERENCES -------------------------------------------------------
-          # Enable relative crossrefs and scoped crossrefs, see Docstrings options.
-          relative_crossrefs: true  # Sponsors only!
-          scoped_crossrefs: true  # Sponsors only!
-
           # Enable cross-references in signatures.
           signature_crossrefs: true
 
@@ -56,10 +58,6 @@ plugins:
           unwrap_annotated: true
 
           # MEMBERS ----------------------------------------------------------------
-          # Only render pulic symbols.
-          filters: public  # Sponsors only!
-          # Comment the option otherwise to get the default filters.
-
           # Show class inherited members.
           inherited_members: true
 
@@ -70,16 +68,16 @@ plugins:
           # HEADINGS ---------------------------------------------------------------
           # For auto-generated pages, one module per page,
           # make the module heading be the H1 heading of the page.
-          heading_level: 1
+          # heading_level: 1
 
           # Render headings for parameters, making them linkable.
-          parameter_headings: true
+          # parameter_headings: true
 
           # Render headings for type parameters too.
-          type_parameter_headings: true
+          # type_parameter_headings: true
 
           # Always show the heading for the symbol you render with `::: id`.
-          show_root_heading: true
+          # show_root_heading: false
 
           # Only show the name of the symbols you inject render `::: id`.
           show_root_full_path: false
@@ -111,9 +109,5 @@ plugins:
           show_signature_type_parameters: true
 
           # OTHER ------------------------------------------------------------------
-          # Show backlinks to other documentation sections within each symbol.
-          backlinks: tree  # Sponsors only!
-
           # Show base classes OR inheritance diagram.
           show_bases: true
-          show_inheritance_diagram: true  # Sponsors only!

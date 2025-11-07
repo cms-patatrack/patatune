@@ -1,5 +1,10 @@
-# API
+# patatune Reference
 
-The API reference below is generated from the `patatune` package using mkdocstrings.
+This reference manual details functions, modules, and objects included in patatune, describing what they are and what they do.
+
+<br>
 
 ::: patatune
+    options:
+        show_root_heading: false
+        show_root_toc_entry: false

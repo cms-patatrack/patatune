@@ -1,4 +1,7 @@
-![Patatune](docs/Patatune.png)
+![Patatune](https://raw.githubusercontent.com/cms-patatrack/patatune/refs/heads/docs/docs/Patatune.png)
+
+![PyPI - Version](https://img.shields.io/pypi/v/patatune)
+[![Documentation](https://img.shields.io/badge/docs-latest-blue)](https://cms-patatrack.github.io/patatune/)
 
 patatune is a python package that provides a collection of powerful optimization algorithms, including MOPSO (Multi-Objective Particle Swarm Optimization). The primary purpose of this package is to facilitate running optimization tasks using user-defined Python functions as the optimization target.
 The package is developed with the objectives of CMS and Patatrack in mind.

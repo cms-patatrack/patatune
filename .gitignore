@@ -169,7 +169,6 @@ tmp
 *.profile
 
 # other formats
-*.png
 *.npy
 *.zip
 *.html
