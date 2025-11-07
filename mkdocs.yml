@@ -1,4 +1,6 @@
 site_name: patatune
+repo_url: https://github.com/cms-patatrack/patatune
+edit_uri: edit/docs/docs/ # change to 'edit/main/docs/' when merged to main
 theme:
   name: material
   logo: logo_white.svg
@@ -9,6 +11,7 @@ theme:
     - search.highlight
     - toc.integrate 
     - navigation.top
+    - content.action.view
   palette:
     scheme: slate
     primary: red
