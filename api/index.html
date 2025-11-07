@@ -1,0 +1,4587 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="..">
+      
+      
+      
+      <link rel="icon" href="../favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.23">
+    
+    
+      
+        <title>API Reference - patatune</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.84d31ad4.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="red" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#patatune-reference" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="patatune" class="md-header__button md-logo" aria-label="patatune" data-md-component="logo">
+      
+  <img src="../logo_white.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            patatune
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              API Reference
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="patatune" class="md-nav__button md-logo" aria-label="patatune" data-md-component="logo">
+      
+  <img src="../logo_white.svg" alt="logo">
+
+    </a>
+    patatune
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    API Reference
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    API Reference
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#patatune.metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-module"></code>&nbsp;metrics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#patatune.metrics.generational_distance" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;generational_distance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patatune.metrics.hypervolume_indicator" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;hypervolume_indicator
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patatune.metrics.inverted_generational_distance" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;inverted_generational_distance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patatune.metrics.nds" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;nds
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patatune.metrics.wfg" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;wfg
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#patatune.mopso" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-module"></code>&nbsp;mopso
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" mopso">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#patatune.mopso.mopso" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-module"></code>&nbsp;mopso
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" mopso">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#patatune.mopso.mopso.MOPSO" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;MOPSO
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" MOPSO">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#patatune.mopso.mopso.MOPSO.calculate_crowding_distance" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;calculate_crowding_distance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patatune.mopso.mopso.MOPSO.check_types" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;check_types
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patatune.mopso.mopso.MOPSO.export_state" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;export_state
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patatune.mopso.mopso.MOPSO.get_metric" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;get_metric
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patatune.mopso.mopso.MOPSO.load_state" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;load_state
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patatune.mopso.mopso.MOPSO.optimize" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;optimize
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patatune.mopso.mopso.MOPSO.save_state" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;save_state
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patatune.mopso.mopso.MOPSO.scatter_particle" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;scatter_particle
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patatune.mopso.mopso.MOPSO.step" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;step
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patatune.mopso.mopso.MOPSO.update_pareto_front" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;update_pareto_front
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patatune.mopso.particle" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-module"></code>&nbsp;particle
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" particle">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#patatune.mopso.particle.Particle" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;Particle
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" Particle">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#patatune.mopso.particle.Particle.get_pareto_leader" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;get_pareto_leader
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patatune.mopso.particle.Particle.set_fitness" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;set_fitness
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patatune.mopso.particle.Particle.set_position" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;set_position
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patatune.mopso.particle.Particle.set_state" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;set_state
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patatune.mopso.particle.Particle.update_best" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;update_best
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patatune.mopso.particle.Particle.update_position" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;update_position
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patatune.mopso.particle.Particle.update_velocity" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;update_velocity
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patatune.mopso.particle.boltzmann" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;boltzmann
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patatune.mopso.particle.round_robin_topology" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;round_robin_topology
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patatune.mopso.particle.weighted_crowding_distance_topology" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;weighted_crowding_distance_topology
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#patatune.objective" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-module"></code>&nbsp;objective
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" objective">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#patatune.objective.AsyncElementWiseObjective" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;AsyncElementWiseObjective
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" AsyncElementWiseObjective">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#patatune.objective.AsyncElementWiseObjective.evaluate" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;evaluate
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patatune.objective.BatchObjective" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;BatchObjective
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" BatchObjective">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#patatune.objective.BatchObjective.evaluate" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;evaluate
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patatune.objective.ElementWiseObjective" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;ElementWiseObjective
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" ElementWiseObjective">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#patatune.objective.ElementWiseObjective.evaluate" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;evaluate
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patatune.objective.Objective" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;Objective
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" Objective">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#patatune.objective.Objective.evaluate" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;evaluate
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#patatune.optimizer" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-module"></code>&nbsp;optimizer
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" optimizer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#patatune.optimizer.Optimizer" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;Optimizer
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" Optimizer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#patatune.optimizer.Optimizer.optimize" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;optimize
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patatune.optimizer.Optimizer.step" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;step
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#patatune.util" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-module"></code>&nbsp;util
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" util">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#patatune.util.CustomFormatter" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;CustomFormatter
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patatune.util.FileManager" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;FileManager
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" FileManager">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#patatune.util.FileManager.load_csv" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;load_csv
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patatune.util.FileManager.load_json" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;load_json
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patatune.util.FileManager.load_pickle" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;load_pickle
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patatune.util.FileManager.save_csv" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;save_csv
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patatune.util.FileManager.save_json" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;save_json
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patatune.util.FileManager.save_pickle" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;save_pickle
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patatune.util.FileManager.save_zarr" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;save_zarr
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patatune.util.Randomizer" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;Randomizer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patatune.util.get_dominated" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;get_dominated
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patatune.util.handle_exception" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;handle_exception
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="patatune-reference">patatune Reference</h1>
+<p>This reference manual details functions, modules, and objects included in patatune, describing what they are and what they do.</p>
+<p><br></p>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+
+    <div class="doc doc-contents first">
+
+        <p>patatune
+A Python framework for Metaheuristic Multi-Objective Optimization</p>
+
+
+
+
+
+
+<p><span class="doc-section-title">Modules:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            metrics (patatune.metrics)" href="#patatune.metrics">metrics</a></code></b>
+          –
+          <div class="doc-md-description">
+            <p>Module implementing various multi-objective optimization metrics.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            mopso (patatune.mopso)" href="#patatune.mopso">mopso</a></code></b>
+          –
+          <div class="doc-md-description">
+            <p>Module implementing the Multi-Objective Particle Swarm Optimization (MOPSO) algorithm.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            objective (patatune.objective)" href="#patatune.objective">objective</a></code></b>
+          –
+          <div class="doc-md-description">
+            <p>Module defining various Objective classes for multi-objective optimization in patatune.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            optimizer (patatune.optimizer)" href="#patatune.optimizer">optimizer</a></code></b>
+          –
+          <div class="doc-md-description">
+            <p>Optimizer module for patatune.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            util (patatune.util)" href="#patatune.util">util</a></code></b>
+          –
+          <div class="doc-md-description">
+            <p>Utility functions and classes for Patatune.</p>
+          </div>
+        </li>
+    </ul>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="patatune.metrics" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-module"></code>            <span class="doc doc-object-name doc-module-name">metrics</span>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+        <p>Module implementing various multi-objective optimization metrics.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+<p><span class="doc-section-title">Functions:</span></p>
+    <ul>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            generational_distance (patatune.metrics.generational_distance)" href="#patatune.metrics.generational_distance">generational_distance</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Calculates the generational distance metric, for any dimension of the pareto front.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            hypervolume_indicator (patatune.metrics.hypervolume_indicator)" href="#patatune.metrics.hypervolume_indicator">hypervolume_indicator</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Calculates the hypervolume indicator metric, for any dimension of the pareto front.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            inverted_generational_distance (patatune.metrics.inverted_generational_distance)" href="#patatune.metrics.inverted_generational_distance">inverted_generational_distance</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Calculates the inverted generational distance metric, for any dimension of the pareto front.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            nds (patatune.metrics.nds)" href="#patatune.metrics.nds">nds</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Returns the non-dominated set from the given front. </p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            wfg (patatune.metrics.wfg)" href="#patatune.metrics.wfg">wfg</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>WFG algorithm for hypervolume calculation</p>
+            </div>
+          </li>
+    </ul>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="patatune.metrics.generational_distance" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <span class="doc doc-object-name doc-function-name">generational_distance</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">generational_distance</span><span class="p">(</span><span class="n">pareto_front</span><span class="p">,</span> <span class="n">reference_front</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Calculates the generational distance metric, for any dimension of the pareto front.</p>
+<p>The generational distance (GD) measures the average distance of points in the obtained Pareto front to the nearest point in the true Pareto front.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>pareto_front</code></b>
+              (<code><a class="autorefs autorefs-external" title="numpy.ndarray" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray">ndarray</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Represents the pareto front obtained from the optimization algorithm.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>reference_front</code></b>
+              (<code><a class="autorefs autorefs-external" title="numpy.ndarray" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray">ndarray</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Represents the true pareto front.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>
+          –
+          <div class="doc-md-description">
+            <p>The generational distance metric value.</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="patatune.metrics.hypervolume_indicator" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <span class="doc doc-object-name doc-function-name">hypervolume_indicator</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">hypervolume_indicator</span><span class="p">(</span><span class="n">pareto_front</span><span class="p">,</span> <span class="n">reference_point</span><span class="p">,</span> <span class="n">reference_hv</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_evaluations</span><span class="o">=</span><span class="mi">10000000</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Calculates the hypervolume indicator metric, for any dimension of the pareto front.</p>
+<p>The hypervolume indicator (HV) measures the volume of the objective space dominated by the obtained Pareto front and bounded by a reference point.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>pareto_front</code></b>
+              (<code><a class="autorefs autorefs-external" title="numpy.ndarray" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray">ndarray</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Represents the pareto front obtained from the optimization algorithm.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>reference_point</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a> or <a class="autorefs autorefs-external" title="numpy.ndarray" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray">ndarray</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>A reference point in the objective space, typically chosen to be worse than any point in the pareto front.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>reference_hv</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>, default:
+                  <code>1</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>The hypervolume of the reference front for normalization (default: 1).</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>max_evaluations</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>, default:
+                  <code>10000000</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>Maximum number of evaluations to perform during hypervolume calculation (default: 10,000,000).
+Maximum number of evaluations to perform during hypervolume calculation (default: 10,000,000).</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>
+          –
+          <div class="doc-md-description">
+            <p>The hypervolume indicator metric value normalized by the reference hypervolume.</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="patatune.metrics.inverted_generational_distance" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <span class="doc doc-object-name doc-function-name">inverted_generational_distance</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">inverted_generational_distance</span><span class="p">(</span><span class="n">pareto_front</span><span class="p">,</span> <span class="n">reference_front</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Calculates the inverted generational distance metric, for any dimension of the pareto front.</p>
+<p>The inverted generational distance (IGD) measures the average distance of points in the true Pareto front to the nearest point in the obtained Pareto front.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>pareto_front</code></b>
+              (<code><a class="autorefs autorefs-external" title="numpy.ndarray" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray">ndarray</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Represents the pareto front obtained from the optimization algorithm.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>reference_front</code></b>
+              (<code><a class="autorefs autorefs-external" title="numpy.ndarray" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray">ndarray</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Represents the true pareto front.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>
+          –
+          <div class="doc-md-description">
+            <p>The inverted generational distance metric value.</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="patatune.metrics.nds" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <span class="doc doc-object-name doc-function-name">nds</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">nds</span><span class="p">(</span><span class="n">front</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Returns the non-dominated set from the given front. </p>
+<p>Uses the get_dominated utility function to identify dominated points and filters them out.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>front</code></b>
+              (<code><a class="autorefs autorefs-external" title="numpy.ndarray" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray">ndarray</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Represents a set of points in the objective space.</p>
+          </div>
+        </li>
+    </ul>
+        <p>Returns:
+    (np.ndarray): The non-dominated subset of the input front.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="patatune.metrics.wfg" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <span class="doc doc-object-name doc-function-name">wfg</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">wfg</span><span class="p">(</span><span class="n">pareto_front</span><span class="p">,</span> <span class="n">reference_point</span><span class="p">,</span> <span class="n">counter</span><span class="p">,</span> <span class="n">max_evaluations</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>WFG algorithm for hypervolume calculation
+Reference: While, L., Bradstreet, L., &amp; Barone, L. (2012). A fast way of calculating exact hypervolumes.
+IEEE Transactions on Evolutionary Computation, 16(1), 86-95.
+DOI: <a href="https://doi.org/10.1109/TEVC.2010.2077298">10.1109/TEVC.2010.2077298</a></p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>pareto_front</code></b>
+              (<code><a class="autorefs autorefs-external" title="numpy.ndarray" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray">ndarray</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Represents the pareto front obtained from the optimization algorithm.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>reference_point</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a> or <a class="autorefs autorefs-external" title="numpy.ndarray" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray">ndarray</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>A reference point in the objective space, typically chosen to be worse than any point in the pareto front.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>counter</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>A list containing a single integer to keep track of the number of evaluations performed.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>max_evaluations</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Maximum number of evaluations to perform during hypervolume calculation.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>
+          –
+          <div class="doc-md-description">
+            <p>The hypervolume of the pareto front with respect to the reference point.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<details class="note" open>
+  <summary>Note</summary>
+  <p>Optionally uses numba's njit for performance optimization.</p>
+</details>
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="patatune.mopso" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-module"></code>            <span class="doc doc-object-name doc-module-name">mopso</span>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+        <p>Module implementing the Multi-Objective Particle Swarm Optimization (MOPSO) algorithm.</p>
+
+
+
+
+
+
+<p><span class="doc-section-title">Modules:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            mopso (patatune.mopso.mopso)" href="#patatune.mopso.mopso">mopso</a></code></b>
+          –
+          <div class="doc-md-description">
+            <p>Multi-Objective Particle Swarm Optimization (MOPSO) algorithm implementation.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            particle (patatune.mopso.particle)" href="#patatune.mopso.particle">particle</a></code></b>
+          –
+          <div class="doc-md-description">
+            <p>Module defining the Particle class for the MOPSO algorithm.</p>
+          </div>
+        </li>
+    </ul>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<h3 id="patatune.mopso.mopso" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-module"></code>            <span class="doc doc-object-name doc-module-name">mopso</span>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+        <p>Multi-Objective Particle Swarm Optimization (MOPSO) algorithm implementation.</p>
+
+
+
+
+
+
+
+
+
+
+<p><span class="doc-section-title">Classes:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            MOPSO (patatune.mopso.mopso.MOPSO)" href="#patatune.mopso.mopso.MOPSO">MOPSO</a></code></b>
+          –
+          <div class="doc-md-description">
+            <p>Multi-Objective Particle Swarm Optimization (MOPSO) algorithm.  </p>
+          </div>
+        </li>
+    </ul>
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h4 id="patatune.mopso.mopso.MOPSO" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">MOPSO</span>
+
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">MOPSO</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">lower_bounds</span><span class="p">,</span> <span class="n">upper_bounds</span><span class="p">,</span> <span class="n">param_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">num_particles</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">inertia_weight</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">cognitive_coefficient</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">social_coefficient</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">initial_particles_position</span><span class="o">=</span><span class="s1">&#39;random&#39;</span><span class="p">,</span> <span class="n">default_point</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">exploring_particles</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">topology</span><span class="o">=</span><span class="s1">&#39;random&#39;</span><span class="p">,</span> <span class="n">max_pareto_length</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="            Optimizer (patatune.Optimizer)" href="#patatune.optimizer.Optimizer">Optimizer</a></code></p>
+
+
+        <p>Multi-Objective Particle Swarm Optimization (MOPSO) algorithm.  </p>
+<p>The MOPSO class implements the MOPSO algorithm for multi-objective optimization problems.
+It inherits from the base Optimizer class and provides methods for initializing particles,
+updating their positions and velocities, evaluating their fitness, and maintaining the Pareto front.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+          <b><code><span title="patatune.mopso.mopso.MOPSO.objective">objective</span></code></b>
+              (<code><a class="autorefs autorefs-internal" title="            Objective (patatune.objective.Objective)" href="#patatune.objective.Objective">Objective</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>The functions to optimize.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="patatune.mopso.mopso.MOPSO.lower_bounds">lower_bounds</span></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>List of lower bounds for each parameter.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="patatune.mopso.mopso.MOPSO.upper_bounds">upper_bounds</span></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>List of upper bounds for each parameter.
+lower and upper bounds are used to check the type of each parameter (int, float, bool)</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="patatune.mopso.mopso.MOPSO.param_names">param_names</span></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>List of parameter names.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="patatune.mopso.mopso.MOPSO.num_particles">num_particles</span></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Number of particles in the swarm.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="patatune.mopso.mopso.MOPSO.inertia_weight">inertia_weight</span></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Inertia weight for velocity update.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="patatune.mopso.mopso.MOPSO.cognitive_coefficient">cognitive_coefficient</span></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Cognitive coefficient for velocity update.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="patatune.mopso.mopso.MOPSO.social_coefficient">social_coefficient</span></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Social coefficient for velocity update.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="patatune.mopso.mopso.MOPSO.initial_particles_position">initial_particles_position</span></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Method for initializing particle positions. Options are <code>lower_bounds</code>, <code>upper_bounds</code>, <code>random</code>, <code>gaussian</code>.</p>
+<ul>
+<li>
+<p>if <code>lower_bounds</code>, all particles are initialized at the lower bounds;</p>
+</li>
+<li>
+<p>if <code>upper_bounds</code>, all particles are initialized at the upper bounds;</p>
+</li>
+<li>
+<p>if <code>random</code>, particles are initialized randomly within the bounds;</p>
+</li>
+<li>
+<p>if <code>gaussian</code>, particles are initialized using a truncated Gaussian distribution centered around default_point.</p>
+</li>
+</ul>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="patatune.mopso.mopso.MOPSO.default_point">default_point</span></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Default point for <code>gaussian</code> initialization.</p>
+<ul>
+<li>if None, the center between lower and upper bounds is used.</li>
+</ul>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="patatune.mopso.mopso.MOPSO.exploring_particles">exploring_particles</span></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>If True, particles that do not improve for a certain number of iterations are scattered.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="patatune.mopso.mopso.MOPSO.topology">topology</span></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Topology for social interaction among particles. Options are <code>random</code>, <code>lower_weighted_crowding_distance</code>, <code>higher_weighted_crowding_distance</code>, <code>round_robin</code>.</p>
+<p>See <a class="autorefs autorefs-internal" title="            get_pareto_leader" href="#patatune.mopso.particle.Particle.get_pareto_leader">Particle.get_pareto_leader</a> for more information.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="patatune.mopso.mopso.MOPSO.max_pareto_length">max_pareto_length</span></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Maximum length of the Pareto front. If -1, no limit is applied.</p>
+          </div>
+        </li>
+    </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+<p><span class="doc-section-title">Methods:</span></p>
+    <ul>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            calculate_crowding_distance (patatune.mopso.mopso.MOPSO.calculate_crowding_distance)" href="#patatune.mopso.mopso.MOPSO.calculate_crowding_distance">calculate_crowding_distance</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Calculates the crowding distance for each particle in the Pareto front.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            check_types (patatune.mopso.mopso.MOPSO.check_types)" href="#patatune.mopso.mopso.MOPSO.check_types">check_types</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Check that lower_bounds and upper_bounds have acceptable types and are consistent.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            export_state (patatune.mopso.mopso.MOPSO.export_state)" href="#patatune.mopso.mopso.MOPSO.export_state">export_state</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Exports the current state of the MOPSO optimizer to CSV files.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            get_metric (patatune.mopso.mopso.MOPSO.get_metric)" href="#patatune.mopso.mopso.MOPSO.get_metric">get_metric</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Calculates a specified metric for the current Pareto front.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            load_state (patatune.mopso.mopso.MOPSO.load_state)" href="#patatune.mopso.mopso.MOPSO.load_state">load_state</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Loads the MOPSO optimizer state from a checkpoint file.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            optimize (patatune.mopso.mopso.MOPSO.optimize)" href="#patatune.mopso.mopso.MOPSO.optimize">optimize</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Runs the MOPSO optimization process for a specified number of iterations.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            save_state (patatune.mopso.mopso.MOPSO.save_state)" href="#patatune.mopso.mopso.MOPSO.save_state">save_state</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Saves the current state of the MOPSO optimizer to a checkpoint file.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            scatter_particle (patatune.mopso.mopso.MOPSO.scatter_particle)" href="#patatune.mopso.mopso.MOPSO.scatter_particle">scatter_particle</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Scatters a particle that has not improved for a certain number of iterations.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            step (patatune.mopso.mopso.MOPSO.step)" href="#patatune.mopso.mopso.MOPSO.step">step</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Performs a single optimization step in the MOPSO algorithm.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            update_pareto_front (patatune.mopso.mopso.MOPSO.update_pareto_front)" href="#patatune.mopso.mopso.MOPSO.update_pareto_front">update_pareto_front</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Updates the Pareto front based on the current particles' fitness.</p>
+            </div>
+          </li>
+    </ul>
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h5 id="patatune.mopso.mopso.MOPSO.calculate_crowding_distance" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">calculate_crowding_distance</span>
+
+
+</h5>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">calculate_crowding_distance</span><span class="p">(</span><span class="n">pareto_front</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Calculates the crowding distance for each particle in the Pareto front.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>pareto_front</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>List of particles representing the current Pareto front.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+<b><code>point_to_distance</code></b> (              <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a></code>
+)          –
+          <div class="doc-md-description">
+            <p>A dictionary mapping each particle in the Pareto front to its crowding distance.</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h5 id="patatune.mopso.mopso.MOPSO.check_types" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">check_types</span>
+
+
+</h5>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">check_types</span><span class="p">()</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Check that lower_bounds and upper_bounds have acceptable types and are consistent.</p>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#ValueError">ValueError</a></code>
+            –
+          <div class="doc-md-description">
+            <p>If any lower or upper bound has an unacceptable type,
+        or if lower_bounds and upper_bounds have inconsistent types.</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h5 id="patatune.mopso.mopso.MOPSO.export_state" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">export_state</span>
+
+
+</h5>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">export_state</span><span class="p">()</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Exports the current state of the MOPSO optimizer to CSV files.</p>
+
+
+<details class="uses-the-filemanager-to-export" open>
+  <summary>Uses the FileManager to export</summary>
+  <ul>
+<li>the states of individual particles to 'checkpoint/individual_states.csv'</li>
+<li>the current Pareto front to 'checkpoint/pareto_front.csv'.</li>
+</ul>
+</details>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h5 id="patatune.mopso.mopso.MOPSO.get_metric" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">get_metric</span>
+
+
+</h5>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">get_metric</span><span class="p">(</span><span class="n">metric</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Calculates a specified metric for the current Pareto front.</p>
+<p>For example:</p>
+<pre><code class="language-python">mopso.get_metric(patatune.metrics.generational_distance)
+</code></pre>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>metric</code></b>
+              (<code><span title="function">function</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>A <a class="autorefs autorefs-internal" title="            metrics" href="#patatune.metrics">metric</a> function that takes two arguments: the Pareto front and the reference front.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+<b><code>result</code></b> (              <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>
+)          –
+          <div class="doc-md-description">
+            <p>The calculated metric value.</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h5 id="patatune.mopso.mopso.MOPSO.load_state" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">load_state</span>
+
+
+</h5>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">load_state</span><span class="p">()</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Loads the MOPSO optimizer state from a checkpoint file.</p>
+<p>Uses the FileManager to deserialize and restore the MOPSO object from 'checkpoint/mopso.pkl'.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h5 id="patatune.mopso.mopso.MOPSO.optimize" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">optimize</span>
+
+
+</h5>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">optimize</span><span class="p">(</span><span class="n">num_iterations</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">max_iterations_without_improvement</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Runs the MOPSO optimization process for a specified number of iterations.</p>
+<p>Uses the <code>step</code> method to perform optimization steps and manages the overall optimization loop.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>num_iterations</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>, default:
+                  <code>100</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>Total number of iterations to perform.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>max_iterations_without_improvement</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>, default:
+                  <code>None</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>Maximum number of iterations a particle can go
+without improvement before being scattered. If None, no scattering is performed.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+<b><code>pareto_front</code></b> (              <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a></code>
+)          –
+          <div class="doc-md-description">
+            <p>The final Pareto front after optimization.</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h5 id="patatune.mopso.mopso.MOPSO.save_state" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">save_state</span>
+
+
+</h5>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">save_state</span><span class="p">()</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Saves the current state of the MOPSO optimizer to a checkpoint file.</p>
+<p>Uses the FileManager to serialize and save the MOPSO object to 'checkpoint/mopso.pkl'.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h5 id="patatune.mopso.mopso.MOPSO.scatter_particle" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">scatter_particle</span>
+
+
+</h5>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">scatter_particle</span><span class="p">(</span><span class="n">particle</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="            Particle (patatune.mopso.particle.Particle)" href="#patatune.mopso.particle.Particle">Particle</a></span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Scatters a particle that has not improved for a certain number of iterations.</p>
+<p>The particle's velocity is adjusted to move it towards less crowded areas of the search space.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>particle</code></b>
+              (<code><a class="autorefs autorefs-internal" title="            Particle (patatune.mopso.particle.Particle)" href="#patatune.mopso.particle.Particle">Particle</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>The particle to be scattered.</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h5 id="patatune.mopso.mopso.MOPSO.step" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">step</span>
+
+
+</h5>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">step</span><span class="p">(</span><span class="n">max_iterations_without_improvement</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Performs a single optimization step in the MOPSO algorithm.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>max_iterations_without_improvement</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>, default:
+                  <code>None</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>Maximum number of iterations a particle can go
+without improvement before being scattered. If None, no scattering is performed.</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h5 id="patatune.mopso.mopso.MOPSO.update_pareto_front" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">update_pareto_front</span>
+
+
+</h5>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">update_pareto_front</span><span class="p">()</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Updates the Pareto front based on the current particles' fitness.</p>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+<b><code>crowding_distances</code></b> (              <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a></code>
+)          –
+          <div class="doc-md-description">
+            <p>A dictionary mapping each particle in the Pareto front to its crowding distance.</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h3 id="patatune.mopso.particle" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-module"></code>            <span class="doc doc-object-name doc-module-name">particle</span>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+        <p>Module defining the Particle class for the MOPSO algorithm.</p>
+
+
+
+
+
+
+
+
+
+
+<p><span class="doc-section-title">Classes:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            Particle (patatune.mopso.particle.Particle)" href="#patatune.mopso.particle.Particle">Particle</a></code></b>
+          –
+          <div class="doc-md-description">
+            <p>Class representing a particle in the MOPSO algorithm.</p>
+          </div>
+        </li>
+    </ul>
+
+
+
+
+<p><span class="doc-section-title">Functions:</span></p>
+    <ul>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            boltzmann (patatune.mopso.particle.boltzmann)" href="#patatune.mopso.particle.boltzmann">boltzmann</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Computes a probability distribution function (PDF) based on crowding distances.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            round_robin_topology (patatune.mopso.particle.round_robin_topology)" href="#patatune.mopso.particle.round_robin_topology">round_robin_topology</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Selects a leader particle from the Pareto front in a round-robin fashion.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            weighted_crowding_distance_topology (patatune.mopso.particle.weighted_crowding_distance_topology)" href="#patatune.mopso.particle.weighted_crowding_distance_topology">weighted_crowding_distance_topology</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Selects a leader particle from the Pareto front based on crowding distances.</p>
+            </div>
+          </li>
+    </ul>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h4 id="patatune.mopso.particle.Particle" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">Particle</span>
+
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">Particle</span><span class="p">(</span><span class="n">lower_bound</span><span class="p">,</span> <span class="n">num_objectives</span><span class="p">,</span> <span class="n">num_particles</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">topology</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+
+        <p>Class representing a particle in the MOPSO algorithm.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+          <b><code><span title="patatune.mopso.particle.Particle.position">position</span></code></b>
+              (<code><a class="autorefs autorefs-external" title="numpy.ndarray" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray">ndarray</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Current position of the particle in the search space.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="patatune.mopso.particle.Particle.num_objectives">num_objectives</span></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Number of objectives in the optimization problem.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="patatune.mopso.particle.Particle.num_particles">num_particles</span></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Total number of particles in the swarm.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="patatune.mopso.particle.Particle.velocity">velocity</span></code></b>
+              (<code><a class="autorefs autorefs-external" title="numpy.ndarray" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray">ndarray</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Current velocity of the particle.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="patatune.mopso.particle.Particle.fitness">fitness</span></code></b>
+              (<code><a class="autorefs autorefs-external" title="numpy.ndarray" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray">ndarray</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Current fitness values of the particle for each objective.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="patatune.mopso.particle.Particle.local_best_fitnesses">local_best_fitnesses</span></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>List of local best fitness values found by the particle.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="patatune.mopso.particle.Particle.local_best_positions">local_best_positions</span></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>List of positions corresponding to the local best fitnesses.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="patatune.mopso.particle.Particle.iterations_with_no_improvement">iterations_with_no_improvement</span></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Counter for iterations without improvement.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="patatune.mopso.particle.Particle.id">id</span></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Unique identifier for the particle.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="patatune.mopso.particle.Particle.topology">topology</span></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Topology strategy for selecting global best in the swarm.</p>
+          </div>
+        </li>
+    </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+<p><span class="doc-section-title">Methods:</span></p>
+    <ul>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            get_pareto_leader (patatune.mopso.particle.Particle.get_pareto_leader)" href="#patatune.mopso.particle.Particle.get_pareto_leader">get_pareto_leader</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Selects a leader particle from the Pareto front based on the specified topology.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            set_fitness (patatune.mopso.particle.Particle.set_fitness)" href="#patatune.mopso.particle.Particle.set_fitness">set_fitness</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Sets the fitness of the particle and updates its local best if necessary.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            set_position (patatune.mopso.particle.Particle.set_position)" href="#patatune.mopso.particle.Particle.set_position">set_position</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Sets the position of the particle.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            set_state (patatune.mopso.particle.Particle.set_state)" href="#patatune.mopso.particle.Particle.set_state">set_state</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Sets the complete state of the particle.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            update_best (patatune.mopso.particle.Particle.update_best)" href="#patatune.mopso.particle.Particle.update_best">update_best</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Updates the local best fitnesses and positions of the particle based on its current fitness.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            update_position (patatune.mopso.particle.Particle.update_position)" href="#patatune.mopso.particle.Particle.update_position">update_position</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Updates the position of the particle based on its velocity and the problem boundaries.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            update_velocity (patatune.mopso.particle.Particle.update_velocity)" href="#patatune.mopso.particle.Particle.update_velocity">update_velocity</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Updates the velocity of the particle based on its local best and the global best.</p>
+            </div>
+          </li>
+    </ul>
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h5 id="patatune.mopso.particle.Particle.get_pareto_leader" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">get_pareto_leader</span>
+
+
+</h5>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">get_pareto_leader</span><span class="p">(</span><span class="n">pareto_front</span><span class="p">,</span> <span class="n">crowding_distances</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Selects a leader particle from the Pareto front based on the specified topology.</p>
+<p>If the topology is "random", a random particle from the Pareto front is selected.
+If the topology is "lower_weighted_crowding_distance", a particle is selected
+with a probability inversely proportional to its crowding distance calling the <a class="autorefs autorefs-internal" title="            weighted_crowding_distance_topology" href="#patatune.mopso.particle.weighted_crowding_distance_topology">weighted_crowding_distance_topology</a> function.
+If the topology is "higher_weighted_crowding_distance", a particle is selected
+with a probability proportional to its crowding distance calling the <a class="autorefs autorefs-internal" title="            weighted_crowding_distance_topology" href="#patatune.mopso.particle.weighted_crowding_distance_topology">weighted_crowding_distance_topology</a> function.
+If the topology is "round_robin", particles are selected in a round-robin fashion
+based on the particle's ID calling the <a class="autorefs autorefs-internal" title="            round_robin_topology" href="#patatune.mopso.particle.round_robin_topology">round_robin_topology</a> function.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>pareto_front</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>List of particles representing the current Pareto front.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>crowding_distances</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Dictionary mapping particles to their crowding distances.</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h5 id="patatune.mopso.particle.Particle.set_fitness" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">set_fitness</span>
+
+
+</h5>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">set_fitness</span><span class="p">(</span><span class="n">fitness</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Sets the fitness of the particle and updates its local best if necessary.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>fitness</code></b>
+              (<code><a class="autorefs autorefs-external" title="numpy.ndarray" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray">ndarray</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>New fitness values for the particle.</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h5 id="patatune.mopso.particle.Particle.set_position" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">set_position</span>
+
+
+</h5>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">set_position</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Sets the position of the particle.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>position</code></b>
+              (<code><a class="autorefs autorefs-external" title="numpy.ndarray" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray">ndarray</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>New position for the particle.</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h5 id="patatune.mopso.particle.Particle.set_state" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">set_state</span>
+
+
+</h5>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">set_state</span><span class="p">(</span><span class="n">velocity</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">best_position</span><span class="p">,</span> <span class="n">fitness</span><span class="p">,</span> <span class="n">best_fitness</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Sets the complete state of the particle.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>velocity</code></b>
+              (<code><a class="autorefs autorefs-external" title="numpy.ndarray" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray">ndarray</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>New velocity for the particle.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>position</code></b>
+              (<code><a class="autorefs autorefs-external" title="numpy.ndarray" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray">ndarray</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>New position for the particle.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>best_position</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>New list of local best positions for the particle.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>fitness</code></b>
+              (<code><a class="autorefs autorefs-external" title="numpy.ndarray" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray">ndarray</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>New fitness values for the particle.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>best_fitness</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>New list of local best fitness values for the particle.</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h5 id="patatune.mopso.particle.Particle.update_best" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">update_best</span>
+
+
+</h5>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">update_best</span><span class="p">()</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Updates the local best fitnesses and positions of the particle based on its current fitness.</p>
+<p>Uses the get_dominated utility function to identify non-dominated solutions.
+Resets the iterations_with_no_improvement counter if there is an improvement.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h5 id="patatune.mopso.particle.Particle.update_position" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">update_position</span>
+
+
+</h5>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">update_position</span><span class="p">(</span><span class="n">lower_bound</span><span class="p">,</span> <span class="n">upper_bound</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Updates the position of the particle based on its velocity and the problem boundaries.</p>
+<p>If the variable is of integer type, the new position is rounded.
+If the variable is of boolean type, the new position is determined by a threshold of 0.5.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>lower_bound</code></b>
+              (<code><a class="autorefs autorefs-external" title="numpy.ndarray" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray">ndarray</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Lower bounds for each dimension of the search space.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>upper_bound</code></b>
+              (<code><a class="autorefs autorefs-external" title="numpy.ndarray" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray">ndarray</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Upper bounds for each dimension of the search space.</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h5 id="patatune.mopso.particle.Particle.update_velocity" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">update_velocity</span>
+
+
+</h5>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">update_velocity</span><span class="p">(</span><span class="n">pareto_front</span><span class="p">,</span> <span class="n">crowding_distances</span><span class="p">,</span> <span class="n">inertia_weight</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">cognitive_coefficient</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">social_coefficient</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Updates the velocity of the particle based on its local best and the global best.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>pareto_front</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>List of particles representing the current Pareto front.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>crowding_distances</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Dictionary mapping particles to their crowding distances.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>inertia_weight</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>, default:
+                  <code>0.5</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>Weight for the inertia component (default: 0.5).</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>cognitive_coefficient</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>, default:
+                  <code>1</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>Coefficient for the cognitive component (default: 1).</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>social_coefficient</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>, default:
+                  <code>1</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>Coefficient for the social component (default: 1).</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="patatune.mopso.particle.boltzmann" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <span class="doc doc-object-name doc-function-name">boltzmann</span>
+
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">boltzmann</span><span class="p">(</span><span class="n">crowding_distances</span><span class="p">,</span> <span class="n">higher</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Computes a probability distribution function (PDF) based on crowding distances.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>crowding_distances</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Dictionary mapping particles to their crowding distances.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>higher</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>If True, computes PDF favoring higher crowding distances.
+            If False, computes PDF favoring lower crowding distances.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a></code>
+          –
+          <div class="doc-md-description">
+            <p>A list representing the probability distribution function for selecting particles.</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="patatune.mopso.particle.round_robin_topology" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <span class="doc doc-object-name doc-function-name">round_robin_topology</span>
+
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">round_robin_topology</span><span class="p">(</span><span class="n">pareto_front</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Selects a leader particle from the Pareto front in a round-robin fashion.</p>
+<p>The particle is selected based on its ID modulo the size of the Pareto front.
+If the ID exceeds the size of the Pareto front, it wraps around.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>pareto_front</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>List of particles representing the current Pareto front.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>id</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Unique identifier for the particle.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><a class="autorefs autorefs-internal" title="            Particle (patatune.mopso.particle.Particle)" href="#patatune.mopso.particle.Particle">Particle</a></code>
+          –
+          <div class="doc-md-description">
+            <p>The selected leader particle from the Pareto front.</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="patatune.mopso.particle.weighted_crowding_distance_topology" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <span class="doc doc-object-name doc-function-name">weighted_crowding_distance_topology</span>
+
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">weighted_crowding_distance_topology</span><span class="p">(</span><span class="n">pareto_front</span><span class="p">,</span> <span class="n">crowding_distances</span><span class="p">,</span> <span class="n">higher</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Selects a leader particle from the Pareto front based on crowding distances.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>pareto_front</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>List of particles representing the current Pareto front.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>crowding_distances</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Dictionary mapping particles to their crowding distances.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>higher</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>If True, selects particles with higher crowding distances with higher probability.
+            If False, selects particles with lower crowding distances with higher probability.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><a class="autorefs autorefs-internal" title="            Particle (patatune.mopso.particle.Particle)" href="#patatune.mopso.particle.Particle">Particle</a></code>
+          –
+          <div class="doc-md-description">
+            <p>The selected leader particle from the Pareto front.</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="patatune.objective" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-module"></code>            <span class="doc doc-object-name doc-module-name">objective</span>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+        <p>Module defining various Objective classes for multi-objective optimization in patatune.</p>
+<p>This module includes the base Objective class and its subclasses.</p>
+
+
+
+
+
+
+
+
+
+
+<p><span class="doc-section-title">Classes:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            AsyncElementWiseObjective (patatune.objective.AsyncElementWiseObjective)" href="#patatune.objective.AsyncElementWiseObjective">AsyncElementWiseObjective</a></code></b>
+          –
+          <div class="doc-md-description">
+            <p>Asynchronous element-wise objective class.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            BatchObjective (patatune.objective.BatchObjective)" href="#patatune.objective.BatchObjective">BatchObjective</a></code></b>
+          –
+          <div class="doc-md-description">
+            <p>Batch objective class.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            ElementWiseObjective (patatune.objective.ElementWiseObjective)" href="#patatune.objective.ElementWiseObjective">ElementWiseObjective</a></code></b>
+          –
+          <div class="doc-md-description">
+            <p>Element-wise objective class.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            Objective (patatune.objective.Objective)" href="#patatune.objective.Objective">Objective</a></code></b>
+          –
+          <div class="doc-md-description">
+            <p>Base class for defining objective functions.</p>
+          </div>
+        </li>
+    </ul>
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="patatune.objective.AsyncElementWiseObjective" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">AsyncElementWiseObjective</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">AsyncElementWiseObjective</span><span class="p">(</span><span class="n">objective_functions</span><span class="p">,</span> <span class="n">num_objectives</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">directions</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">objective_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">true_pareto</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="            Objective (patatune.objective.Objective)" href="#patatune.objective.Objective">Objective</a></code></p>
+
+
+        <p>Asynchronous element-wise objective class.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+<p><span class="doc-section-title">Methods:</span></p>
+    <ul>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            evaluate (patatune.objective.AsyncElementWiseObjective.evaluate)" href="#patatune.objective.AsyncElementWiseObjective.evaluate">evaluate</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Passes each item one by one to each asynchronous objective function and collects the results.</p>
+            </div>
+          </li>
+    </ul>
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="patatune.objective.AsyncElementWiseObjective.evaluate" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">evaluate</span>
+
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">evaluate</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Passes each item one by one to each asynchronous objective function and collects the results.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>items</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>List of parameter sets to evaluate of shape (num_particles, num_parameters).</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><a class="autorefs autorefs-external" title="numpy.ndarray" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray">ndarray</a></code>
+          –
+          <div class="doc-md-description">
+            <p>Array of shape (num_particles, num_objectives) with evaluated objective values.</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="patatune.objective.BatchObjective" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">BatchObjective</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">BatchObjective</span><span class="p">(</span><span class="n">objective_functions</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">num_objectives</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">directions</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">objective_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">true_pareto</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="            Objective (patatune.objective.Objective)" href="#patatune.objective.Objective">Objective</a></code></p>
+
+
+        <p>Batch objective class.</p>
+<p>Inherits from the base Objective class and implements the evaluate method
+to evaluate each objective function on batches of items asynchronously.</p>
+<p>Attributes:
+    batch_size (int): Size of each batch for evaluation.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+<p><span class="doc-section-title">Methods:</span></p>
+    <ul>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            evaluate (patatune.objective.BatchObjective.evaluate)" href="#patatune.objective.BatchObjective.evaluate">evaluate</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Passes items in batches to each objective function asynchronously and collects the results.</p>
+            </div>
+          </li>
+    </ul>
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="patatune.objective.BatchObjective.evaluate" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">evaluate</span>
+
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">evaluate</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Passes items in batches to each objective function asynchronously and collects the results.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>items</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>List of parameter sets to evaluate of shape (num_particles, num_parameters).</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><a class="autorefs autorefs-external" title="numpy.ndarray" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray">ndarray</a></code>
+          –
+          <div class="doc-md-description">
+            <p>Array of shape (num_particles, num_objectives) with evaluated objective values.</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="patatune.objective.ElementWiseObjective" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">ElementWiseObjective</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">ElementWiseObjective</span><span class="p">(</span><span class="n">objective_functions</span><span class="p">,</span> <span class="n">num_objectives</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">directions</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">objective_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">true_pareto</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="            Objective (patatune.objective.Objective)" href="#patatune.objective.Objective">Objective</a></code></p>
+
+
+        <p>Element-wise objective class.</p>
+<p>Inherits from the base Objective class and implements the evaluate method
+to evaluate each objective function on individual items.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+<p><span class="doc-section-title">Methods:</span></p>
+    <ul>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            evaluate (patatune.objective.ElementWiseObjective.evaluate)" href="#patatune.objective.ElementWiseObjective.evaluate">evaluate</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Passes each item one by one to each objective function and collects the results.</p>
+            </div>
+          </li>
+    </ul>
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="patatune.objective.ElementWiseObjective.evaluate" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">evaluate</span>
+
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">evaluate</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Passes each item one by one to each objective function and collects the results.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>items</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>List of parameter sets to evaluate of shape (num_particles, num_parameters).</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><a class="autorefs autorefs-external" title="numpy.ndarray" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray">ndarray</a></code>
+          –
+          <div class="doc-md-description">
+            <p>Array of shape (num_particles, num_objectives) with evaluated objective values.</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="patatune.objective.Objective" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">Objective</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">Objective</span><span class="p">(</span><span class="n">objective_functions</span><span class="p">,</span> <span class="n">num_objectives</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">directions</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">objective_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">true_pareto</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+
+        <p>Base class for defining objective functions.</p>
+<p>The class is used to evaluate multiple objective functions for all particles simultaneously.
+The classes that inherit from this one should implement the <code>evaluate</code> method.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+          <b><code><span title="patatune.objective.Objective.objective_functions">objective_functions</span></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>List of objective functions.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="patatune.objective.Objective.num_objectives">num_objectives</span></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Number of objectives (optional, default: len(objective_functions)).</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="patatune.objective.Objective.directions">directions</span></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>)
+          –
+          <div class="doc-md-description">
+            <p>List indicating whether to 'minimize' or 'maximize' each objective (optional, default: ['minimize', 'minimize', ...]).</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="patatune.objective.Objective.objective_names">objective_names</span></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>List of names for each objective (optional, default: ["objective_0", "objective_1", ...]).</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="patatune.objective.Objective.true_pareto">true_pareto</span></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/array.html#module-array">array</a> - <span title="like">like</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>True Pareto front for reference (optional).</p>
+          </div>
+        </li>
+    </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+<p><span class="doc-section-title">Methods:</span></p>
+    <ul>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            evaluate (patatune.objective.Objective.evaluate)" href="#patatune.objective.Objective.evaluate">evaluate</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Passes all items to each objective function and collects the results.</p>
+            </div>
+          </li>
+    </ul>
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="patatune.objective.Objective.evaluate" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">evaluate</span>
+
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">evaluate</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Passes all items to each objective function and collects the results.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>items</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>List of parameter sets to evaluate of shape (num_particles, num_parameters).</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><a class="autorefs autorefs-external" title="numpy.ndarray" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray">ndarray</a></code>
+          –
+          <div class="doc-md-description">
+            <p>Array of shape (num_particles, num_objectives) with evaluated objective values.</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="patatune.optimizer" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-module"></code>            <span class="doc doc-object-name doc-module-name">optimizer</span>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+        <p>Optimizer module for patatune.</p>
+<p>This module contains the base Optimizer class that serves as a foundation for
+various optimization algorithms implemented in the patatune package.</p>
+
+
+
+
+
+
+
+
+
+
+<p><span class="doc-section-title">Classes:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            Optimizer (patatune.optimizer.Optimizer)" href="#patatune.optimizer.Optimizer">Optimizer</a></code></b>
+          –
+          <div class="doc-md-description">
+            <p>Base class for optimization algorithms in patatune.</p>
+          </div>
+        </li>
+    </ul>
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="patatune.optimizer.Optimizer" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">Optimizer</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">Optimizer</span><span class="p">()</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+
+        <p>Base class for optimization algorithms in patatune.
+The class that inherits from this one should implement <code>__init__</code>, <code>step</code>, and <code>optimize</code> methods.
+Raises a <code>NotImplementedError</code> if any of these methods are not implemented in the subclass.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+<p><span class="doc-section-title">Methods:</span></p>
+    <ul>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            optimize (patatune.optimizer.Optimizer.optimize)" href="#patatune.optimizer.Optimizer.optimize">optimize</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Run the optimization process.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            step (patatune.optimizer.Optimizer.step)" href="#patatune.optimizer.Optimizer.step">step</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Perform a single optimization step.</p>
+            </div>
+          </li>
+    </ul>
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="patatune.optimizer.Optimizer.optimize" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">optimize</span>
+
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">optimize</span><span class="p">()</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Run the optimization process.
+This method should coordinate the optimization steps and handle any necessary
+setup or teardown for the optimization process.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="patatune.optimizer.Optimizer.step" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">step</span>
+
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">step</span><span class="p">()</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Perform a single optimization step.
+This method should update the model parameters based on the optimization algorithm.</p>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="patatune.util" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-module"></code>            <span class="doc doc-object-name doc-module-name">util</span>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+        <p>Utility functions and classes for Patatune.</p>
+<p>This module provides various utility functions and classes used throughout the patatune package,
+including file management, logging, randomization, and dominance checking.</p>
+<p>The import of <a href="https://numba.pydata.org/">numba</a> and <a href="https://zarr.readthedocs.io/en/stable/">zarr</a> is optional to allow for flexibility in environments where these
+packages may not be installed.</p>
+<p>If numba is not installed, a dummy njit decorator is provided that does nothing.</p>
+<p>If zarr is not installed, a warning is logged and Zarr functionality is disabled.</p>
+<p>A default logger named "patatune" is configured with a custom formatter that adds colors based on log level.
+(See <a class="autorefs autorefs-internal" title="            CustomFormatter" href="#patatune.util.CustomFormatter">CustomFormatter</a> for details.)</p>
+<p>A system-wide exception handler is set up to log uncaught exceptions using the patatune logger.
+(See <a class="autorefs autorefs-internal" title="            handle_exception" href="#patatune.util.handle_exception">handle_exception</a> for details.)</p>
+
+
+
+
+
+
+
+
+
+
+<p><span class="doc-section-title">Classes:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            CustomFormatter (patatune.util.CustomFormatter)" href="#patatune.util.CustomFormatter">CustomFormatter</a></code></b>
+          –
+          <div class="doc-md-description">
+            <p>Custom logging formatter to add colors based on log level.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            FileManager (patatune.util.FileManager)" href="#patatune.util.FileManager">FileManager</a></code></b>
+          –
+          <div class="doc-md-description">
+            <p>File management utility class for saving and loading data in various formats.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            Randomizer (patatune.util.Randomizer)" href="#patatune.util.Randomizer">Randomizer</a></code></b>
+          –
+          <div class="doc-md-description">
+            <p>Random number generator utility class.</p>
+          </div>
+        </li>
+    </ul>
+
+
+
+
+<p><span class="doc-section-title">Functions:</span></p>
+    <ul>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            get_dominated (patatune.util.get_dominated)" href="#patatune.util.get_dominated">get_dominated</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Determine which particles are dominated within a population.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            handle_exception (patatune.util.handle_exception)" href="#patatune.util.handle_exception">handle_exception</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Global exception handler to log uncaught exceptions.</p>
+            </div>
+          </li>
+    </ul>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="patatune.util.CustomFormatter" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">CustomFormatter</span>
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-external" title="logging.Formatter" href="https://docs.python.org/3/library/logging.html#logging.Formatter">Formatter</a></code></p>
+
+
+        <p>Custom logging formatter to add colors based on log level.</p>
+
+
+<details class="notes" open>
+  <summary>Notes</summary>
+  <p>This class customizes the log format by adding color codes for different log levels.
+DEBUG and INFO messages are grey, WARNING messages are yellow, ERROR messages are red,
+and CRITICAL messages are bold red.</p>
+<p>The log is formatted as:</p>
+<p><code>%(asctime)s - %(name)s - %(levelname)s - %(message)s (%(filename)s:%(lineno)d)</code></p>
+<p>For example:</p>
+<p><code>2024-01-01 12:00:00,000 - patatune - WARNING - numba package is not installed. The code will run slower. (util.py:206)</code></p>
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="patatune.util.FileManager" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">FileManager</span>
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+
+        <p>File management utility class for saving and loading data in various formats.</p>
+<p>This class provides methods to save and load data in CSV, JSON, Zarr, and Pickle formats.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+          <b><code><span title="patatune.util.FileManager.saving_enabled">saving_enabled</span></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Global flag to enable/disable saving.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="patatune.util.FileManager.saving_csv_enabled">saving_csv_enabled</span></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Flag to enable/disable CSV saving.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="patatune.util.FileManager.saving_json_enabled">saving_json_enabled</span></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Flag to enable/disable JSON saving.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="patatune.util.FileManager.saving_zarr_enabled">saving_zarr_enabled</span></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Flag to enable/disable Zarr saving.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="patatune.util.FileManager.saving_pickle_enabled">saving_pickle_enabled</span></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Flag to enable/disable Pickle saving.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="patatune.util.FileManager.loading_enabled">loading_enabled</span></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Global flag to enable/disable loading.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="patatune.util.FileManager.headers_enabled">headers_enabled</span></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Flag to enable/disable headers when saving/loading CSV files.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="patatune.util.FileManager.working_dir">working_dir</span></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Directory where files will be saved/loaded from.</p>
+          </div>
+        </li>
+    </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+<p><span class="doc-section-title">Methods:</span></p>
+    <ul>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            load_csv
+
+
+  
+      classmethod
+   (patatune.util.FileManager.load_csv)" href="#patatune.util.FileManager.load_csv">load_csv</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Load data from a CSV file.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            load_json
+
+
+  
+      classmethod
+   (patatune.util.FileManager.load_json)" href="#patatune.util.FileManager.load_json">load_json</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Load a dictionary from a JSON file.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            load_pickle
+
+
+  
+      classmethod
+   (patatune.util.FileManager.load_pickle)" href="#patatune.util.FileManager.load_pickle">load_pickle</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Load an object from a Pickle file.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            save_csv
+
+
+  
+      classmethod
+   (patatune.util.FileManager.save_csv)" href="#patatune.util.FileManager.save_csv">save_csv</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Save a list of lists or 2D array to a CSV file.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            save_json
+
+
+  
+      classmethod
+   (patatune.util.FileManager.save_json)" href="#patatune.util.FileManager.save_json">save_json</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Save a dictionary to a JSON file.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            save_pickle
+
+
+  
+      classmethod
+   (patatune.util.FileManager.save_pickle)" href="#patatune.util.FileManager.save_pickle">save_pickle</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Save an object to a Pickle file.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            save_zarr
+
+
+  
+      classmethod
+   (patatune.util.FileManager.save_zarr)" href="#patatune.util.FileManager.save_zarr">save_zarr</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Save a dictionary of arrays to a Zarr file.</p>
+            </div>
+          </li>
+    </ul>
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="patatune.util.FileManager.load_csv" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">load_csv</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">load_csv</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Load data from a CSV file.</p>
+<p>The method loads data from a CSV file in the <code>working_dir</code> path.
+If <code>headers_enabled</code> is True, it assumes the first row contains headers.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>filename</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Name of the input CSV file.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#tuple">tuple</a></code>
+          –
+          <div class="doc-md-description">
+            <p>A tuple containing the data as a NumPy array of floats and the headers (if any) as a NumPy array of strings.</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="patatune.util.FileManager.load_json" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">load_json</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">load_json</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Load a dictionary from a JSON file.</p>
+<p>The method loads a dictionary from a JSON file in the <code>working_dir</code> path.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>filename</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Name of the input JSON file.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a></code>
+          –
+          <div class="doc-md-description">
+            <p>The loaded dictionary.</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="patatune.util.FileManager.load_pickle" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">load_pickle</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">load_pickle</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Load an object from a Pickle file.</p>
+<p>The method loads an object from a Pickle file in the <code>working_dir</code> path.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>filename</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Name of the input Pickle file.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#any">any</a></code>
+          –
+          <div class="doc-md-description">
+            <p>The loaded object.</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="patatune.util.FileManager.save_csv" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">save_csv</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">save_csv</span><span class="p">(</span><span class="n">csv_list</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;file.csv&#39;</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Save a list of lists or 2D array to a CSV file.</p>
+<p>The method saves the data to a CSV file in the <code>working_dir</code> path.
+The CSV file is comma-separated and the data is written as floats with 18 decimal places and dot as decimal separator.
+The method creates the necessary directories if they do not exist.
+If headers are provided and <code>headers_enabled</code> is True, they will be written as the first row.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>csv_list</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>] | <a class="autorefs autorefs-external" title="numpy.ndarray" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray">ndarray</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Data to be saved.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>filename</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>, default:
+                  <code>&#39;file.csv&#39;</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>Name of the output CSV file.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>headers</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>, default:
+                  <code>None</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>Column headers for the CSV file.</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="patatune.util.FileManager.save_json" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">save_json</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">save_json</span><span class="p">(</span><span class="n">dictionary</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Save a dictionary to a JSON file.</p>
+<p>The method saves a dictionary to a JSON file in the <code>working_dir</code> path.
+It creates the necessary directories if they do not exist.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>dictionary</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Dictionary to be saved.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>filename</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Name of the output JSON file.</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="patatune.util.FileManager.save_pickle" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">save_pickle</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">save_pickle</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Save an object to a Pickle file.</p>
+<p>The method saves an object to a Pickle file in the <code>working_dir</code> path.
+It creates the necessary directories if they do not exist.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>obj</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#any">any</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>The object to be saved.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>filename</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Name of the output Pickle file.</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="patatune.util.FileManager.save_zarr" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">save_zarr</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">save_zarr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Save a dictionary of arrays to a Zarr file.</p>
+<p>The method saves a dictionary of arrays to a Zarr file in the <code>working_dir</code> path.
+It creates the necessary directories if they do not exist.
+The keys of the dictionary are used as group names in the Zarr file.
+If a key is an integer, it is prefixed with "iteration_" to form the group name.
+Additional attributes can be added to the root group via <code>kwargs</code>.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>obj</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>The dictionary of arrays to be saved.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>filename</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Name of the output Zarr file.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>**kwargs</code></b>
+          –
+          <div class="doc-md-description">
+            <p>Additional attributes to be saved in the root group as key-value pairs where the key is the attribute name and the value is the attribute value.</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="patatune.util.Randomizer" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">Randomizer</span>
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+
+        <p>Random number generator utility class.</p>
+<p>Implements a class-level random number generator using NumPy's default_rng.
+This class provides a shared random number generator that can be used throughout the package.
+Can be accessed via <code>Randomizer.rng</code>.</p>
+<p>For example, to set a seed:</p>
+<pre><code class="language-python">Randomizer.rng = np.random.default_rng(seed=42)
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="patatune.util.get_dominated" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <span class="doc doc-object-name doc-function-name">get_dominated</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">get_dominated</span><span class="p">(</span><span class="n">particles</span><span class="p">,</span> <span class="n">pareto_length</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Determine which particles are dominated within a population.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>particles</code></b>
+              (<code><a class="autorefs autorefs-external" title="numpy.ndarray" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray">ndarray</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>2-D array of objective values for each particle (shape: [n_particles, n_objectives]).</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>pareto_length</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Number of particles considered part of the current Pareto set (these are skipped in comparisons).</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><a class="autorefs autorefs-external" title="numpy.ndarray" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray">ndarray</a></code>
+          –
+          <div class="doc-md-description">
+            <p>Boolean array of length <code>len(particles)</code> where True means the particle is dominated by at least one other particle.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<details class="notes" open>
+  <summary>Notes</summary>
+  <p>The function is decorated with a (possible) <code>njit</code> to allow optional numba acceleration.</p>
+</details>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="patatune.util.handle_exception" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <span class="doc doc-object-name doc-function-name">handle_exception</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">handle_exception</span><span class="p">(</span><span class="n">exc_type</span><span class="p">,</span> <span class="n">exc_value</span><span class="p">,</span> <span class="n">exc_traceback</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Global exception handler to log uncaught exceptions.</p>
+<p>The function logs uncaught exceptions using the default patatune logger.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>exc_type</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#type">type</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>The exception type.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>exc_value</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#Exception">Exception</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>The exception instance.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>exc_traceback</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/traceback.html#module-traceback">traceback</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>The traceback object.</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "search.suggest", "search.highlight", "toc.integrate", "navigation.top"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>
