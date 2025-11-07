@@ -1,5 +1,12 @@
 site_name: patatune
+theme:
+  name: material
+  logo: logo_white.svg
+  favicon: favicon.svg
 
+  palette:
+    scheme: slate
+    primary: red
 # site navigation
 nav:
     - Home: index.md
@@ -16,10 +23,17 @@ plugins:
         - https://docs.python.org/3/objects.inv
         # Also load inventories of your dependencies, generally served at
         # https://docs-url-for-your-dependency/objects.inv.
+        - https://numpy.org/doc/stable/objects.inv
+        - https://pandas.pydata.org/pandas-docs/stable/objects.inv
+        - https://scikit-learn.org/stable/objects.inv
+        - https://dill.readthedocs.io/en/latest/objects.inv
+        - https://matplotlib.org/stable/objects.inv
+        - https://zarr.readthedocs.io/en/stable/objects.inv
 
         options:
           show_submodules: true
           show_source: false
+
           # DOCSTRINGS -------------------------------------------------------------
           docstring_options:
             # Discard first line of `__init__` method docstrings,
@@ -28,6 +42,7 @@ plugins:
 
           # Tables are generally too large, lists will fix this.
           docstring_section_style: list
+          docstring_style: google
 
           # CROSS-REFERENCES -------------------------------------------------------
           # Enable relative crossrefs and scoped crossrefs, see Docstrings options.
