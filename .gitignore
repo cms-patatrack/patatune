@@ -172,3 +172,6 @@ tmp
 *.npy
 *.zip
 *.html
+
+# generated index file
+docs/index.md

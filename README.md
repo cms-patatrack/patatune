@@ -1,4 +1,7 @@
 <style> .md-content .md-typeset h1 { display: none; } </style>
+
+<style> .md-content .md-typeset h1 { display: none; } </style>
+
 ![Patatune](https://raw.githubusercontent.com/cms-patatrack/patatune/refs/heads/docs/docs/Patatune.png)
 
 *A Framework for Metaheuristic Multi-Objective Optimization for High Energy Physics*
