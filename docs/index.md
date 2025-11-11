@@ -1,4 +1,1 @@
-# patatune
-
-[API](api.md)
-
+../README.md

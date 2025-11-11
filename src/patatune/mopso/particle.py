@@ -41,7 +41,7 @@ class Particle:
                         social_coefficient=1):
         """Updates the velocity of the particle based on its local best and the global best.
 
-        Parameters:
+        Args:
             pareto_front (list): List of particles representing the current Pareto front.
             crowding_distances (dict): Dictionary mapping particles to their crowding distances.
             inertia_weight (float): Weight for the inertia component (default: 0.5).
@@ -71,7 +71,7 @@ class Particle:
         If the variable is of integer type, the new position is rounded.
         If the variable is of boolean type, the new position is determined by a threshold of 0.5.
 
-        Parameters:
+        Args:
             lower_bound (np.ndarray): Lower bounds for each dimension of the search space.
             upper_bound (np.ndarray): Upper bounds for each dimension of the search space.
         """
@@ -88,7 +88,7 @@ class Particle:
     def set_fitness(self, fitness):
         """Sets the fitness of the particle and updates its local best if necessary.
 
-        Parameters:
+        Args:
             fitness (np.ndarray): New fitness values for the particle.
         """
         self.fitness = fitness
@@ -97,7 +97,7 @@ class Particle:
     def set_position(self, position):
         """Sets the position of the particle.
 
-        Parameters:
+        Args:
             position (np.ndarray): New position for the particle.
         """
         self.position = position
@@ -105,7 +105,7 @@ class Particle:
     def set_state(self, velocity, position, best_position, fitness, best_fitness):
         """Sets the complete state of the particle.
 
-        Parameters:
+        Args:
             velocity (np.ndarray): New velocity for the particle.
             position (np.ndarray): New position for the particle.
             best_position (list): New list of local best positions for the particle.
@@ -155,7 +155,7 @@ class Particle:
         If the topology is "round_robin", particles are selected in a round-robin fashion
         based on the particle's ID calling the [round_robin_topology][patatune.mopso.particle.round_robin_topology] function.
 
-        Parameters:
+        Args:
             pareto_front (list): List of particles representing the current Pareto front.
             crowding_distances (dict): Dictionary mapping particles to their crowding distances.
         """
@@ -175,7 +175,7 @@ class Particle:
 def weighted_crowding_distance_topology(pareto_front, crowding_distances, higher):
     """ Selects a leader particle from the Pareto front based on crowding distances.
     
-    Parameters:
+    Args:
         pareto_front (list): List of particles representing the current Pareto front.
         crowding_distances (dict): Dictionary mapping particles to their crowding distances.
         higher (bool): If True, selects particles with higher crowding distances with higher probability.
@@ -194,7 +194,7 @@ def round_robin_topology(pareto_front, id):
     The particle is selected based on its ID modulo the size of the Pareto front.
     If the ID exceeds the size of the Pareto front, it wraps around.
     
-    Parameters:
+    Args:
         pareto_front (list): List of particles representing the current Pareto front.
         id (int): Unique identifier for the particle.
     
@@ -208,7 +208,7 @@ def round_robin_topology(pareto_front, id):
 def boltzmann(crowding_distances, higher):
     """ Computes a probability distribution function (PDF) based on crowding distances.
 
-    Parameters:
+    Args:
         crowding_distances (dict): Dictionary mapping particles to their crowding distances.
         higher (bool): If True, computes PDF favoring higher crowding distances.
                         If False, computes PDF favoring lower crowding distances.

@@ -12,12 +12,14 @@ theme:
     - toc.integrate 
     - navigation.top
     - content.action.view
+    - navigation.tabs
+    - navigation.tabs.sticky
   palette:
     scheme: slate
     primary: red
 # site navigation
 nav:
-    - Home: index.md
+    - patatune: index.md
     - API Reference: api.md
 
 plugins:

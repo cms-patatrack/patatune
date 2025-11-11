@@ -1,6 +1,7 @@
-"""Module defining various Objective classes for multi-objective optimization in patatune.
+"""Objective classes for multi-objective optimization.
 
-This module includes the base Objective class and its subclasses.
+Provides a base [`Objective`][patatune.objective.Objective] and concrete implementations for
+element-wise, batched and asynchronous evaluations.
 """
 
 import numpy as np
@@ -12,12 +13,15 @@ class Objective():
     The class is used to evaluate multiple objective functions for all particles simultaneously.
     The classes that inherit from this one should implement the `evaluate` method.
     
-    Attributes:
-        objective_functions (list): List of objective functions.
-        num_objectives (int): Number of objectives (optional, default: len(objective_functions)).
-        directions (list[str]): List indicating whether to 'minimize' or 'maximize' each objective (optional, default: ['minimize', 'minimize', ...]).
-        objective_names (list): List of names for each objective (optional, default: ["objective_0", "objective_1", ...]).
-        true_pareto (array-like): True Pareto front for reference (optional).
+    Args:
+        objective_functions (list | callable): A list of callables (or a single
+            callable) that compute objective values.
+        num_objectives (int, optional): Number of objectives. Defaults to
+            ``len(objective_functions)``.
+        directions (list[str], optional): List of 'minimize' or 'maximize' for
+            each objective. Defaults to all 'minimize'.
+        objective_names (list[str], optional): Names for each objective.
+        true_pareto (array-like, optional): True Pareto front for reference.
     """
     def __init__(self, objective_functions, num_objectives=None, directions=None, objective_names=None ,true_pareto=None) -> None:
         if not isinstance(objective_functions, list):
@@ -57,7 +61,7 @@ class Objective():
         """Passes all items to each objective function and collects the results.
         
         Args:
-            items (list): List of parameter sets to evaluate of shape (num_particles, num_parameters).
+            items (list): List of parameter sets to evaluate with shape ``(num_particles, num_parameters)``.
 
         Returns:
             (np.ndarray): Array of shape (num_particles, num_objectives) with evaluated objective values.

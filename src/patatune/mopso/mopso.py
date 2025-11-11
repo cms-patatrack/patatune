@@ -273,7 +273,7 @@ class MOPSO(Optimizer):
                 without improvement before being scattered. If None, no scattering is performed.
 
         Returns:
-            pareto_front (list): The final Pareto front after optimization.
+            (list): The final Pareto front after optimization.
         """
         Logger.info(f"Starting MOPSO optimization from iteration {self.iteration} to {num_iterations}")
         for _ in range(self.iteration, num_iterations):
@@ -287,7 +287,7 @@ class MOPSO(Optimizer):
         """Updates the Pareto front based on the current particles' fitness.
         
         Returns:
-            crowding_distances (dict): A dictionary mapping each particle in the Pareto front to its crowding distance.
+            (dict): A dictionary mapping each particle in the Pareto front to its crowding distance.
         """
         Logger.debug("Updating Pareto front")
         pareto_lenght = len(self.pareto_front)
@@ -315,11 +315,11 @@ class MOPSO(Optimizer):
     def calculate_crowding_distance(self, pareto_front):
         """Calculates the crowding distance for each particle in the Pareto front.
 
-        Parameters:
+        Args:
             pareto_front (list): List of particles representing the current Pareto front.
         
         Returns:
-            point_to_distance (dict): A dictionary mapping each particle in the Pareto front to its crowding distance.
+            (dict): A dictionary mapping each particle in the Pareto front to its crowding distance.
         """
         if len(pareto_front) == 0:
             return []
@@ -349,7 +349,7 @@ class MOPSO(Optimizer):
 
         The particle's velocity is adjusted to move it towards less crowded areas of the search space.
 
-        Parameters:
+        Args:
             particle (Particle): The particle to be scattered.
         """
         Logger.debug(
@@ -372,11 +372,11 @@ class MOPSO(Optimizer):
         mopso.get_metric(patatune.metrics.generational_distance)
         ```
 
-        Parameters:
+        Args:
             metric (function): A [metric][patatune.metrics] function that takes two arguments: the Pareto front and the reference front.
         
         Returns:
-            result (float): The calculated metric value.
+            (float): The calculated metric value.
         """
         result = None
         if self.objective.true_pareto is None and metric.__name__ not in ['hypervolume_indicator']:

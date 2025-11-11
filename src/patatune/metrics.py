@@ -8,7 +8,7 @@ def generational_distance(pareto_front, reference_front):
 
     The generational distance (GD) measures the average distance of points in the obtained Pareto front to the nearest point in the true Pareto front.
 
-    Parameters:
+    Args:
         pareto_front (np.ndarray): Represents the pareto front obtained from the optimization algorithm.
         reference_front (np.ndarray): Represents the true pareto front.
 
@@ -34,7 +34,7 @@ def inverted_generational_distance(pareto_front, reference_front):
 
     The inverted generational distance (IGD) measures the average distance of points in the true Pareto front to the nearest point in the obtained Pareto front.
 
-    Parameters:
+    Args:
         pareto_front (np.ndarray): Represents the pareto front obtained from the optimization algorithm.
         reference_front (np.ndarray): Represents the true pareto front.
 
@@ -60,7 +60,7 @@ def hypervolume_indicator(pareto_front, reference_point, reference_hv=1, max_eva
 
     The hypervolume indicator (HV) measures the volume of the objective space dominated by the obtained Pareto front and bounded by a reference point.
 
-    Parameters:
+    Args:
         pareto_front (np.ndarray): Represents the pareto front obtained from the optimization algorithm.
         reference_point (list or np.ndarray): A reference point in the objective space, typically chosen to be worse than any point in the pareto front.
         reference_hv (float): The hypervolume of the reference front for normalization (default: 1).
@@ -88,7 +88,7 @@ def wfg(pareto_front, reference_point, counter, max_evaluations):
     IEEE Transactions on Evolutionary Computation, 16(1), 86-95.
     DOI: [10.1109/TEVC.2010.2077298](https://doi.org/10.1109/TEVC.2010.2077298)
 
-    Parameters:
+    Args:
         pareto_front (np.ndarray): Represents the pareto front obtained from the optimization algorithm.
         reference_point (list or np.ndarray): A reference point in the objective space, typically chosen to be worse than any point in the pareto front.
         counter (list): A list containing a single integer to keep track of the number of evaluations performed.
@@ -163,7 +163,7 @@ def nds(front):
     
     Uses the get_dominated utility function to identify dominated points and filters them out.
 
-    Parameters:
+    Args:
         front (np.ndarray): Represents a set of points in the objective space.
     Returns:
         (np.ndarray): The non-dominated subset of the input front.
