@@ -7,7 +7,7 @@ This module contains the base [`Optimizer`][patatune.optimizer.Optimizer] class 
 class Optimizer:
     """Base class for optimization algorithms.
 
-    Subclasses must implement [`__init__`][patatune.optimizer.Optimizer.__init__],
+    Subclasses must implement `__init__`,
     [`step`][patatune.optimizer.Optimizer.step], and
     [`optimize`][patatune.optimizer.Optimizer.optimize].
 
