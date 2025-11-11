@@ -1,6 +1,6 @@
-# patatune Reference
+# PATATUNE Reference
 
-This reference manual details functions, modules, and objects included in patatune, describing what they are and what they do.
+This reference manual details functions, modules, and objects included in PATATUNE, describing what they are and what they do.
 
 <br>
 

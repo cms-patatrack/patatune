@@ -2,7 +2,7 @@
 
 <style> .md-content .md-typeset h1 { display: none; } </style>
 
-![Patatune](https://raw.githubusercontent.com/cms-patatrack/patatune/refs/heads/docs/docs/Patatune.png)
+![PATATUNE](https://raw.githubusercontent.com/cms-patatrack/PATATUNE/refs/heads/docs/docs/Patatune.png)
 
 *A Framework for Metaheuristic Multi-Objective Optimization for High Energy Physics*
 
@@ -17,7 +17,7 @@
 
 ---
 
-patatune is a Python package that provides a framework for multi-objective optimization algorithms, including the Multi-Objective Particle Swarm Optimization (MOPSO) method.
+PATATUNE is a Python package that provides a framework for multi-objective optimization algorithms, including the Multi-Objective Particle Swarm Optimization (MOPSO) method.
 Its primary purpose is to automate the optimization of the parameters of user-defined functions.
 The package has been developed with the needs of CMS and Patatrack in mind.
 
@@ -32,7 +32,7 @@ The key features are:
 
 ## Installation
 
-patatune is available on [PyPi](https://pypi.org/project/patatune/).
+PATATUNE is available on [PyPi](https://pypi.org/project/patatune/).
 
 To install it you can simply run:
 
@@ -57,7 +57,7 @@ pip install -e .
 
 ## Requirements
 
-patatune is written for Python 3.9+ and depends on a small set of scientific Python packages.  The following are required to run the library:
+PATATUNE is written for Python 3.9+ and depends on a small set of scientific Python packages.  The following are required to run the library:
 
 - [numpy](https://numpy.org/doc/)
 - [dill](https://dill.readthedocs.io/en/latest/)
@@ -87,7 +87,7 @@ pip install patatune[all]
 ## Example
 
 Currently the package provides the `patatune` module that defines an optimization algorithm: `MOPSO`.
-patatune relies on a few helper classes to handle configuration and the objective functions. To use this module in your Python projects:
+PATATUNE relies on a few helper classes to handle configuration and the objective functions. To use this module in your Python projects:
 
 1. Import the required modules:
 
@@ -154,8 +154,8 @@ id: 16 position: [0.0 0.0] fitness: [ 0.   50. ]
 
 ## Contributing
 
-Contributions are welcome. If you want to contribute, please follow the [Contribution guidelines](https://github.com/cms-patatrack/patatune/blob/main/CONTRIBUTING.md).
+Contributions are welcome. If you want to contribute, please follow the [Contribution guidelines](https://github.com/cms-patatrack/PATATUNE/blob/main/CONTRIBUTING.md).
 
 ## License
 
-patatune is distributed under the [MPL 2.0 License](https://github.com/cms-patatrack/patatune/blob/main/LICENSE). Feel free to use, modify, and distribute the code following the terms of the license.  
+PATATUNE is distributed under the [MPL 2.0 License](https://github.com/cms-patatrack/PATATUNE/blob/main/LICENSE). Feel free to use, modify, and distribute the code following the terms of the license.  

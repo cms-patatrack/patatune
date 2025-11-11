@@ -1,4 +1,4 @@
-"""patatune
+"""PATATUNE
 A Python framework for Metaheuristic Multi-Objective Optimization
 """
 from .util import FileManager, Randomizer, Logger

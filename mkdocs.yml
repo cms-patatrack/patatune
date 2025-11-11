@@ -1,4 +1,5 @@
-site_name: patatune
+site_name: PATATUNE
+site_description: A Framework for Metaheuristic Multi-Objective Optimization for High Energy Physics - Documentation
 repo_url: https://github.com/cms-patatrack/patatune
 edit_uri: edit/docs/docs/ # change to 'edit/main/docs/' when merged to main
 theme:
@@ -18,11 +19,14 @@ theme:
     scheme: slate
     primary: red
 
+watch:
+  - README.md
+
 hooks:
   - docs/hooks/generate_index.py
 
 nav:
-    - patatune: index.md
+    - PATATUNE: index.md
     - User Guide: user_guide.md
     - API Reference: api.md
 
