@@ -6,7 +6,6 @@ build-backend = "setuptools.build_meta"
 name = "patatune"
 dynamic = ["version"]
 dependencies = [
-    "scikit-learn",
     "numpy",
     "dill"
 ]

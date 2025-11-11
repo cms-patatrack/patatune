@@ -3,9 +3,43 @@
 from copy import copy
 import numpy as np
 from patatune import Optimizer, FileManager, Randomizer, Logger
-import scipy.stats as stats
 from .particle import Particle
 from patatune.util import get_dominated
+
+
+def _truncated_normal_sample(lower, upper, loc, scale_factor, max_attempts=1000):
+    """Sample a truncated normal for each dimension using numpy.
+
+    Args:
+        lower (list): per-dimension lower bounds
+        upper (list): per-dimension upper bounds
+        loc (list): per-dimension means
+        scale_factor (float): multiplicative factor for standard deviation
+        max_attempts: maximum rejection sampling attempts before clipping
+
+    Returns:
+        np.ndarray: samples with same shape as loc
+    """
+    lower = np.array(lower, dtype=float)
+    upper = np.array(upper, dtype=float)
+    loc = np.array(loc, dtype=float)
+    scale = np.array((upper - lower) * scale_factor, dtype=float)
+    samples = np.empty_like(loc, dtype=float)
+    for i in range(len(loc)):
+        # Degenerate case: zero scale or identical bounds -> use clipped loc
+        if scale[i] == 0 or lower[i] == upper[i]:
+            samples[i] = float(np.clip(loc[i], lower[i], upper[i]))
+            continue
+        attempt = 0
+        val = Randomizer.rng.normal(loc[i], scale[i])
+        while (val < lower[i] or val > upper[i]) and attempt < max_attempts:
+            val = Randomizer.rng.normal(loc[i], scale[i])
+            attempt += 1
+        if val < lower[i] or val > upper[i]:
+            # Fallback to clipping to guarantee a value
+            val = float(np.clip(val, lower[i], upper[i]))
+        samples[i] = val
+    return samples
 
 
 class MOPSO(Optimizer):
@@ -134,15 +168,8 @@ class MOPSO(Optimizer):
                     [self.lower_bounds, self.upper_bounds], axis=0)
             else:
                 default_point = np.array(default_point)
-            # See scipy truncnorm rvs documentation for more information
-            a_trunc = np.array(self.lower_bounds)
-            b_trunc = np.array(self.upper_bounds)
-            loc = default_point
-            scale = (np.array(self.upper_bounds) -
-                     np.array(self.lower_bounds))/4
-            a, b = (a_trunc - loc) / scale, (b_trunc - loc) / scale
-            [particle.set_position(stats.truncnorm.rvs(a, b, loc, scale))
-             for particle in self.particles]
+            for particle in self.particles:
+                particle.set_position(_truncated_normal_sample(self.lower_bounds, self.upper_bounds, default_point, 0.25))
 
             for particle in self.particles:
                 for i in range(self.num_params):
