@@ -8,8 +8,6 @@ dynamic = ["version"]
 dependencies = [
     "scikit-learn",
     "numpy",
-    "matplotlib",
-    "pandas",
     "dill"
 ]
 readme = "README.md"

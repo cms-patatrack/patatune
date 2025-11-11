@@ -1,9 +1,7 @@
 """Multi-Objective Particle Swarm Optimization (MOPSO) algorithm implementation."""
 
 from copy import copy
-import itertools
 import numpy as np
-import math
 from patatune import Optimizer, FileManager, Randomizer, Logger
 import scipy.stats as stats
 from .particle import Particle
