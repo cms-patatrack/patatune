@@ -314,33 +314,52 @@ However it's implementation is still experimental and should be used with cautio
 
 See the [API reference][patatune.mopso.mopso.MOPSO] for additional information on the parameters.
 
-## Utilities
+#### Running the optimization
 
-### Checkpoint system
-
-patatune can be run using the `optimize` method for a specific number of iterations, or it can also be run interactively by calling the `step` function to perform a single iteration.
-
-In addition patatune allows to stop the execution, saving the state, and restore the execution from the leftover run.
-
-To do this, first enable saving and enabling using the `FileManager` helper class:
+MOPSO can be run using the `optimize` method for a specific number of iterations, or it can also be run interactively by calling the `step` function to perform a single iteration.
 
 ```python
-patatune.FileManager.working_dir = "tmp/zdt1/"
-patatune.FileManager.loading_enabled = True
-patatune.FileManager.saving_enabled = True
+mopso.optimize(num_iterations=200)
 ```
 
-After launching `optimize` the state of patatune will be saved in the `mopso.pkl` file inside the working directory.
+If the `exploring_particles` option is enabled, the user can pass the `max_iterations_without_improvement` parameter to define after how many iterations without improvement a particle should be scattered in the search space.
 
-A new run of the script will attempt to load the file and restart the execution from the iteration it was stopped at.
+```python
+mopso.optimize(num_iterations=200, max_iterations_without_improvement=10)
+```
 
-For example, if you run optimize until iteration 100, save and then rerun till iteration 200, patatune will call the step function for iteration 101 to 200.
+## Utilities
 
-The saving option allow also to export the state of the particles in every iteration inside a `history` directory in the working directory.
+PATATUNE provides several utilities to adapt to the user workflow and environment.
+
+### File Manager
+
+The [FileManager][patatune.util.FileManager] class provides functionalities to manage file saving and loading during the optimization process.
+
+If the `FileManager.saving_enabled` flag is set to `True`, the state of the optimizer will be saved in the working directory specified in the `FileManager.working_directory`.
+
+The `FileManager` will create the directory if it does not exist.
+
+The `FileManager` supports different file formats for saving the state of the optimizer, that can be enabled or disabled through the corresponding flags `saving_pickle_enabled`, `saving_json_enabled`, `saving_csv_enabled`, and `saving_zarr_enabled`.
+
+For example, in `MOPSO`, if the correct flags are set, the following files will be created in the working directory at each saving step:
+
+- a `checkpoint/pareto_front.csv` file containing the current archive of optimal solutions with the parameters and objective values in floating point representation with 18 decimals, with comma delimiter. If `FileManager.headers_enabled` is set to `True`, a header row will be included with the [parameter names](#parameters-definition) and [objective names](#multiple-objectives-definition).
+- a `checkpoint/individual_states.csv` file containing the current state of each particle in the swarm, with the parameters and velocities in floating point representation with 18 decimals, with comma delimiter. If `FileManager.headers_enabled` is set to `True`, a header row will be included with the [parameter names](#parameters-definition) and velocity names (`velocity_<parameter_name>`).
+- a `checkpoint/mopso.pkl` file containing the full MOPSO object serialized with `dill`.
+
+At the end of all iterations, a `checkpoint/mopso.zip` file will be created containing the history of the optimization process saved at each saving step as a zarr archive.
+The archive will contain a group for each iteration named `iteration_<iteration_number>`, containing a dataset `data` with the parameters and fitnesses of all particles at that iteration, and a group `pareto_front` containing a dataset `data` with the parameters and fitnesses of the Pareto front particles.
+Along with the datasets, the archive will contain attributes with the parameter names, objective names, lower bounds and upper bounds of the optimization process.
+
+If the `FileManager.loading_enabled` flag is set to `True`, the optimizer will attempt to load its state from the working directory at the beginning of the optimization process, using the latest saved `checkpoint/mopso.pkl` file.
+
+This allows to resume an optimization process from the last saved state.
+
 
 ### Random
 
-The MOPSO patatune heavily relies on randomnumber generation. To make sure to obtain reproducible results an helper function allows to set the seed for every random generation performed by the algortihm:
+PATATUNE relies on random number generation. To make sure to obtain reproducible results an helper function allows to set the seed for every random generation performed by the algorithm:
 
 ```python
 patatune.Randomizer.rng = np.random.default_rng(42)

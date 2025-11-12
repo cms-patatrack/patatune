@@ -235,7 +235,7 @@ class MOPSO(Optimizer):
                                               particle.velocity])
                              for particle in self.particles],
                              'checkpoint/individual_states.csv',
-                             headers=self.param_names + self.objective.objective_names)
+                             headers=self.param_names + [f"velocity_{p}" for p in self.param_names])
 
         FileManager.save_csv([np.concatenate([particle.position, np.ravel(particle.fitness * self.objective.directions)])
                              for particle in self.pareto_front],
