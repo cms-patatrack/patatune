@@ -408,18 +408,17 @@ class MOPSO(Optimizer):
             raise ValueError(
                 "True pareto function is not defined for this objective. Only hypervolume indicators can be used.")
         pareto = np.array([particle.fitness for particle in self.pareto_front])
-        x = np.linspace(0, 1, len(pareto))
         if metric.__name__ in ['hypervolume_indicator']:
             reference_point = np.ones(len(pareto[0]))
             if self.objective.true_pareto is not None:
-                reference_pareto = np.array(self.objective.true_pareto(x)).T
+                reference_pareto = self.objective.true_pareto(len(pareto))
                 reference_hypervolume = metric(reference_pareto, reference_point)
             else:
                 reference_hypervolume = 1
             Logger.debug(f"Measuring {metric.__name__}. Reference hypervolume: {reference_hypervolume}")
             result = metric(pareto, reference_point, reference_hypervolume)
         else:
-            reference_pareto = np.array(self.objective.true_pareto(x)).T
+            reference_pareto = self.objective.true_pareto(len(pareto))
             Logger.debug(f"Measuring {metric.__name__}")
             result = metric(pareto, reference_pareto)
         Logger.info(f"{metric.__name__}: {result}")

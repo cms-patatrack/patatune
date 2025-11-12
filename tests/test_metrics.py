@@ -19,10 +19,10 @@ def zdt1_objective(x):
     f2 = g * h
     return f1, f2
 
-def true_pareto(x):
-    f1 = x
-    f2 = 1-np.sqrt(x)
-    return f1, f2
+def true_pareto(num_points):
+    f1 = np.linspace(0, 1, num_points)
+    f2 = 1-np.sqrt(f1)
+    return np.array([f1, f2]).T
     
 patatune.Randomizer.rng = np.random.default_rng(46)
 
@@ -46,8 +46,7 @@ print("Hypervolume: " ,pso.get_metric(patatune.metrics.hypervolume_indicator))
 fig, ax = plt.subplots()
 pareto_x = [particle.fitness[0] for particle in pso.pareto_front]
 pareto_y = [particle.fitness[1] for particle in pso.pareto_front]
-x = (np.linspace(0, 1, 100))
-real_x, real_y = true_pareto(x)
+real_x, real_y = true_pareto(100).T
 plt.scatter(pareto_x, pareto_y, s=5)
 plt.scatter(real_x, real_y, s=5, c='red')
 plt.show()
