@@ -1,0 +1,991 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A Framework for Metaheuristic Multi-Objective Optimization for High Energy Physics - Documentation">
+      
+      
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../api/">
+      
+      
+      <link rel="icon" href="../favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.23">
+    
+    
+      
+        <title>User Guide - PATATUNE</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.84d31ad4.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="red" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#parameters-definition" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="PATATUNE" class="md-header__button md-logo" aria-label="PATATUNE" data-md-component="logo">
+      
+  <img src="../logo_white.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PATATUNE
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              User Guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/cms-patatrack/patatune" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  PATATUNE
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  User Guide
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../api/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  API Reference
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="PATATUNE" class="md-nav__button md-logo" aria-label="PATATUNE" data-md-component="logo">
+      
+  <img src="../logo_white.svg" alt="logo">
+
+    </a>
+    PATATUNE
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/cms-patatrack/patatune" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    PATATUNE
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    User Guide
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    User Guide
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#parameters-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters definition
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objective-function-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Objective function definition
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Objective function definition">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#objective" class="md-nav__link">
+    <span class="md-ellipsis">
+      Objective
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#elementwise-objective" class="md-nav__link">
+    <span class="md-ellipsis">
+      ElementWise Objective
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asynchronous-objective-evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Asynchronous Objective evaluation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Asynchronous Objective evaluation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#asyncelementwiseobjective" class="md-nav__link">
+    <span class="md-ellipsis">
+      AsyncElementWiseObjective
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batchobjective" class="md-nav__link">
+    <span class="md-ellipsis">
+      BatchObjective
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiple-objectives-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multiple objectives definition
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Multiple objectives definition">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#defining-the-direction-of-the-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Defining the direction of the optimization
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#otimization-algorithm-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Otimization algorithm configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Otimization algorithm configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mopso" class="md-nav__link">
+    <span class="md-ellipsis">
+      MOPSO
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MOPSO">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#algorithm-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Algorithm Overview
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#basic-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hyperparameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hyperparameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#topology-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Topology Strategies
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setting-the-initial-particle-positions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setting the initial particle positions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#additional-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional Features
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-the-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running the optimization
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#utilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      Utilities
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Utilities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#file-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      File Manager
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#random" class="md-nav__link">
+    <span class="md-ellipsis">
+      Random
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logging" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logging
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    API Reference
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+    
+      
+    
+    <a href="https://github.com/cms-patatrack/patatune/raw/docs/docs/user_guide.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
+    </a>
+  
+
+
+  <h1>User Guide</h1>
+
+<p>Beyond what has been introduced in the <a href="../#example">Example</a>, PATATUNE allows to fine tune the optimization process for the user.</p>
+<p>This involves the definition of the parameters to optimize, the definition of the optimization function, and the configuration of the optimization algorithms.</p>
+<p>In addition, several utilities are implemented to adapt to the user environment and workflow.</p>
+<p>The following documentation details the functionalities available and how to use them.</p>
+<h2 id="parameters-definition">Parameters definition</h2>
+<p>PATATUNE uses the lower and upper bound of the parameters to define the search space.</p>
+<p>In addition it deducts the parameters type from the bounds.</p>
+<p>One can define the parameters bounds as two lists:</p>
+<p><div class="highlight"><pre><span></span><code><span class="n">lb</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="kc">False</span><span class="p">]</span>
+<span class="n">ub</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mf">5.</span><span class="p">,</span> <span class="kc">True</span><span class="p">]</span>
+</code></pre></div>
+This define a parameter space with three parameters, where:</p>
+<ul>
+<li>the first parameter is an integer going from 0 (included) to 5 (included);</li>
+<li>the second parameter is a floating point value going from 0 (included) to 5 (excluded);</li>
+<li>the third and last parameter is a boolean value that can either be <code>True</code> or <code>False</code>.</li>
+</ul>
+<p>When passed to the optimization algorithm, PATATUNE will check that the lenght of the two lists is equal, warning the user in case of mismatch and using the lowest range.<br />
+It will then check the types of the variable, throwing a warning in case of mismatch and using the most permissive type (<code>bool</code> &lt; <code>int</code> &lt; <code>float</code>).</p>
+<h2 id="objective-function-definition">Objective function definition</h2>
+<p>The user can use any function as objective function to evaluate in the optimization process.</p>
+<p>For each set of parameters, identifying a 'position' in the search space, the objective function will return a value, also called 'fitness'.</p>
+<p>PATATUNE can optimize the parameters against any number of objective functions.</p>
+<p>Two different methods can be identified in defining the functions:</p>
+<ul>
+<li>Objective functions that implements a method to evaluate a list of positions at once, returning a corresponding list of fitnesses</li>
+<li>Objective functions that implements a method to evaluate a single position at a time, returning the fitness of the single position</li>
+</ul>
+<p>PATATUNE allows to define these objective functions through the <code>Objective</code> class and it's subclasses.</p>
+<p>During the optimization, the <code>evaulate</code> function of the class will be called behaving differently based on its implementation</p>
+<h3 id="objective">Objective</h3>
+<p>The <a class="autorefs autorefs-internal" title="            Objective" href="../api/#patatune.objective.Objective">Objective</a> class is the base class for defining objective functions and takes as argument a list of objective functions <code>[f1, f2, ...]</code>.</p>
+<p>In the <a class="autorefs autorefs-internal" title="            evaluate" href="../api/#patatune.objective.Objective.evaluate">evaluate</a> method, all objective functions are executed as:</p>
+<div class="highlight"><pre><span></span><code><span class="p">[</span><span class="n">f</span><span class="p">(</span><span class="n">positions</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">objective_functions</span><span class="p">]</span>
+</code></pre></div>
+<p>Each objective function is run once per iteration on all particle positions simultaneously.</p>
+<p><strong>Input format</strong>: Each objective function receives a list of arrays with shape <code>(num_particles, num_parameters)</code>, where each row represents a position in the search space.</p>
+<p><strong>Output format</strong>: Returns an array with shape <code>(num_particles, num_objectives)</code>, where each row contains the evaluated objective values for a particle.</p>
+<p>This approach is useful when:</p>
+<ul>
+<li>Objective functions implements their own way to handle multiple set of parameters</li>
+<li>Batch processing is implemented externally</li>
+<li>All particles can be evaluated simultaneously</li>
+</ul>
+<p>Example usage:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">f1</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">f2</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="n">objective</span> <span class="o">=</span> <span class="n">patatune</span><span class="o">.</span><span class="n">Objective</span><span class="p">([</span><span class="n">f1</span><span class="p">,</span> <span class="n">f2</span><span class="p">])</span>
+</code></pre></div>
+<h3 id="elementwise-objective">ElementWise Objective</h3>
+<p>The <a class="autorefs autorefs-internal" title="            ElementWiseObjective" href="../api/#patatune.objective.ElementWiseObjective">ElementWiseObjective</a> class inherits from <code>Objective</code> and provides a way to evaluate objective functions element-wise, one particle at a time.</p>
+<p>Unlike the base <code>Objective</code> class where each function receives all positions at once, <code>ElementWiseObjective</code> calls each objective function individually for every particle position.</p>
+<p>The <a class="autorefs autorefs-internal" title="            evaluate" href="../api/#patatune.objective.ElementWiseObjective.evaluate">evaluate</a> method iterates over each position and applies the objective functions:</p>
+<div class="highlight"><pre><span></span><code><span class="p">[[</span><span class="n">f</span><span class="p">(</span><span class="n">position</span><span class="p">)</span> <span class="k">for</span> <span class="n">position</span> <span class="ow">in</span> <span class="n">positions</span><span class="p">]</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">objective_functions</span><span class="p">]</span>
+</code></pre></div>
+<p>This approach is useful when:</p>
+<ul>
+<li>The objective function is designed to work on a single parameter set at a time</li>
+<li>The evaluation will be vectorized by python</li>
+<li>Evaluations are independent and don't benefit from batch processing</li>
+</ul>
+<p>For example, defining a simple element-wise objective:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">f1</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">f2</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="mf">9.0</span> <span class="o">/</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="nb">sum</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">f1</span> <span class="o">/</span> <span class="n">g</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">g</span> <span class="o">*</span> <span class="n">h</span>
+
+<span class="n">objective</span> <span class="o">=</span> <span class="n">patatune</span><span class="o">.</span><span class="n">ElementWiseObjective</span><span class="p">([</span><span class="n">f1</span><span class="p">,</span> <span class="n">f2</span><span class="p">])</span>
+</code></pre></div>
+<p>The objective function receives a single parameter array <code>x</code> and returns a tuple of objective values <code>(f1, f2)</code>.</p>
+<h3 id="asynchronous-objective-evaluation">Asynchronous Objective evaluation</h3>
+<p>PATATUNE provides two classes for asynchronous objective function evaluation, enabling efficient parallel processing when dealing with computationally expensive evaluations or external services.</p>
+<h4 id="asyncelementwiseobjective">AsyncElementWiseObjective</h4>
+<p>The <a class="autorefs autorefs-internal" title="            AsyncElementWiseObjective" href="../api/#patatune.objective.AsyncElementWiseObjective">AsyncElementWiseObjective</a> class evaluates objective functions asynchronously on each particle independently. This approach is useful when:</p>
+<ul>
+<li>Each evaluation is expensive and independent</li>
+<li>Evaluations can benefit from concurrent execution (I/O-bound operations, API calls, etc.)</li>
+<li>You want maximum parallelism without manual batching</li>
+</ul>
+<p>All objective functions must be defined with <code>async def</code> and the class automatically handles concurrent execution using <code>asyncio.gather</code>.</p>
+<p>Example usage:</p>
+<div class="highlight"><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">async_objective_function</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">f1</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="mf">9.0</span> <span class="o">/</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="nb">sum</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">f1</span> <span class="o">/</span> <span class="n">g</span><span class="p">)</span>
+    <span class="n">f2</span> <span class="o">=</span> <span class="n">g</span> <span class="o">*</span> <span class="n">h</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">f1</span><span class="p">,</span> <span class="n">f2</span><span class="p">]</span>
+
+<span class="n">objective</span> <span class="o">=</span> <span class="n">patatune</span><span class="o">.</span><span class="n">AsyncElementWiseObjective</span><span class="p">(</span><span class="n">async_objective_function</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="batchobjective">BatchObjective</h4>
+<p>The <a class="autorefs autorefs-internal" title="            BatchObjective" href="../api/#patatune.objective.BatchObjective">BatchObjective</a> class provides asynchronous batch evaluation, where particles are grouped into batches before evaluation. This is particularly useful when:</p>
+<ul>
+<li>The evaluation system works more efficiently with batches</li>
+<li>You want to control resource consumption by limiting concurrent operations</li>
+<li>External systems have rate limits or batch processing capabilities</li>
+</ul>
+<p>The <code>BatchObjective</code> requires:</p>
+<ul>
+<li><strong>Asynchronous objective functions</strong>: Functions must be defined with <code>async def</code></li>
+<li><strong>Batch size</strong>: Parameter that controls how many particles are evaluated in each batch</li>
+</ul>
+<p>Example usage:</p>
+<div class="highlight"><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">batched_evaluation</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+    <span class="c1"># params is a list of parameter sets (one batch)</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
+        <span class="n">f1</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span>
+        <span class="n">f2</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">5</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">5</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">f1</span><span class="p">,</span> <span class="n">f2</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">results</span>
+
+<span class="n">objective</span> <span class="o">=</span> <span class="n">patatune</span><span class="o">.</span><span class="n">BatchObjective</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">batched_evaluation</span><span class="p">],</span>
+    <span class="n">batch_size</span><span class="o">=</span><span class="mi">10</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>The <code>BatchObjective</code> automatically splits the particle positions into batches of the specified size and evaluates them concurrently using <code>asyncio.gather</code>.</p>
+<h3 id="multiple-objectives-definition">Multiple objectives definition</h3>
+<p>The class determines the number of objectives based on the length of the list of objective_functions passed as argument, assuming that a single objective value is evaluated by each function.</p>
+<p>However, in case an objective function were to return more than one value, the user can specify the number of expected objectives returned with the optional <code>num_objectives</code> argument.</p>
+<p>Optionally the user can pass the names of the objectives in the <code>objective_names</code> argument, that will be used by the <a class="autorefs autorefs-internal" title="            FileManager" href="../api/#patatune.util.FileManager">FileManager</a> when saving the results of the optimization.
+If they are not passed as arguments, they default to <code>['objective_0','objective_1',...]</code>.</p>
+<p>Finally, the user can pass a callable in the <code>true_pareto</code> argument.
+This is a function that will return a list of points of size equal to the archive of optimal solution obtained after the optimization, with the fitnesses of each point.</p>
+<p>The argument is completely optional and used in measuring the <a class="autorefs autorefs-internal" title="            generational_distance" href="../api/#patatune.metrics.generational_distance">GD</a> and <a class="autorefs autorefs-internal" title="            inverted_generational_distance" href="../api/#patatune.metrics.inverted_generational_distance">IGD</a> metrics.</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">zdt1</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">f1</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="mf">9.0</span> <span class="o">/</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="nb">sum</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">f1</span> <span class="o">/</span> <span class="n">g</span><span class="p">)</span>
+    <span class="n">f2</span> <span class="o">=</span> <span class="n">g</span> <span class="o">*</span> <span class="n">h</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">f1</span><span class="p">,</span> <span class="n">f2</span><span class="p">]</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">true_pareto</span><span class="p">(</span><span class="n">num_points</span><span class="p">):</span>
+    <span class="n">f1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">num_points</span><span class="p">)</span>
+    <span class="n">f2</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">f1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">f1</span><span class="p">,</span> <span class="n">f2</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+
+<span class="n">objective</span> <span class="o">=</span> <span class="n">patatune</span><span class="o">.</span><span class="n">ElementWiseObjective</span><span class="p">(</span><span class="n">zdt1</span><span class="p">,</span> <span class="n">num_objectives</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">objective_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;f1&#39;</span><span class="p">,</span> <span class="s1">&#39;f2&#39;</span><span class="p">],</span> <span class="n">true_pareto</span><span class="o">=</span><span class="n">true_pareto</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="defining-the-direction-of-the-optimization">Defining the direction of the optimization</h4>
+<p>By default, each objective is optimized to be minimized. To override this behaviour, the user can pass the <code>directions</code> argument as a list of strings (i.e. <code>['minimize', 'maximize', 'minimize']</code>), listing the optimization direction for each objective.
+If the number of objectives don't match the lenght of the strings, PATATUNE raises an error.</p>
+<div class="highlight"><pre><span></span><code><span class="n">objective</span> <span class="o">=</span> <span class="n">patatune</span><span class="o">.</span><span class="n">ElementWiseObjective</span><span class="p">([</span><span class="n">efficiency_function</span><span class="p">,</span> <span class="n">fake_rate_function</span><span class="p">],</span> <span class="n">directions</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;maximize&#39;</span><span class="p">,</span> <span class="s1">&#39;minimize&#39;</span><span class="p">])</span>
+</code></pre></div>
+<h2 id="otimization-algorithm-configuration">Otimization algorithm configuration</h2>
+<p>The <a class="autorefs autorefs-internal" title="            Optimizer" href="../api/#patatune.optimizer.Optimizer">Optimizer</a> base class allows to define custom multi-objective optimization algorithm to be used in the same way by the user.</p>
+<p>Currently the library implements a Multi-Objective Particle Swarm Optimization (MOPSO) algorithm.</p>
+<h3 id="mopso">MOPSO</h3>
+<p>The MOPSO algorithm is a versatile optimization tool designed for solving multi-objective problems. It leverages the concept of swarm to navigate the search space and find optimal solutions.</p>
+<h4 id="algorithm-overview">Algorithm Overview</h4>
+<p>The implementation in the library is close to the one defined <a href="https://doi.org/10.1109/TEVC.2004.826067">here</a>:</p>
+<ul>
+<li>A swarm of particle is initialized in the parameters space</li>
+<li>The objective functions are evaluated for each particle</li>
+<li>Each particle is tested for <a class="autorefs autorefs-internal" title="            get_dominated" href="../api/#patatune.util.get_dominated">dominance</a></li>
+<li>The dominant particles are added to the archive of optimal solutions</li>
+<li>Each particle updates its velocity and position based on its local best and a global best chosen from the archive</li>
+<li>The process is repeated for a given number of iterations</li>
+<li>At the end of the optimization, the archive of optimal solutions is returne</li>
+</ul>
+<h4 id="basic-configuration">Basic Configuration</h4>
+<p>The MOPSO class can be configured through several parameters:</p>
+<ul>
+<li><strong>Objective</strong>: MOPSO can optimize virtually any objective function defined by the user as an instance of the <a class="autorefs autorefs-internal" title="            Objective" href="../api/#patatune.objective.Objective">Objective</a> class or its subclasses.</li>
+<li><strong>Boundary Constraints</strong>: Users has to define the lower and upper bounds of the <a href="#parameters-definition">parameters</a> to optimize, and the name of the parameters.</li>
+<li><strong>Swarm Size</strong>: The user can define the number of particles in the swarm with the <code>num_particles</code> parameter.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">mopso</span> <span class="o">=</span> <span class="n">patatune</span><span class="o">.</span><span class="n">MOPSO</span><span class="p">(</span>
+    <span class="n">objective</span><span class="o">=</span><span class="n">objective</span><span class="p">,</span>
+    <span class="n">lower_bounds</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">30</span><span class="p">,</span>
+    <span class="n">upper_bounds</span><span class="o">=</span><span class="p">[</span><span class="mf">1.0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">30</span><span class="p">,</span>
+    <span class="n">num_particles</span><span class="o">=</span><span class="mi">100</span>
+<span class="p">)</span>
+</code></pre></div>
+<h4 id="hyperparameters">Hyperparameters</h4>
+<p>The behavior of the MOPSO algorithm can be fine-tuned through three hyperparameters:</p>
+<ul>
+<li><strong>Inertia Weight</strong>: Control the inertia of the particles, influencing their tendency to continue moving in the same direction.</li>
+<li><strong>Cognitive Coefficients</strong>: Control the influence of the particle's own best-known position on its movement.</li>
+<li><strong>Social Coefficients</strong>: Control the influence of the swarm's best-known position on the particle's movement.</li>
+</ul>
+<p>Higher inertia weight will lead to particles maintaining their velocity, promoting exploration of the search space, while lower inertia weight will encourage particles to focus on their local best solutions.</p>
+<p>Higher value of the social coefficient will lead the particles to be more attracted towards the global best solution found by the swarm, promoting exploration but leading to potentially lower diversity in the solutions.</p>
+<p>Higher value of the cognitive coefficient will lead to a more exploitative behavior, meaning that the particles will be more likely to refine their search in the vicinity of known good solutions, potentially leading to faster convergence but risking getting stuck in local optima.</p>
+<h4 id="topology-strategies">Topology Strategies</h4>
+<p>The choice of the <code>global_best</code> particle from the archive can be configured through the <code>topology</code> parameter:</p>
+<ul>
+<li><code>random</code>: the <code>global_best</code> is chosen randomly from the archive</li>
+<li><code>round_robin</code>: the <code>global_best</code> is chosen in round robin fashion from the archive</li>
+<li><code>lower_weighted_crowding_distance</code> and <code>higher_weighted_crowding_distance</code>: the <code>global_best</code> is chosen based on the crowding distance of the particles in the archive, favoring less crowded areas or more crowded areas respectively.</li>
+</ul>
+<p>Using the crowding distance can help to maintain diversity in the solutions found by the swarm, preventing premature convergence to a single solution, however it is computationally more expensive.<br />
+Using the random or round robin strategies is computationally cheaper, but can lead to less diverse solutions.</p>
+<h4 id="setting-the-initial-particle-positions">Setting the initial particle positions</h4>
+<p>The initial position of the particles can be defined through the <code>initial_particle_position</code> parameter and the <code>default_point</code> parameter:</p>
+<ul>
+<li><code>random</code> uniform distribution</li>
+<li><code>gaussian</code> distribution around the <code>default_point</code></li>
+<li>all in the <code>lower_bounds</code> or <code>upper_bounds</code> of the parameter space</li>
+</ul>
+<p>Setting the <code>default_point</code> parameter with any option other than <code>gaussian</code> will ensure that at least one particle starts from that position.
+The gaussian distribution will center the particles around the <code>default_point</code>, with a standard deviation equal to one fourth of the distance between the lower and upper bounds.
+The particles will be clamped to stay within the defined bounds.</p>
+<p>The choice of the initial position can influence the convergence speed and the variety of solutions found by the swarm.</p>
+<div class="highlight"><pre><span></span><code><span class="n">mopso</span> <span class="o">=</span> <span class="n">patatune</span><span class="o">.</span><span class="n">MOPSO</span><span class="p">(</span>
+    <span class="n">objective</span><span class="o">=</span><span class="n">objective</span><span class="p">,</span>
+    <span class="n">lower_bounds</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">30</span><span class="p">,</span>
+    <span class="n">upper_bounds</span><span class="o">=</span><span class="p">[</span><span class="mf">1.0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">30</span><span class="p">,</span>
+    <span class="n">num_particles</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+    <span class="n">initial_particle_position</span><span class="o">=</span><span class="s1">&#39;gaussian&#39;</span><span class="p">,</span>
+    <span class="n">default_point</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">]</span> <span class="o">*</span> <span class="mi">30</span>
+<span class="p">)</span>
+</code></pre></div>
+<h4 id="additional-features">Additional Features</h4>
+<ul>
+<li><strong>Exploration Mode</strong>: An optional exploration mode enables particles to scatter from their position when they don't improve for a given number of iterations</li>
+</ul>
+<p>Exploration mode can help to escape local optima and explore new areas of the search space, potentially leading to better overall solutions.
+However it's implementation is still experimental and should be used with caution.</p>
+<ul>
+<li><strong>Limit on Archive Size</strong>: The archive of optimal solutions can be limited in size, removing the most crowded solutions when the limit fixed with the <code>max_pareto_length</code> is reached.</li>
+</ul>
+<p>See the <a class="autorefs autorefs-internal" title="            MOPSO" href="../api/#patatune.mopso.mopso.MOPSO">API reference</a> for additional information on the parameters.</p>
+<h4 id="running-the-optimization">Running the optimization</h4>
+<p>MOPSO can be run using the <code>optimize</code> method for a specific number of iterations, or it can also be run interactively by calling the <code>step</code> function to perform a single iteration.</p>
+<div class="highlight"><pre><span></span><code><span class="n">mopso</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="n">num_iterations</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+</code></pre></div>
+<p>If the <code>exploring_particles</code> option is enabled, the user can pass the <code>max_iterations_without_improvement</code> parameter to define after how many iterations without improvement a particle should be scattered in the search space.</p>
+<div class="highlight"><pre><span></span><code><span class="n">mopso</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="n">num_iterations</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">max_iterations_without_improvement</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="utilities">Utilities</h2>
+<p>PATATUNE provides several utilities to adapt to the user workflow and environment.</p>
+<h3 id="file-manager">File Manager</h3>
+<p>The <a class="autorefs autorefs-internal" title="            FileManager" href="../api/#patatune.util.FileManager">FileManager</a> class provides functionalities to manage file saving and loading during the optimization process.</p>
+<p>If the <code>FileManager.saving_enabled</code> flag is set to <code>True</code>, the state of the optimizer will be saved in the working directory specified in the <code>FileManager.working_directory</code>.</p>
+<p>The <code>FileManager</code> will create the directory if it does not exist.</p>
+<p>The <code>FileManager</code> supports different file formats for saving the state of the optimizer, that can be enabled or disabled through the corresponding flags <code>saving_pickle_enabled</code>, <code>saving_json_enabled</code>, <code>saving_csv_enabled</code>, and <code>saving_zarr_enabled</code>.</p>
+<p>For example, in <code>MOPSO</code>, if the correct flags are set, the following files will be created in the working directory at each saving step:</p>
+<ul>
+<li>a <code>checkpoint/pareto_front.csv</code> file containing the current archive of optimal solutions with the parameters and objective values in floating point representation with 18 decimals, with comma delimiter. If <code>FileManager.headers_enabled</code> is set to <code>True</code>, a header row will be included with the <a href="#parameters-definition">parameter names</a> and <a href="#multiple-objectives-definition">objective names</a>.</li>
+<li>a <code>checkpoint/individual_states.csv</code> file containing the current state of each particle in the swarm, with the parameters and velocities in floating point representation with 18 decimals, with comma delimiter. If <code>FileManager.headers_enabled</code> is set to <code>True</code>, a header row will be included with the <a href="#parameters-definition">parameter names</a> and velocity names (<code>velocity_&lt;parameter_name&gt;</code>).</li>
+<li>a <code>checkpoint/mopso.pkl</code> file containing the full MOPSO object serialized with <code>dill</code>.</li>
+</ul>
+<p>At the end of all iterations, a <code>checkpoint/mopso.zip</code> file will be created containing the history of the optimization process saved at each saving step as a zarr archive.
+The archive will contain a group for each iteration named <code>iteration_&lt;iteration_number&gt;</code>, containing a dataset <code>data</code> with the parameters and fitnesses of all particles at that iteration, and a group <code>pareto_front</code> containing a dataset <code>data</code> with the parameters and fitnesses of the Pareto front particles.
+Along with the datasets, the archive will contain attributes with the parameter names, objective names, lower bounds and upper bounds of the optimization process.</p>
+<p>If the <code>FileManager.loading_enabled</code> flag is set to <code>True</code>, the optimizer will attempt to load its state from the working directory at the beginning of the optimization process, using the latest saved <code>checkpoint/mopso.pkl</code> file.</p>
+<p>This allows to resume an optimization process from the last saved state.</p>
+<h3 id="random">Random</h3>
+<p>PATATUNE relies on random number generation. To make sure to obtain reproducible results an helper function allows to set the seed for every random generation performed by the algorithm:</p>
+<div class="highlight"><pre><span></span><code><span class="n">patatune</span><span class="o">.</span><span class="n">Randomizer</span><span class="o">.</span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="logging">Logging</h3>
+<p>You can configure the amount of logging information printed on terminal by passing a string to the <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/logging.html#logging.Logger.setLevel">setLevel</a> function of the <code>patatune.Logger</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="n">patatune</span><span class="o">.</span><span class="n">Logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="s1">&#39;DEBUG&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p>The supported levels - from least to most verbose - are: <code>'ERROR'</code>, <code>'WARNING'</code>, <code>'INFO'</code>, <code>'DEBUG'</code></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "search.suggest", "search.highlight", "toc.integrate", "navigation.top", "content.action.view", "navigation.tabs", "navigation.tabs.sticky"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>
