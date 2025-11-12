@@ -49,6 +49,7 @@ During the optimization, the `evaulate` function of the class will be called beh
 
 The [Objective][patatune.objective.Objective] class is the base class for defining objective functions and takes as argument a list of objective functions `[f1, f2, ...]`.
 
+
 In the [evaluate][patatune.objective.Objective.evaluate] method, all objective functions are executed as:
 
 ```python
@@ -219,6 +220,25 @@ mopso = patatune.MOPSO(
 ```
 
 The `BatchObjective` automatically splits the particle positions into batches of the specified size and evaluates them concurrently using `asyncio.gather`.
+
+### Multiple objectives definition
+
+The class determines the number of objectives based on the length of the list of objective_functions passed as argument, assuming that a single objective value is evaluated by each function.
+
+However, in case an objective function were to return more than one value, the user can specify the number of expected objectives returned with the optional `num_objectives` argument.
+
+Optionally the user can pass the names of the objectives in the `objective_names` argument, that will be used by the [FileManager][patatune.util.FileManager] when saving the results of the optimization.
+If they are not passed as arguments, they default to `['objective_0','objective_1',...]`.
+
+Finally, the user can pass a callable in the `true_pareto` argument.
+This is a function that will return a list of points of size equal to the archive of optimal solution obtained after the optimization, with the fitnesses of each point.
+
+The argument is completely optional and used in measuring the [GD][patatune.metrics.generational_distance] and [IGD][patatune.metrics.inverted_generational_distance] metrics.
+
+#### Defining the direction of the optimization
+
+By default, each objective is optimized to be minimized. To override this behaviour, the user can pass the `directions` argument as a list of strings (i.e. `['minimize', 'maximize', 'minimize']`), listing the optimization direction for each objective.
+If the number of objectives don't match the lenght of the strings, PATATUNE raises an error.
 
 ## Otimization algorithm configuration
 

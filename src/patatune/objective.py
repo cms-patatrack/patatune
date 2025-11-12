@@ -21,7 +21,8 @@ class Objective():
         directions (list[str], optional): List of 'minimize' or 'maximize' for
             each objective. Defaults to all 'minimize'.
         objective_names (list[str], optional): Names for each objective.
-        true_pareto (array-like, optional): True Pareto front for reference.
+        true_pareto (callable, optional): Function that returns the true Pareto front. Takes as input
+            the number of points and returns a 2D array of shape `(num_points, num_objectives)`.
     """
     def __init__(self, objective_functions, num_objectives=None, directions=None, objective_names=None ,true_pareto=None) -> None:
         if not isinstance(objective_functions, list):
