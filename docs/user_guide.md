@@ -71,27 +71,13 @@ This approach is useful when:
 Example usage:
 
 ```python
-def batch_evaluation(positions):
-    results = []
-    for x in positions:
-        f1 = x[0]**2
-        f2 = (x[0] - 2)**2
-        results.append([f1, f2])
-    return results
+def f1(x):
+    return x[:, 0]**2
 
-objective = patatune.Objective(
-    [batch_evaluation],
-    num_objectives=2,
-    objective_names=['f1', 'f2'],
-    directions=['minimize', 'minimize']
-)
+def f2(x):
+    return (x[:, 0] - 2)**2
 
-mopso = patatune.MOPSO(
-    objective=objective,
-    lower_bounds=[-10.0],
-    upper_bounds=[10.0],
-    num_particles=50
-)
+objective = patatune.Objective([f1, f2])
 ```
 
 ### ElementWise Objective
@@ -115,26 +101,15 @@ This approach is useful when:
 For example, defining a simple element-wise objective:
 
 ```python
-def objective_function(x):
-    f1 = x[0]
+def f1(x):
+    return x[0]**2
+
+def f2(x):
     g = 1 + 9.0 / (len(x)-1) * sum(x[1:])
     h = 1.0 - np.sqrt(f1 / g)
-    f2 = g * h
-    return f1, f2
+    return g * h
 
-objective = patatune.ElementWiseObjective(
-    objective_function, 
-    num_objectives=2,
-    objective_names=['f1', 'f2'],
-    directions=['minimize', 'minimize']
-)
-
-mopso = patatune.MOPSO(
-    objective=objective,
-    lower_bounds=[0.0] * 30,
-    upper_bounds=[1.0] * 30,
-    num_particles=100
-)
+objective = patatune.ElementWiseObjective([f1, f2])
 ```
 
 The objective function receives a single parameter array `x` and returns a tuple of objective values `(f1, f2)`.
@@ -161,21 +136,9 @@ async def async_objective_function(x):
     g = 1 + 9.0 / (len(x)-1) * sum(x[1:])
     h = 1.0 - np.sqrt(f1 / g)
     f2 = g * h
-    return f1, f2
+    return [f1, f2]
 
-objective = patatune.AsyncElementWiseObjective(
-    async_objective_function,
-    num_objectives=2,
-    objective_names=['f1', 'f2'],
-    directions=['minimize', 'minimize']
-)
-
-mopso = patatune.MOPSO(
-    objective=objective,
-    lower_bounds=[0.0] * 30,
-    upper_bounds=[1.0] * 30,
-    num_particles=100
-)
+objective = patatune.AsyncElementWiseObjective(async_objective_function)
 ```
 
 #### BatchObjective
@@ -205,17 +168,7 @@ async def batched_evaluation(params):
 
 objective = patatune.BatchObjective(
     [batched_evaluation],
-    batch_size=10,
-    num_objectives=2,
-    objective_names=['f1', 'f2'],
-    directions=['minimize', 'minimize']
-)
-
-mopso = patatune.MOPSO(
-    objective=objective,
-    lower_bounds=[0.0, 0.0],
-    upper_bounds=[5.0, 3.0],
-    num_particles=100
+    batch_size=10
 )
 ```
 
@@ -235,31 +188,131 @@ This is a function that will return a list of points of size equal to the archiv
 
 The argument is completely optional and used in measuring the [GD][patatune.metrics.generational_distance] and [IGD][patatune.metrics.inverted_generational_distance] metrics.
 
+```python
+def zdt1(x):
+    f1 = x[0]
+    g = 1 + 9.0 / (len(x)-1) * sum(x[1:])
+    h = 1.0 - np.sqrt(f1 / g)
+    f2 = g * h
+    return [f1, f2]
+
+def true_pareto(num_points):
+    f1 = np.linspace(0, 1, num_points)
+    f2 = 1 - np.sqrt(f1)
+    return np.array([f1, f2]).T
+
+objective = patatune.ElementWiseObjective(zdt1, num_objectives=2, objective_names=['f1', 'f2'], true_pareto=true_pareto)
+```
+
 #### Defining the direction of the optimization
 
 By default, each objective is optimized to be minimized. To override this behaviour, the user can pass the `directions` argument as a list of strings (i.e. `['minimize', 'maximize', 'minimize']`), listing the optimization direction for each objective.
 If the number of objectives don't match the lenght of the strings, PATATUNE raises an error.
 
+```python
+objective = patatune.ElementWiseObjective([efficiency_function, fake_rate_function], directions=['maximize', 'minimize'])
+```
+
 ## Otimization algorithm configuration
+
+The [Optimizer][patatune.optimizer.Optimizer] base class allows to define custom multi-objective optimization algorithm to be used in the same way by the user.
+
+Currently the library implements a Multi-Objective Particle Swarm Optimization (MOPSO) algorithm.
 
 ### MOPSO
 
-The Multi-Objective Particle Swarm Optimization (MOPSO) algorithm is a versatile optimization tool designed for solving multi-objective problems. It leverages the concept of swarm to navigate the search space and find optimal solutions.
+The MOPSO algorithm is a versatile optimization tool designed for solving multi-objective problems. It leverages the concept of swarm to navigate the search space and find optimal solutions.
 
-- **Objective**: MOPSO can optimize virtually any objective function defined by the user.
-- **Boundary Constraints**: Users can specify lower and upper bounds for each parameter, and uses the definition of the boundaries to detect the variable types (i.e. `0.0` for floating points, `0` for integers, `False` for booleans)
-- **Swarm Size**: Adjusting the number of particles in the swarm allows to balance convergence speed and computation intensity.
-- **Inertia Weight**: Control the inertia of the particle velocity to influence the global and local search capabilities.
-- **Cognitive and Social Coefficients**: Fine-tune the cognitive and social components of the velocity update equation to steer the search process.
-- **Initial Particle Position**: Offers multiple strategies for initializing particle positions:
+#### Algorithm Overview
+
+The implementation in the library is close to the one defined [here](https://doi.org/10.1109/TEVC.2004.826067):
+
+ - A swarm of particle is initialized in the parameters space
+ - The objective functions are evaluated for each particle
+ - Each particle is tested for [dominance][patatune.util.get_dominated]
+ - The dominant particles are added to the archive of optimal solutions
+ - Each particle updates its velocity and position based on its local best and a global best chosen from the archive
+ - The process is repeated for a given number of iterations
+ - At the end of the optimization, the archive of optimal solutions is returne
+
+#### Basic Configuration
+
+The MOPSO class can be configured through several parameters:
+
+- **Objective**: MOPSO can optimize virtually any objective function defined by the user as an instance of the [Objective][patatune.objective.Objective] class or its subclasses.
+- **Boundary Constraints**: Users has to define the lower and upper bounds of the [parameters](#parameters-definition) to optimize, and the name of the parameters.
+- **Swarm Size**: The user can define the number of particles in the swarm with the `num_particles` parameter.
+
+```python
+mopso = patatune.MOPSO(
+    objective=objective,
+    lower_bounds=[0.0] * 30,
+    upper_bounds=[1.0] * 30,
+    num_particles=100
+)
+```
+
+#### Hyperparameters
+
+The behavior of the MOPSO algorithm can be fine-tuned through three hyperparameters:
+
+- **Inertia Weight**: Control the inertia of the particles, influencing their tendency to continue moving in the same direction.
+- **Cognitive Coefficients**: Control the influence of the particle's own best-known position on its movement.
+- **Social Coefficients**: Control the influence of the swarm's best-known position on the particle's movement.
+
+Higher inertia weight will lead to particles maintaining their velocity, promoting exploration of the search space, while lower inertia weight will encourage particles to focus on their local best solutions.
+
+Higher value of the social coefficient will lead the particles to be more attracted towards the global best solution found by the swarm, promoting exploration but leading to potentially lower diversity in the solutions.
+
+Higher value of the cognitive coefficient will lead to a more exploitative behavior, meaning that the particles will be more likely to refine their search in the vicinity of known good solutions, potentially leading to faster convergence but risking getting stuck in local optima.
+
+#### Topology Strategies
+
+The choice of the `global_best` particle from the archive can be configured through the `topology` parameter:
+
+ - `random`: the `global_best` is chosen randomly from the archive
+ - `round_robin`: the `global_best` is chosen in round robin fashion from the archive
+ - `lower_weighted_crowding_distance` and `higher_weighted_crowding_distance`: the `global_best` is chosen based on the crowding distance of the particles in the archive, favoring less crowded areas or more crowded areas respectively.
+
+Using the crowding distance can help to maintain diversity in the solutions found by the swarm, preventing premature convergence to a single solution, however it is computationally more expensive.  
+Using the random or round robin strategies is computationally cheaper, but can lead to less diverse solutions.
+
+#### Setting the initial particle positions
+
+The initial position of the particles can be defined through the `initial_particle_position` parameter and the `default_point` parameter:
 
   - `random` uniform distribution
-  - `gaussian` distribution around a given point
+  - `gaussian` distribution around the `default_point`
   - all in the `lower_bounds` or `upper_bounds` of the parameter space
-- **Exploration Mode**: An optional exploration mode enables particles to scatter from their position when they don't improve for a given number of iterations
-- **Swarm Topology**: Supports different swarm topologies, affecting how particles chose the `global_best` to follow.
 
-See the docstring for additional information on the parameters.
+Setting the `default_point` parameter with any option other than `gaussian` will ensure that at least one particle starts from that position.
+The gaussian distribution will center the particles around the `default_point`, with a standard deviation equal to one fourth of the distance between the lower and upper bounds.
+The particles will be clamped to stay within the defined bounds.
+
+The choice of the initial position can influence the convergence speed and the variety of solutions found by the swarm.
+
+```python
+mopso = patatune.MOPSO(
+    objective=objective,
+    lower_bounds=[0.0] * 30,
+    upper_bounds=[1.0] * 30,
+    num_particles=100,
+    initial_particle_position='gaussian',
+    default_point=[0.5] * 30
+)
+```
+
+#### Additional Features
+
+- **Exploration Mode**: An optional exploration mode enables particles to scatter from their position when they don't improve for a given number of iterations
+
+Exploration mode can help to escape local optima and explore new areas of the search space, potentially leading to better overall solutions.
+However it's implementation is still experimental and should be used with caution.
+
+- **Limit on Archive Size**: The archive of optimal solutions can be limited in size, removing the most crowded solutions when the limit fixed with the `max_pareto_length` is reached.
+
+
+See the [API reference][patatune.mopso.mopso.MOPSO] for additional information on the parameters.
 
 ## Utilities
 

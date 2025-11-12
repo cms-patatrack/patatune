@@ -337,6 +337,9 @@ class FileManager:
 def get_dominated(particles, pareto_length):
     """ Determine which particles are dominated within a population.
 
+    A particle is considered dominated if there exists at least one other particle that is better or equal in all objectives
+    and strictly better in at least one objective.
+    
     Args:
         particles (np.ndarray):
             2-D array of objective values for each particle (shape: [n_particles, n_objectives]).
