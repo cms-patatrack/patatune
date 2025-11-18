@@ -137,6 +137,7 @@ class FileManager:
         saving_json_enabled (bool): Flag to enable/disable JSON saving.
         saving_zarr_enabled (bool): Flag to enable/disable Zarr saving.
         saving_pickle_enabled (bool): Flag to enable/disable Pickle saving.
+        saving_history_enabled (bool): Flag to enable/disable history saving (per-iteration particle and Pareto front data).
         loading_enabled (bool): Global flag to enable/disable loading.
         headers_enabled (bool): Flag to enable/disable headers when saving/loading CSV files.
         working_dir (str): Directory where files will be saved/loaded from.
@@ -147,6 +148,7 @@ class FileManager:
     saving_json_enabled = True
     saving_zarr_enabled = False
     saving_pickle_enabled = True
+    saving_history_enabled = True
     loading_enabled = False
     headers_enabled = False
     working_dir = "tmp"
@@ -328,7 +330,22 @@ class FileManager:
                 group_name = key
             
             group = root_group.create_group(group_name)
-            group.create_dataset("data", data=value, overwrite=True)
+            
+            # Handle list of dictionaries (new format for particle/pareto history)
+            if isinstance(value, list) and len(value) > 0 and isinstance(value[0], dict):
+                # Convert list of dicts to separate arrays for each field
+                for field_name in value[0].keys():
+                    field_data = [item[field_name] for item in value]
+                    try:
+                        # Try to stack as numpy array
+                        field_array = np.array(field_data)
+                        group.create_dataset(field_name, data=field_array, overwrite=True)
+                    except (ValueError, TypeError):
+                        # If stacking fails, save as object array
+                        group.create_dataset(field_name, data=np.array(field_data, dtype=object), overwrite=True)
+            else:
+                # Handle numpy arrays (backward compatibility)
+                group.create_dataset("data", data=value, overwrite=True)
         root_group.attrs.update(kwargs)
                 
         store.close()
