@@ -339,10 +339,17 @@ class FileManager:
                     try:
                         # Try to stack as numpy array
                         field_array = np.array(field_data)
-                        group.create_dataset(field_name, data=field_array, overwrite=True)
+                        # Check if the array has object dtype (which happens with mixed types)
+                        if field_array.dtype == object:
+                            # Use Pickle codec for object arrays
+                            from numcodecs import Pickle
+                            group.create_dataset(field_name, data=field_array, overwrite=True, object_codec=Pickle())
+                        else:
+                            group.create_dataset(field_name, data=field_array, overwrite=True)
                     except (ValueError, TypeError):
-                        # If stacking fails, save as object array
-                        group.create_dataset(field_name, data=np.array(field_data, dtype=object), overwrite=True)
+                        # If stacking fails, save as object array with Pickle codec
+                        from numcodecs import Pickle
+                        group.create_dataset(field_name, data=np.array(field_data, dtype=object), overwrite=True, object_codec=Pickle())
             else:
                 # Handle numpy arrays (backward compatibility)
                 group.create_dataset("data", data=value, overwrite=True)
