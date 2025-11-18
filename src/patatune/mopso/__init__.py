@@ -1,0 +1,1 @@
+"""Module implementing the Multi-Objective Particle Swarm Optimization (MOPSO) algorithm."""

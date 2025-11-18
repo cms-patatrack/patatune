@@ -169,7 +169,9 @@ tmp
 *.profile
 
 # other formats
-*.png
 *.npy
 *.zip
 *.html
+
+# generated index file
+docs/index.md

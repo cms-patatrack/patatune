@@ -1,39 +1,83 @@
+"""Multi-Objective Particle Swarm Optimization (MOPSO) algorithm implementation."""
+
 from copy import copy
-import itertools
-import math
 import numpy as np
-import math
 from patatune import Optimizer, FileManager, Randomizer, Logger
-import scipy.stats as stats
 from .particle import Particle
 from patatune.util import get_dominated
 
 
-class MOPSO(Optimizer):
+def _truncated_normal_sample(lower, upper, loc, scale_factor, max_attempts=1000):
+    """Sample a truncated normal for each dimension using numpy.
+
+    Args:
+        lower (list): per-dimension lower bounds
+        upper (list): per-dimension upper bounds
+        loc (list): per-dimension means
+        scale_factor (float): multiplicative factor for standard deviation
+        max_attempts: maximum rejection sampling attempts before clipping
+
+    Returns:
+        np.ndarray: samples with same shape as loc
     """
-    Multi-Objective Particle Swarm Optimization (MOPSO) algorithm.
+    lower = np.array(lower, dtype=float)
+    upper = np.array(upper, dtype=float)
+    loc = np.array(loc, dtype=float)
+    scale = np.array((upper - lower) * scale_factor, dtype=float)
+    samples = np.empty_like(loc, dtype=float)
+    for i in range(len(loc)):
+        # Degenerate case: zero scale or identical bounds -> use clipped loc
+        if scale[i] == 0 or lower[i] == upper[i]:
+            samples[i] = float(np.clip(loc[i], lower[i], upper[i]))
+            continue
+        attempt = 0
+        val = Randomizer.rng.normal(loc[i], scale[i])
+        while (val < lower[i] or val > upper[i]) and attempt < max_attempts:
+            val = Randomizer.rng.normal(loc[i], scale[i])
+            attempt += 1
+        if val < lower[i] or val > upper[i]:
+            # Fallback to clipping to guarantee a value
+            val = float(np.clip(val, lower[i], upper[i]))
+        samples[i] = val
+    return samples
 
-    Parameters:
-    - objective (Objective): The objective function to be optimized.
-    - lower_bounds (list): The lower bounds for each parameter.
-    - upper_bounds (list): The upper bounds for each parameter.
-    - param_names (list): The names of the parameters (default: None).
-    - num_particles (int): The number of particles in the swarm (default: 50).
-    - inertia_weight (float): The inertia weight for particle velocity update (default: 0.5).
-    - cognitive_coefficient (float): The cognitive coefficient for particle velocity update (default: 1).
-    - social_coefficient (float): The social coefficient for particle velocity update (default: 1).
-    - initial_particles_position (str): The method for initializing particle positions (default: 'random').
-        Valid options are: 'lower_bounds', 'upper_bounds', 'random', 'gaussian'.
-    - default_point (list): The default point for initializing particles using Gaussian distribution (default: None).
-    - exploring_particles (bool): Whether to enable particle exploration (default: False).
-    - topology (str): The topology of the swarm (default: 'random').
-        Valid options are: 'random', 'lower_weighted_crowding_distance', 'higher_weighted_crowding_distance', 'round_robin'.
-    - max_pareto_length (int): The maximum length of the Pareto front (default: -1, unlimited).
 
-    Methods:
-    - optimize(num_iterations=100, max_iterations_without_improvement=None): Runs the MOPSO optimization algorithm for a specified number of iterations.
-    - step(max_iterations_without_improvement=None): Performs a single iteration of the MOPSO algorithm.
-    """   
+class MOPSO(Optimizer):
+    """ Multi-Objective Particle Swarm Optimization (MOPSO) algorithm.  
+    
+    The MOPSO class implements the MOPSO algorithm for multi-objective optimization problems.
+    It inherits from the base Optimizer class and provides methods for initializing particles,
+    updating their positions and velocities, evaluating their fitness, and maintaining the Pareto front.
+
+    Attributes:
+        objective (Objective): The functions to optimize.
+        lower_bounds (list): List of lower bounds for each parameter.
+        upper_bounds (list): List of upper bounds for each parameter.
+            lower and upper bounds are used to check the type of each parameter (int, float, bool)
+        param_names (list): List of parameter names.
+        num_particles (int): Number of particles in the swarm.
+        inertia_weight (float): Inertia weight for velocity update.
+        cognitive_coefficient (float): Cognitive coefficient for velocity update.
+        social_coefficient (float): Social coefficient for velocity update.
+        initial_particles_position (str): Method for initializing particle positions. Options are `lower_bounds`, `upper_bounds`, `random`, `gaussian`.
+
+            - if `lower_bounds`, all particles are initialized at the lower bounds;
+
+            - if `upper_bounds`, all particles are initialized at the upper bounds;
+
+            - if `random`, particles are initialized randomly within the bounds;
+
+            - if `gaussian`, particles are initialized using a truncated Gaussian distribution centered around default_point.
+
+        default_point (list): Default point for `gaussian` initialization.
+
+            - if None, the center between lower and upper bounds is used.
+        exploring_particles (bool): If True, particles that do not improve for a certain number of iterations are scattered.
+        topology (str): Topology for social interaction among particles. Options are `random`, `lower_weighted_crowding_distance`, `higher_weighted_crowding_distance`, `round_robin`.
+
+            See [Particle.get_pareto_leader][patatune.mopso.particle.Particle.get_pareto_leader] for more information.
+        max_pareto_length (int): Maximum length of the Pareto front. If -1, no limit is applied.
+    """
     def __init__(self,
                  objective,
                  lower_bounds, upper_bounds, param_names=None,
@@ -124,15 +168,8 @@ class MOPSO(Optimizer):
                     [self.lower_bounds, self.upper_bounds], axis=0)
             else:
                 default_point = np.array(default_point)
-            # See scipy truncnorm rvs documentation for more information
-            a_trunc = np.array(self.lower_bounds)
-            b_trunc = np.array(self.upper_bounds)
-            loc = default_point
-            scale = (np.array(self.upper_bounds) -
-                     np.array(self.lower_bounds))/4
-            a, b = (a_trunc - loc) / scale, (b_trunc - loc) / scale
-            [particle.set_position(stats.truncnorm.rvs(a, b, loc, scale))
-             for particle in self.particles]
+            for particle in self.particles:
+                particle.set_position(_truncated_normal_sample(self.lower_bounds, self.upper_bounds, default_point, 0.25))
 
             for particle in self.particles:
                 for i in range(self.num_params):
@@ -147,6 +184,12 @@ class MOPSO(Optimizer):
         self.history = {}
 
     def check_types(self):
+        """Check that lower_bounds and upper_bounds have acceptable types and are consistent.
+
+        Raises:
+            ValueError: If any lower or upper bound has an unacceptable type,
+                        or if lower_bounds and upper_bounds have inconsistent types.
+        """
         lb_types = [type(lb) for lb in self.lower_bounds]
         ub_types = [type(ub) for ub in self.upper_bounds]
 
@@ -173,16 +216,26 @@ class MOPSO(Optimizer):
                     self.lower_bounds[i] = int(self.lower_bounds[i])
 
     def save_state(self):
+        """Saves the current state of the MOPSO optimizer to a checkpoint file.
+        
+        Uses the FileManager to serialize and save the MOPSO object to 'checkpoint/mopso.pkl'.
+        """
         Logger.debug("Saving MOPSO state")
         FileManager.save_pickle(self, "checkpoint/mopso.pkl")
 
     def export_state(self):
+        """Exports the current state of the MOPSO optimizer to CSV files.
+
+        Uses the FileManager to export:
+         - the states of individual particles to 'checkpoint/individual_states.csv'
+         - the current Pareto front to 'checkpoint/pareto_front.csv'.
+        """
         Logger.debug("Exporting MOPSO state")
         FileManager.save_csv([np.concatenate([particle.position,
                                               particle.velocity])
                              for particle in self.particles],
                              'checkpoint/individual_states.csv',
-                             headers=self.param_names + self.objective.objective_names)
+                             headers=self.param_names + [f"velocity_{p}" for p in self.param_names])
 
         FileManager.save_csv([np.concatenate([particle.position, np.ravel(particle.fitness * self.objective.directions)])
                              for particle in self.pareto_front],
@@ -190,11 +243,21 @@ class MOPSO(Optimizer):
                              headers=self.param_names + self.objective.objective_names)
 
     def load_state(self):
+        """Loads the MOPSO optimizer state from a checkpoint file.
+        
+        Uses the FileManager to deserialize and restore the MOPSO object from 'checkpoint/mopso.pkl'.
+        """
         Logger.debug("Loading checkpoint")
         obj = FileManager.load_pickle("checkpoint/mopso.pkl")
         self.__dict__ = obj.__dict__
 
     def step(self, max_iterations_without_improvement=None):
+        """Performs a single optimization step in the MOPSO algorithm.
+        
+        Args:
+            max_iterations_without_improvement (int, optional): Maximum number of iterations a particle can go
+                without improvement before being scattered. If None, no scattering is performed.
+        """
         Logger.debug(f"Iteration {self.iteration}")
         optimization_output = self.objective.evaluate(
             [particle.position for particle in self.particles])
@@ -225,6 +288,18 @@ class MOPSO(Optimizer):
         self.iteration += 1
 
     def optimize(self, num_iterations=100, max_iterations_without_improvement=None):
+        """Runs the MOPSO optimization process for a specified number of iterations.
+        
+        Uses the `step` method to perform optimization steps and manages the overall optimization loop.
+
+        Args:
+            num_iterations (int): Total number of iterations to perform.
+            max_iterations_without_improvement (int, optional): Maximum number of iterations a particle can go
+                without improvement before being scattered. If None, no scattering is performed.
+
+        Returns:
+            (list): The final Pareto front after optimization.
+        """
         Logger.info(f"Starting MOPSO optimization from iteration {self.iteration} to {num_iterations}")
         for _ in range(self.iteration, num_iterations):
             self.step(max_iterations_without_improvement)
@@ -234,6 +309,11 @@ class MOPSO(Optimizer):
         return self.pareto_front
 
     def update_pareto_front(self):
+        """Updates the Pareto front based on the current particles' fitness.
+        
+        Returns:
+            (dict): A dictionary mapping each particle in the Pareto front to its crowding distance.
+        """
         Logger.debug("Updating Pareto front")
         pareto_lenght = len(self.pareto_front)
         particles = self.pareto_front + self.particles
@@ -258,6 +338,14 @@ class MOPSO(Optimizer):
         return crowding_distances
 
     def calculate_crowding_distance(self, pareto_front):
+        """Calculates the crowding distance for each particle in the Pareto front.
+
+        Args:
+            pareto_front (list): List of particles representing the current Pareto front.
+        
+        Returns:
+            (dict): A dictionary mapping each particle in the Pareto front to its crowding distance.
+        """
         if len(pareto_front) == 0:
             return []
         num_objectives = len(np.ravel(pareto_front[0].fitness))
@@ -282,6 +370,13 @@ class MOPSO(Optimizer):
         return point_to_distance
 
     def scatter_particle(self, particle: Particle):
+        """Scatters a particle that has not improved for a certain number of iterations.
+
+        The particle's velocity is adjusted to move it towards less crowded areas of the search space.
+
+        Args:
+            particle (Particle): The particle to be scattered.
+        """
         Logger.debug(
             f"Particle {particle} did not improve for 10 iterations. Scattering.")
         for i in range(len(self.lower_bounds)):
@@ -295,23 +390,35 @@ class MOPSO(Optimizer):
                 particle.velocity[i] = -1
 
     def get_metric(self, metric):
+        """Calculates a specified metric for the current Pareto front.
+
+        For example:
+        ``` python
+        mopso.get_metric(patatune.metrics.generational_distance)
+        ```
+
+        Args:
+            metric (function): A [metric][patatune.metrics] function that takes two arguments: the Pareto front and the reference front.
+        
+        Returns:
+            (float): The calculated metric value.
+        """
         result = None
         if self.objective.true_pareto is None and metric.__name__ not in ['hypervolume_indicator']:
             raise ValueError(
                 "True pareto function is not defined for this objective. Only hypervolume indicators can be used.")
         pareto = np.array([particle.fitness for particle in self.pareto_front])
-        x = np.linspace(0, 1, len(pareto))
         if metric.__name__ in ['hypervolume_indicator']:
             reference_point = np.ones(len(pareto[0]))
             if self.objective.true_pareto is not None:
-                reference_pareto = np.array(self.objective.true_pareto(x)).T
+                reference_pareto = self.objective.true_pareto(len(pareto))
                 reference_hypervolume = metric(reference_pareto, reference_point)
             else:
                 reference_hypervolume = 1
             Logger.debug(f"Measuring {metric.__name__}. Reference hypervolume: {reference_hypervolume}")
             result = metric(pareto, reference_point, reference_hypervolume)
         else:
-            reference_pareto = np.array(self.objective.true_pareto(x)).T
+            reference_pareto = self.objective.true_pareto(len(pareto))
             Logger.debug(f"Measuring {metric.__name__}")
             result = metric(pareto, reference_pareto)
         Logger.info(f"{metric.__name__}: {result}")

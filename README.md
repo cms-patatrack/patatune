@@ -1,37 +1,93 @@
-![Patatune](Patatune.png)
+<style> .md-content .md-typeset h1 { display: none; } </style>
 
-patatune is a python package that provides a collection of powerful optimization algorithms, including MOPSO (Multi-Objective Particle Swarm Optimization). The primary purpose of this package is to facilitate running optimization tasks using user-defined Python functions as the optimization target.
-The package is developed with the objectives of CMS and Patatrack in mind.
+<style> .md-content .md-typeset h1 { display: none; } </style>
 
-- [patatune](#patatune)
-  - [Installation](#installation)
-  - [Usage](#usage)
-    - [Objective Function](#objective-function)
-  - [Contributing](#contributing)
-  - [License](#license)
+![PATATUNE](https://raw.githubusercontent.com/cms-patatrack/PATATUNE/refs/heads/docs/docs/Patatune.png)
+
+*A Framework for Metaheuristic Multi-Objective Optimization for High Energy Physics*
+
+![PyPI - Version](https://img.shields.io/pypi/v/patatune)
+[![Documentation](https://img.shields.io/badge/docs-latest-blue)](https://cms-patatrack.github.io/patatune/)
+
+---
+
+**Documentation:** [https://cms-patatrack.github.io/patatune](https://cms-patatrack.github.io/patatune)
+
+**Source code:** [https://github.com/cms-patatrack/patatune](https://github.com/cms-patatrack/patatune)
+
+---
+
+PATATUNE is a Python package that provides a framework for multi-objective optimization algorithms, including the Multi-Objective Particle Swarm Optimization (MOPSO) method.
+Its primary purpose is to automate the optimization of the parameters of user-defined functions.
+The package has been developed with the needs of CMS and Patatrack in mind.
+
+The key features are:
+
+- **Easy to use** and learn.
+- **Pluggable** Multi-objective optimization model with Multi-Objective Particle Swarm Optimization implemented via the `MOPSO` class.
+- Multiple objective definition supported, for any **user-defined objective** function.
+- Support for different **parameter types** (int, float, bool).
+- Built-in **metrics** for convergence/quality assessment: Generational Distance, Inverted GD, Hypervolume.
+- Persistence and **checkpointing** via `FileManager` (save/load pickle, CSV, Zarr); supports resuming runs and per-iteration history export.
 
 ## Installation
 
-To use patatune package, you can install it using pip and the provided setup.py script.
+PATATUNE is available on [PyPi](https://pypi.org/project/patatune/).
+
+To install it you can simply run:
+
+```bash
+pip install patatune
+```
+
+If you want to use the latest development version on the main branch:
 
 1. Clone this repository
-1. Navigate to the project directory
-1. Install the package and its dependencies using pip:
+2. Navigate into the project directory
+3. Install the package and its dependencies using pip:
 
     ```bash
     pip install .
     ```
-
 You can install a project in “editable” or “develop” mode while you’re working on it. When installed as editable, a project can be edited in-place without reinstallation:
 
 ```bash
-python3 -m pip install -e .
+pip install -e .
 ```
 
-## Usage
+## Requirements
+
+PATATUNE is written for Python 3.9+ and depends on a small set of scientific Python packages.  The following are required to run the library:
+
+- [numpy](https://numpy.org/doc/)
+- [dill](https://dill.readthedocs.io/en/latest/)
+
+Optional functionality is provided by extras:
+
+- [numba](https://numba.pydata.org/numba-doc/dev/index.html) (optional — JIT acceleration)
+- [zarr==2.*](https://zarr.readthedocs.io/en/v2.2.0/) (optional — save/load history in Zarr format)
+
+These dependencies are declared in `pyproject.toml` and can be installed with pip (see Installation below). If you need the optional extras, install with `extra`:
+
+```bash
+pip install patatune[extra]
+```
+
+The additional example require additional libraries ([matplotlib](https://matplotlib.org/stable/index.html), [pandas](https://pandas.pydata.org/docs/)). If you want to run them, install with `tests`:
+
+```bash
+pip install patatune[tests]
+```
+or, to include every optional dependecy:
+
+```bash
+pip install patatune[all]
+```
+
+## Example
 
 Currently the package provides the `patatune` module that defines an optimization algorithm: `MOPSO`.
-patatune relies on a few helper classes to handle configuration and the objective functions. To use this module in your Python projects:
+PATATUNE relies on a few helper classes to handle configuration and the objective functions. To use this module in your Python projects:
 
 1. Import the required modules:
 
@@ -39,7 +95,7 @@ patatune relies on a few helper classes to handle configuration and the objectiv
     import patatune
     ```
 
-2. Define the objective function to be optimized. I.e.:
+2. Define the objective function to be optimized. i.e.:
 
     ```python
     def f1(x):
@@ -49,7 +105,7 @@ patatune relies on a few helper classes to handle configuration and the objectiv
     def f2(x):
         return (x[0] - 5)**2 + (x[1] - 5)**2
 
-    objective = patatune.ElementWiseObjective([f1, f2])
+    objectives = patatune.ElementWiseObjective([f1, f2])
     ```
 
 3. Define the boundaries of the parameters:
@@ -62,107 +118,44 @@ patatune relies on a few helper classes to handle configuration and the objectiv
 4. Create the MOPSO object with the configuration of the algorithm
 
     ```python
-    mopso = patatune.MOPSO(objective=objective,
+    mopso = patatune.MOPSO( objectives,
                             lower_bounds=lb, upper_bounds=ub,
                             num_particles=50,
-                            inertia_weight=0.4, cognitive_coefficient=1.5, social_coefficient=2,
-                            initial_particles_position='random', exploring_particles=True,
-                            max_pareto_length=100)
+                            inertia_weight=0.4, cognitive_coefficient=1.5, social_coefficient=2)
     ```
 
 5. Run the optimization algorithm
 
     ```python
-    pareto_front = mopso.optimize(num_iterations = 100)
+    pareto = mopso.optimize(num_iterations = 100)
     ```
 
-### Objective Function
+The output will be the archive of optimal solutions found by the algorithm after 100 iterations.
 
-Depending on the optimization mode, the objective function can be defined in two way:
-
-1. As `Objective`, the objective function is evaluated once per iteration and is called as:
-
-    ```python
-    f([particle.position for particle in self.particles])
-    ```
-
-    the argument of the optimization function is a list of arrays: an array of parameters for each particle.  
-    The output is a list of fitnesses: the value(s) to minimize for each particle.
-
-2. As `ElementWiseObjective`, the objective function is evaluated particle by particle at every iteration and is called as:
-
-    ```python
-    f(self.position) # self is a Particle object
-    ```
-
-    the argument of the optimization function is an array of elements corresponding to the parameters to optimize.  
-    The output is the fitness of the particle: the value(s) to minimize in order to solve the optimization problem.  
-
-See the `tests` and `examples` folders for examples.
-
-### MOPSO
-
-The Multi-Objective Particle Swarm Optimization (MOPSO) algorithm is a versatile optimization tool designed for solving multi-objective problems. It leverages the concept of swarm to navigate the search space and find optimal solutions.
-
-- **Objective**: MOPSO can optimize virtually any objective function defined by the user.
-- **Boundary Constraints**: Users can specify lower and upper bounds for each parameter, and uses the definition of the boundaries to detect the variable types (i.e. `0.0` for floating points, `0` for integers, `False` for booleans)
-- **Swarm Size**: Adjusting the number of particles in the swarm allows to balance convergence speed and computation intensity.
-- **Inertia Weight**: Control the inertia of the particle velocity to influence the global and local search capabilities.
-- **Cognitive and Social Coefficients**: Fine-tune the cognitive and social components of the velocity update equation to steer the search process.
-- **Initial Particle Position**: Offers multiple strategies for initializing particle positions:
-
-  - `random` uniform distribution
-  - `gaussian` distribution around a given point
-  - all in the `lower_bounds` or `upper_bounds` of the parameter space
-- **Exploration Mode**: An optional exploration mode enables particles to scatter from their position when they don't improve for a given number of iterations
-- **Swarm Topology**: Supports different swarm topologies, affecting how particles chose the `global_best` to follow.
-
-See the docstring for additional information on the parameters.
-
-### Checkpoint system
-
-patatune can be run using the `optimize` method for a specific number of iterations, or it can also be run interactively by calling the `step` function to perform a single iteration.
-
-In addition patatune allows to stop the execution, saving the state, and restore the execution from the leftover run.
-
-To do this, first enable saving and enabling using the `FileManager` helper class:
+The output is a Python list containing Particle objects (instances of `patatune.mopso.particle.Particle`). 
+You can easily extract a compact representation from the returned list. For example:
 
 ```python
-patatune.FileManager.working_dir = "tmp/zdt1/"
-patatune.FileManager.loading_enabled = True
-patatune.FileManager.saving_enabled = True
+for p in pareto:
+    print("position:", p.position, "fitness:", p.fitness)
 ```
 
-After launching `optimize` the state of patatune will be saved in the `mopso.pkl` file inside the working directory.
+Example printed output:
 
-A new run of the script will attempt to load the file and restart the execution from the iteration it was stopped at.
-
-For example, if you run optimize until iteration 100, save and then rerun till iteration 200, patatune will call the step function for iteration 101 to 200.
-
-The saving option allow also to export the state of the particles in every iteration inside a `history` directory in the working directory.
-
-### Random
-
-The MOPSO patatune heavily relies on randomnumber generation. To make sure to obtain reproducible results an helper function allows to set the seed for every random generation performed by the algortihm:
-
-```python
-patatune.Randomizer.rng = np.random.default_rng(42)
 ```
+id: 0  position: [1.8 1.6] fitness: [ 23.5 21.6]
+id: 49 position: [0.0 0.0] fitness: [ 0.   50. ]
+id: 18 position: [1.0 1.0] fitness: [ 8.3  31.7]
+id: 29 position: [5.0 3.0] fitness: [ 136. 4.  ]
+id: 16 position: [0.0 0.0] fitness: [ 0.   50. ]
+...
 
-### Logging
-
-You can configure the amount of logging information printed on terminal with:
-
-```python
-patatune.Logger.setLevel('DEBUG')
 ```
-
-The supported levels - from least to most verbose - are: `ERROR`, `WARN`, `INFO`, `DEBUG`
 
 ## Contributing
 
-Contributions are welcome. If you want to contribute, please follow the [Contribution guidelines](https://github.com/cms-patatrack/patatune/blob/main/CONTRIBUTING.md).
+Contributions are welcome. If you want to contribute, please follow the [Contribution guidelines](https://github.com/cms-patatrack/PATATUNE/blob/main/CONTRIBUTING.md).
 
 ## License
 
-patatune is distributed under the [MPL 2.0 License](https://github.com/cms-patatrack/patatune/blob/main/LICENSE). Feel free to use, modify, and distribute the code following the terms of the license.  
+PATATUNE is distributed under the [MPL 2.0 License](https://github.com/cms-patatrack/PATATUNE/blob/main/LICENSE). Feel free to use, modify, and distribute the code following the terms of the license.  

@@ -6,10 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "patatune"
 dynamic = ["version"]
 dependencies = [
-    "scikit-learn",
     "numpy",
-    "matplotlib",
-    "pandas",
     "dill"
 ]
 readme = "README.md"
@@ -23,7 +20,9 @@ classifiers = [
 [project.optional-dependencies]
 numba = ["numba"]
 zarr = ["zarr==2.*"]
-all = ["numba", "zarr==2.*"]
+tests = ["pandas","matplotlib"]
+extra = ["numba", "zarr==2.*"]
+all = ["numba","zarr==2.*","pandas","matplotlib"]
 
 [project.urls]
 "Source Code" = "https://github.com/cms-patatrack/patatune"

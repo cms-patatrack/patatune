@@ -1,0 +1,132 @@
+site_name: PATATUNE
+site_description: A Framework for Metaheuristic Multi-Objective Optimization for High Energy Physics - Documentation
+repo_url: https://github.com/cms-patatrack/patatune
+edit_uri: edit/docs/docs/ # change to 'edit/main/docs/' when merged to main
+theme:
+  name: material
+  logo: logo_white.svg
+  favicon: favicon.svg
+  features:
+    - navigation.instant
+    - search.suggest
+    - search.highlight
+    - toc.integrate 
+    - navigation.top
+    - content.action.view
+    - navigation.tabs
+    - navigation.tabs.sticky
+  palette:
+    scheme: slate
+    primary: red
+
+watch:
+  - README.md
+
+hooks:
+  - docs/hooks/generate_index.py
+
+nav:
+    - PATATUNE: index.md
+    - User Guide: user_guide.md
+    - API Reference: api.md
+
+
+markdown_extensions:
+  - fenced_code
+  - codehilite
+  - pymdownx.superfences
+
+plugins:
+- search
+- mkdocstrings:
+    handlers:
+      python:
+        paths: [src/patatune]
+
+        # Load object inventories to enable cross-references to other projects.
+        inventories:
+        - https://docs.python.org/3/objects.inv
+        # Also load inventories of your dependencies, generally served at
+        # https://docs-url-for-your-dependency/objects.inv.
+        - https://numpy.org/doc/stable/objects.inv
+        - https://pandas.pydata.org/pandas-docs/stable/objects.inv
+        - https://scikit-learn.org/stable/objects.inv
+        - https://dill.readthedocs.io/en/latest/objects.inv
+        - https://matplotlib.org/stable/objects.inv
+        - https://zarr.readthedocs.io/en/stable/objects.inv
+
+        options:
+          show_submodules: true
+          show_source: false
+
+          # DOCSTRINGS -------------------------------------------------------------
+          docstring_options:
+            # Discard first line of `__init__` method docstrings,
+            # useful when merging such docstrings into their parent class'.
+            ignore_init_summary: true
+
+          # Tables are generally too large, lists will fix this.
+          docstring_section_style: list
+          docstring_style: google
+
+          # CROSS-REFERENCES -------------------------------------------------------
+          # Enable cross-references in signatures.
+          signature_crossrefs: true
+
+          # Unwrap actual types from `Annotated` type annotations.
+          unwrap_annotated: true
+
+          # MEMBERS ----------------------------------------------------------------
+          # Show class inherited members.
+          inherited_members: true
+
+          # Render auto-generated summaries of attributes, functions, etc.
+          # at the start of each symbol's documentation.
+          summary: true
+
+          # HEADINGS ---------------------------------------------------------------
+          # For auto-generated pages, one module per page,
+          # make the module heading be the H1 heading of the page.
+          # heading_level: 1
+
+          # Render headings for parameters, making them linkable.
+          # parameter_headings: true
+
+          # Render headings for type parameters too.
+          # type_parameter_headings: true
+
+          # Always show the heading for the symbol you render with `::: id`.
+          # show_root_heading: false
+
+          # Only show the name of the symbols you inject render `::: id`.
+          show_root_full_path: false
+
+          # Show the type of symbol (class, function, etc.) in the heading.
+          show_symbol_type_heading: true
+
+          # Show the type of symbol (class, function, etc.) in the table of contents.
+          show_symbol_type_toc: true
+
+          # SIGNATURES -------------------------------------------------------------
+          # Format code to 80 + 10% margin (Black and Ruff defaults)
+          # in signatures and attribute value code blocks.
+          # Needs Black/Ruff installed.
+          line_length: 88
+
+          # Merge signature and docstring of `__init__` methods
+          # into their parent class signature and docstring.
+          merge_init_into_class: true
+
+          # Render signatures and attribute values in a separate code block,
+          # below the symbol heading.
+          separate_signature: true
+
+          # Show type annotations in signatures.
+          show_signature_annotations: true
+
+          # Show type parameters in signatures.
+          show_signature_type_parameters: true
+
+          # OTHER ------------------------------------------------------------------
+          # Show base classes OR inheritance diagram.
+          show_bases: true

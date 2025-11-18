@@ -1,18 +1,19 @@
+"""Module implementing various multi-objective optimization metrics."""
+
 import numpy as np
 from .util import njit, get_dominated, Logger
 
-# Generational distance
 def generational_distance(pareto_front, reference_front):
-    """
-    This function calculates the generational distance metric, for any dimension of the pareto front.
-    Parameters:
-    pareto_front : numpy array
-        Represents the pareto front obtained from the optimization algorithm.
-    reference_front : numpy array
-        Represents the true pareto front.
+    """Calculates the generational distance metric, for any dimension of the pareto front.
+
+    The generational distance (GD) measures the average distance of points in the obtained Pareto front to the nearest point in the true Pareto front.
+
+    Args:
+        pareto_front (np.ndarray): Represents the pareto front obtained from the optimization algorithm.
+        reference_front (np.ndarray): Represents the true pareto front.
+
     Returns:
-    generational_distance : float
-        The generational distance metric value.
+        (float): The generational distance metric value.
     """
     if len(pareto_front) == 0 or len(reference_front) == 0:
         return float('inf')
@@ -28,18 +29,17 @@ def generational_distance(pareto_front, reference_front):
     
     return (sum_distances / len(pareto_front)) ** 0.5
 
-# Inverted generational distance
 def inverted_generational_distance(pareto_front, reference_front):
-    """
-    This function calculates the inverted generational distance metric, for any dimension of the pareto front.
-    Parameters:
-    pareto_front : numpy array
-        Represents the pareto front obtained from the optimization algorithm.
-    reference_front : numpy array
-        Represents the true pareto front.
+    """Calculates the inverted generational distance metric, for any dimension of the pareto front.
+
+    The inverted generational distance (IGD) measures the average distance of points in the true Pareto front to the nearest point in the obtained Pareto front.
+
+    Args:
+        pareto_front (np.ndarray): Represents the pareto front obtained from the optimization algorithm.
+        reference_front (np.ndarray): Represents the true pareto front.
+
     Returns:
-    inverted_generational_distance : float
-        The inverted generational distance metric value.
+        (float): The inverted generational distance metric value.
     """
     if len(reference_front) == 0 or len(pareto_front) == 0:
         return float('inf')
@@ -55,20 +55,20 @@ def inverted_generational_distance(pareto_front, reference_front):
 
     return (sum_distances / len(reference_front)) ** 0.5
 
-# Hypervolume
 def hypervolume_indicator(pareto_front, reference_point, reference_hv=1, max_evaluations=10000000):
-    """
-    This function calculates the hypervolume indicator metric, for any dimension of the pareto front.
-    Parameters:
-    pareto_front : numpy array
-        Represents the pareto front obtained from the optimization algorithm.
-    reference_point : numpy array
-        Represents the reference point for the hypervolume calculation.
-    max_evaluations : int
-        Maximum number of function evaluations to prevent infinite loops.
+    """Calculates the hypervolume indicator metric, for any dimension of the pareto front.
+
+    The hypervolume indicator (HV) measures the volume of the objective space dominated by the obtained Pareto front and bounded by a reference point.
+
+    Args:
+        pareto_front (np.ndarray): Represents the pareto front obtained from the optimization algorithm.
+        reference_point (list or np.ndarray): A reference point in the objective space, typically chosen to be worse than any point in the pareto front.
+        reference_hv (float): The hypervolume of the reference front for normalization (default: 1).
+        max_evaluations (int): Maximum number of evaluations to perform during hypervolume calculation (default: 10,000,000).
+            Maximum number of evaluations to perform during hypervolume calculation (default: 10,000,000).
+    
     Returns:
-    hypervolume : float
-        The hypervolume indicator metric value.
+        (float): The hypervolume indicator metric value normalized by the reference hypervolume.
     """
     counter = [0] 
     result = wfg(sorted(pareto_front, key=lambda x: x[0]), reference_point, counter, max_evaluations)
@@ -82,6 +82,25 @@ def hypervolume_indicator(pareto_front, reference_point, reference_hv=1, max_eva
 
 @njit
 def wfg(pareto_front, reference_point, counter, max_evaluations):
+    """
+    WFG algorithm for hypervolume calculation
+    Reference: While, L., Bradstreet, L., & Barone, L. (2012). A fast way of calculating exact hypervolumes.
+    IEEE Transactions on Evolutionary Computation, 16(1), 86-95.
+    DOI: [10.1109/TEVC.2010.2077298](https://doi.org/10.1109/TEVC.2010.2077298)
+
+    Args:
+        pareto_front (np.ndarray): Represents the pareto front obtained from the optimization algorithm.
+        reference_point (list or np.ndarray): A reference point in the objective space, typically chosen to be worse than any point in the pareto front.
+        counter (list): A list containing a single integer to keep track of the number of evaluations performed.
+        max_evaluations (int): Maximum number of evaluations to perform during hypervolume calculation.
+
+    Returns:
+        (float): The hypervolume of the pareto front with respect to the reference point.
+
+    Note:
+        Optionally uses numba's njit for performance optimization.
+    """
+
     if counter is None:
         counter = [0]
     
@@ -101,11 +120,6 @@ def wfg(pareto_front, reference_point, counter, max_evaluations):
 
 @njit
 def exclhv(pareto_front, k, reference_point, counter, max_evaluations):
-    """
-    The exclusive hypervolume of a point p relative to an underlying set S
-    is the size of the part of objective space that is dominated by p but is 
-    not dominated by any member of S
-    """
     if counter is None:
         counter = [0]
     
@@ -145,8 +159,14 @@ def limitset(pareto_front, k):
 
 @njit
 def nds(front):
-    """
-    return the nondominated solutions from a set of points
+    """ Returns the non-dominated set from the given front. 
+    
+    Uses the get_dominated utility function to identify dominated points and filters them out.
+
+    Args:
+        front (np.ndarray): Represents a set of points in the objective space.
+    Returns:
+        (np.ndarray): The non-dominated subset of the input front.
     """
 
     if len(front) == 1:
