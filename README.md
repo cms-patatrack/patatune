@@ -11,6 +11,8 @@
 
 **Source code:** [https://github.com/cms-patatrack/patatune](https://github.com/cms-patatrack/patatune)
 
+**Dashboard for visualization (CERN instance for testing):** [https://patatune-dash.app.cern.ch/](https://patatune-dash.app.cern.ch/)
+
 ---
 
 PATATUNE is a Python package that provides a framework for multi-objective optimization algorithms, including the Multi-Objective Particle Swarm Optimization (MOPSO) method.
