@@ -19,6 +19,7 @@ classifiers = [
 
 [project.optional-dependencies]
 numba = ["numba"]
+moocore = ["moocore"]
 zarr = ["zarr==2.*"]
 tests = ["pandas","matplotlib"]
 extra = ["numba", "zarr==2.*"]

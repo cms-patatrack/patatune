@@ -46,7 +46,41 @@ except ImportError:
         else:
             return dummy_decorator
 
+# If moocore is installed import it and use it for get_dominated
+try:
+    from moocore import is_nondominated
+    def get_dominated(particles, pareto_length):
+        return np.logical_not(is_nondominated(particles, maximise=False, keep_weakly=True))
+except ImportError:
+    @njit
+    def get_dominated(particles, pareto_length):
+        """ Determine which particles are dominated within a population.
 
+        A particle is considered dominated if there exists at least one other particle that is better or equal in all objectives
+        and strictly better in at least one objective.
+        
+        Args:
+            particles (np.ndarray):
+                2-D array of objective values for each particle (shape: [n_particles, n_objectives]).
+            pareto_length (int):
+                Number of particles considered part of the current Pareto set (these are skipped in comparisons).
+
+        Returns:
+            (np.ndarray): Boolean array of length `len(particles)` where True means the particle is dominated by at least one other particle.
+
+        Notes:
+            The function is decorated with a (possible) `njit` to allow optional numba acceleration.
+        """
+        dominated_particles = np.full(len(particles), False, dtype=np.bool_)
+        for i, pi in enumerate(particles):
+            for j, pj in enumerate(particles):
+                if (i < pareto_length and j < pareto_length) or i == j:
+                    continue
+                if np.any(pi > pj) and \
+                        np.all(pi >= pj):
+                    dominated_particles[i] = True
+                    break
+        return dominated_particles.astype(np.bool_)
 
 class CustomFormatter(logging.Formatter):
     """ Custom logging formatter to add colors based on log level.
@@ -332,33 +366,3 @@ class FileManager:
         root_group.attrs.update(kwargs)
                 
         store.close()
-
-@njit
-def get_dominated(particles, pareto_length):
-    """ Determine which particles are dominated within a population.
-
-    A particle is considered dominated if there exists at least one other particle that is better or equal in all objectives
-    and strictly better in at least one objective.
-    
-    Args:
-        particles (np.ndarray):
-            2-D array of objective values for each particle (shape: [n_particles, n_objectives]).
-        pareto_length (int):
-            Number of particles considered part of the current Pareto set (these are skipped in comparisons).
-
-    Returns:
-        (np.ndarray): Boolean array of length `len(particles)` where True means the particle is dominated by at least one other particle.
-
-    Notes:
-        The function is decorated with a (possible) `njit` to allow optional numba acceleration.
-    """
-    dominated_particles = np.full(len(particles), False, dtype=np.bool_)
-    for i, pi in enumerate(particles):
-        for j, pj in enumerate(particles):
-            if (i < pareto_length and j < pareto_length) or i == j:
-                continue
-            if np.any(pi > pj) and \
-                    np.all(pi >= pj):
-                dominated_particles[i] = True
-                break
-    return dominated_particles.astype(np.bool_)
