@@ -347,27 +347,25 @@ class MOPSO(Optimizer):
             (dict): A dictionary mapping each particle in the Pareto front to its crowding distance.
         """
         if len(pareto_front) == 0:
-            return []
+            return {}
         num_objectives = len(np.ravel(pareto_front[0].fitness))
-        distances = [0] * len(pareto_front)
-        point_to_distance = {}
+        # Distances are keyed by particle, not by position in the list
+        distances = {particle: 0.0 for particle in pareto_front}
         for i in range(num_objectives):
             # Sort by objective i
             sorted_front = sorted(
                 pareto_front, key=lambda x: np.ravel(x.fitness)[i])
             # Set the boundary points to infinity
-            distances[0] = float('inf')
-            distances[-1] = float('inf')
+            distances[sorted_front[0]] = float('inf')
+            distances[sorted_front[-1]] = float('inf')
             # Normalize the objective values for calculation
             min_obj = np.ravel(sorted_front[0].fitness)[i]
             max_obj = np.ravel(sorted_front[-1].fitness)[i]
             norm_denom = max_obj - min_obj if max_obj != min_obj else 1
             for j in range(1, len(pareto_front) - 1):
-                distances[j] += (np.ravel(sorted_front[j + 1].fitness)[i] -
-                                 np.ravel(sorted_front[j - 1].fitness)[i]) / norm_denom
-        for i, point in enumerate(pareto_front):
-            point_to_distance[point] = distances[i]
-        return point_to_distance
+                distances[sorted_front[j]] += (np.ravel(sorted_front[j + 1].fitness)[i] -
+                                               np.ravel(sorted_front[j - 1].fitness)[i]) / norm_denom
+        return distances
 
     def scatter_particle(self, particle: Particle):
         """Scatters a particle that has not improved for a certain number of iterations.

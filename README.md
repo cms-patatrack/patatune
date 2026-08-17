@@ -2,7 +2,7 @@
 
 *A Framework for Metaheuristic Multi-Objective Optimization for High Energy Physics*
 
-![PyPI - Version](https://img.shields.io/pypi/v/patatune)
+[![PyPI - Version](https://img.shields.io/pypi/v/patatune)](https://pypi.org/project/patatune/)
 [![Documentation](https://img.shields.io/badge/docs-latest-blue)](https://cms-patatrack.github.io/patatune/)
 
 ---
