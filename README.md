@@ -55,10 +55,16 @@ pip install -e .
 
 ## Requirements
 
-PATATUNE is written for Python 3.9+ and depends on a small set of scientific Python packages.  The following are required to run the library:
+PATATUNE requires Python 3.12 or later.
+
+> [!NOTE]
+> Python 3.12 is a new requirement starting with the current release and the introduction of [moocore](https://multi-objective.github.io/moocore/) as a dependency. If you are using an older Python version, please use PATATUNE <=1.0.4.
+
+PATATUNE depends on a small set of scientific Python packages. The following are required to run the library:
 
 - [numpy](https://numpy.org/doc/)
 - [dill](https://dill.readthedocs.io/en/latest/)
+- [moocore](https://multi-objective.github.io/moocore/)
 
 Optional functionality is provided by extras:
 

@@ -5,9 +5,11 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "patatune"
 dynamic = ["version"]
+requires-python = ">=3.12"
 dependencies = [
     "numpy",
-    "dill"
+    "dill",
+    "moocore"
 ]
 readme = "README.md"
 description = "A optimization library for multi-objective optimization problems."
@@ -19,7 +21,6 @@ classifiers = [
 
 [project.optional-dependencies]
 numba = ["numba"]
-moocore = ["moocore"]
 zarr = ["zarr==2.*"]
 tests = ["pandas","matplotlib"]
 extra = ["numba", "zarr==2.*"]
