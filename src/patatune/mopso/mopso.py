@@ -263,19 +263,41 @@ class MOPSO(Optimizer):
             [particle.position for particle in self.particles])
         [particle.set_fitness(optimization_output[p_id])
             for p_id, particle in enumerate(self.particles)]
-        FileManager.save_csv([np.concatenate([particle.position, np.ravel(
-            particle.fitness * self.objective.directions)]) for particle in self.particles],
-            'history/iteration' + str(self.iteration) + '.csv',
-            headers=self.param_names + self.objective.objective_names)
-        self.history[self.iteration] = np.array(
-            [(particle.id, particle.position, particle.fitness * self.objective.directions) for particle in self.particles],
-            dtype=np.dtype([('id', int), ('position', float, (self.num_params,)), ('fitness', float, (self.objective.num_objectives,))])
-        )
+        
+        if FileManager.saving_history_enabled:
+            FileManager.save_csv([np.concatenate([particle.position, np.ravel(
+                particle.fitness * self.objective.directions)]) for particle in self.particles],
+                'history/iteration' + str(self.iteration) + '.csv',
+                headers=self.param_names + self.objective.objective_names)
+            
+            # Store particle history as list of dictionaries for flexibility
+            particle_data = []
+            for particle in self.particles:
+                particle_data.append({
+                    'id': particle.id,
+                    'position': np.array(particle.position),
+                    'fitness': np.array(particle.fitness * self.objective.directions, dtype=float)
+                })
+            self.history[self.iteration] = particle_data
+        
         crowding_distances = self.update_pareto_front()
-        self.history['pareto_front'] = np.array(
-            [(particle.position, particle.fitness * self.objective.directions) for particle in self.pareto_front],
-            dtype=[('position', float, (self.num_params,)), ('fitness', float, (self.objective.num_objectives,))]
-        )
+        
+        if FileManager.saving_history_enabled:
+            # Save pareto front history per iteration (not overwriting)
+            pareto_key = f'pareto_front_{self.iteration}'
+            pareto_data = []
+            for particle in self.pareto_front:
+                pareto_data.append({
+                    'position': np.array(particle.position),
+                    'fitness': np.array(particle.fitness * self.objective.directions, dtype=float)
+                })
+            self.history[pareto_key] = pareto_data
+            
+            # Export pareto front to CSV per iteration
+            FileManager.save_csv([np.concatenate([particle.position, np.ravel(
+                particle.fitness * self.objective.directions)]) for particle in self.pareto_front],
+                'history/pareto_iteration' + str(self.iteration) + '.csv',
+                headers=self.param_names + self.objective.objective_names)
         for particle in self.particles:
             particle.update_velocity(self.pareto_front,
                                      crowding_distances,
