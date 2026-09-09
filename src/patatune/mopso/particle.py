@@ -227,5 +227,8 @@ def boltzmann(crowding_distances, higher):
         cd_list = [1 / (cd + 1e-9) for cd in cd_list]
     for i in range(len_cd):
         pdf[i] = np.exp(-cd_list[i])
-    pdf = pdf / (np.sum(pdf))
-    return pdf
+    total = np.sum(pdf)
+    # if every particle is an extreme in some objective, they're chosen uniformly
+    if total == 0:
+        return np.full(len_cd, 1.0 / len_cd)
+    return pdf / total
