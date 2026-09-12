@@ -83,6 +83,9 @@ class Particle:
                 new_position[i] = self.position[i] + self.velocity[i] > 0.5
             else:
                 new_position[i] = self.position[i] + self.velocity[i]
+
+        outside = (new_position < lower_bound) | (new_position > upper_bound)
+        self.velocity = np.where(outside, 0.0, self.velocity)
         self.position = np.clip(new_position, lower_bound, upper_bound)
 
     def set_fitness(self, fitness):
